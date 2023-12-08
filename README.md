@@ -17,11 +17,11 @@ A list of the authors of the project:
 * Project Manager - [Vincenzo Esposito](https://github.com/vincenzo-esposit0)
 * Project Manager - [Nicola Tortora](https://github.com/NickTor99)
 * Team Member - [Mariapia Sorrentino](https://github.com/Marypi02)
-* Team Member - Andreea C. C. Oprisecu
+* Team Member - [Andreea C. C. Oprisecu](https://github.com/andreea3111)
 * Team Member - [Roksana Duda](https://github.com/Roksid2002)
 * Team Member - [Amedeo Napolitano](https://github.com/amedeonapoli25)
 * Team Member - [Francesco F. Ambrosio](https://github.com/francesco7000)
-* Team Member - Paolo Murino
+* Team Member - [Paolo Murino](https://github.com/PaoloMurino)
 
 
 ## Technologies
