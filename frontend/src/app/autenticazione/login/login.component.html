@@ -8,8 +8,7 @@
         <div class="flex flex-column align-items-center gap-4">
             <div class="mb-3">
                 <h2>Accedi al tuo account</h2>
-                <!-- <p>Forgot password? <a class="text-primary hover:underline cursor-pointer font-medium">Click here</a> to reset.</p>-->
-            </div>
+                 </div>
             <input pInputText id="email" placeholder="Email" class="w-20rem" [(ngModel)]="username"/>
             <p-password id="password" placeholder="Password" [feedback]="true" inputStyleClass="w-20rem" [(ngModel)]="password"></p-password>
             <button pButton label="Continua" type="button" class="w-20rem" (click)="login($event)"></button>
