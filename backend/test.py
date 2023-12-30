@@ -2,6 +2,10 @@ from flask import Flask
 from flask import jsonify
 from flask_cors import CORS
 
+from backend.src.models.VeicoloDAO import VeicoloDAO
+
+veicolo_dao = VeicoloDAO()
+
 app = Flask(__name__)
 app.config["DEBUG"] = True
 CORS(app)
@@ -19,15 +23,18 @@ all_obj = [ { 'id': 1, 'name': 'name1' },
 
 @app.route('/list', methods=['GET'])
 def heroes():
-    return jsonify(all_obj)
+    tutti_veicoli = veicolo_dao.ottieni_tutti_veicoli()
+    # Estrai i dati di ogni veicolo come dizionario
+    veicoli_data = [veicolo.__json__() for veicolo in tutti_veicoli]
+
+    return jsonify(veicoli_data)
 
 @app.route('/detail/<id>', methods=['GET'])
 def detail(id):
 
-    for x in all_obj:
-      if int(x['id']) == int(id):
-        return jsonify(x)
+    veicolo = veicolo_dao.ottieni_veicolo_per_id(id)
 
-    return "Record not found", 400
+    return jsonify(veicolo.__json__())
+
 
 app.run()
