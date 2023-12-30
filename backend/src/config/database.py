@@ -1,3 +1,4 @@
+# Da aggiungere al file gitignore, così non dobbiamo modificare ogni volta la passwordandree
 from sqlalchemy import create_engine, text
 
 # Specifica i dettagli di connessione al database MySQL
@@ -16,13 +17,13 @@ engine = create_engine(connection_url)
 
 # Connessione al database
 with engine.connect() as conn:
-        # Query di esempio
-        query = text("SELECT * FROM veicolo")
-        result = conn.execute(query)
+    # Query di esempio
+    query = text("SELECT * FROM veicolo")
+    result = conn.execute(query)
 
-        # Ottieni i risultati
-        rows = result.fetchall()
+    # Ottieni i risultati
+    rows = result.fetchall()
 
-        # Stampa i risultati
-        for row in rows:
-                print(row)
+    # Stampa i risultati
+    for row in rows:
+        print(row)
