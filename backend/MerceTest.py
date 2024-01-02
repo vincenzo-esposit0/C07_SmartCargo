@@ -20,7 +20,7 @@ else:
     print(f"Nessuna merce trovata con ID {merce_id}")
 
 # Inserisci la nuova merce
-nuova_merce = Merce(Tipo='merce', descrizione='Descrizione della merce')
+nuova_merce = Merce(tipo='merce', descrizione='Descrizione della merce')
 merce_dao.aggiungi_merce(nuova_merce)
 
 # Ottieni tutte le merci dopo l'inserimento
