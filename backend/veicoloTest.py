@@ -8,6 +8,7 @@ veicolo_dao = VeicoloDAO()
 print("Tutti i veicoli:")
 tutti_veicoli = veicolo_dao.ottieni_tutti_veicoli()
 for veicolo in tutti_veicoli:
+    #L'uso della f indica che si sta formattando una stringa
     print(f"ID: {veicolo.id}, Targa: {veicolo.targa}, Modello: {veicolo.modello}, Descrizione: {veicolo.descrizione}")
 
 # Ottieni un veicolo con ID 3
@@ -30,7 +31,7 @@ for veicolo in tutti_veicoli_dopo:
     print(f"ID: {veicolo.id}, Targa: {veicolo.targa}, Modello: {veicolo.modello}, Descrizione: {veicolo.descrizione}")
 
 # Elimina un veicolo (ad esempio, con ID 2)
-veicolo_da_eliminare_id = 2
+veicolo_da_eliminare_id = 21
 veicolo_dao.elimina_veicolo(veicolo_da_eliminare_id)
 
 # Ottieni tutti i veicoli dopo l'eliminazione
