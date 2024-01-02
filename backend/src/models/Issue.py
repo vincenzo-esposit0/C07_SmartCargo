@@ -4,6 +4,7 @@ from datetime import datetime
 
 Base = declarative_base()
 
+
 class Issue(Base):
     __tablename__ = 'issue'
 
@@ -18,7 +19,8 @@ class Issue(Base):
     operatoreMobile_id = Column(Integer)
     operazione_id = Column(Integer)
 
-    def __init__(self, descrizione, timestampApertura, timestampChiusura, stato, tipologiaProblema, posizione, operatoreSala_id, operatoreMobile_id, operazione_id):
+    def __init__(self, descrizione, timestampApertura, timestampChiusura, stato, tipologiaProblema, posizione,
+                 operatoreSala_id, operatoreMobile_id, operazione_id):
         self.descrizione = descrizione
         self.timestampApertura = timestampApertura
         self.timestampChiusura = timestampChiusura
@@ -29,16 +31,16 @@ class Issue(Base):
         self.operatoreMobile_id = operatoreMobile_id
         self.operazione_id = operazione_id
 
-        def __json__(self):
-            return {
-                'id': self.id,
-                'descrizione': self.descrizione,
-                'timestampApertura': self.timestampApertura,
-                'timestampChiusura': self.timestampChiusura,
-                'stato': self.stato,
-                'tipologiaProblema': self.tipologiaProblema,
-                'posizione': self.posizione,
-                'operatoreSala_id': self.operatoreSala_id,
-                'operatoreMobile_id': self.operatoreMobile_id,
-                'operazione_id':self.operazione_id
-            }
+    def __json__(self):
+        return {
+            'id': self.id,
+            'descrizione': self.descrizione,
+            'timestampApertura': self.timestampApertura,
+            'timestampChiusura': self.timestampChiusura,
+            'stato': self.stato,
+            'tipologiaProblema': self.tipologiaProblema,
+            'posizione': self.posizione,
+            'operatoreSala_id': self.operatoreSala_id,
+            'operatoreMobile_id': self.operatoreMobile_id,
+            'operazione_id': self.operazione_id
+        }
