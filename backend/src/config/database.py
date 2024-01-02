@@ -16,4 +16,5 @@ connection_url = f'mysql+mysqlconnector://{username}:{password}@{host}:{port}/{d
 # Crea l'oggetto engine per la connessione al database
 engine = create_engine(connection_url)
 
+#Crea una sessione associata al motore
 Session = sessionmaker(bind=engine)

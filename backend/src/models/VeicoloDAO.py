@@ -4,6 +4,9 @@ from backend.src.config.database import engine, Session
 
 
 class VeicoloDAO:
+    """Costruttore della classe eseguito automaticamente quando si crea un nuovo oggetto della classe;
+    L'attributo self.Session viene utilizzato per creare istanze della sessione quando necessario;"""
+
     def __init__(self):
         self.Session = sessionmaker(bind=engine)
 
