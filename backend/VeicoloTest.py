@@ -1,5 +1,5 @@
-from backend.src.models.Veicolo import Veicolo
-from backend.src.models.VeicoloDAO import VeicoloDAO
+from src.models.Veicolo import Veicolo
+from src.models.VeicoloDAO import VeicoloDAO
 
 # Creazione di un'istanza di VeicoloDAO
 veicolo_dao = VeicoloDAO()

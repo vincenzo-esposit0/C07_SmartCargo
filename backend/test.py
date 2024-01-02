@@ -1,11 +1,8 @@
-import sys
-sys.path.append('C:\\Users\\maria\\IdeaProjects\\C07_SmartCargo')
-
 from flask import Flask
 from flask import jsonify
 from flask_cors import CORS
 
-from backend.src.models.VeicoloDAO import VeicoloDAO
+from src.models.VeicoloDAO import VeicoloDAO
 
 veicolo_dao = VeicoloDAO()
 

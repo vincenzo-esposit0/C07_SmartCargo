@@ -1,7 +1,7 @@
 from datetime import date
 
-from backend.src.models.QrCode import QrCode
-from backend.src.models.QrCodeDAO import QrCodeDAO
+from src.models.QrCode import QrCode
+from src.models.QrCodeDAO import QrCodeDAO
 
 # Creazione di un'istanza di QrCodeDAO
 qrCode_dao = QrCodeDAO()

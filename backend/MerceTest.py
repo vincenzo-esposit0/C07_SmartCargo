@@ -1,5 +1,5 @@
-from backend.src.models.Merce import Merce
-from backend.src.models.MerceDAO import MerceDAO
+from src.models.Merce import Merce
+from src.models.MerceDAO import MerceDAO
 
 # Creazione di un'istanza di MerceDAO
 merce_dao = MerceDAO()

@@ -1,5 +1,5 @@
-from backend.src.models.Issue import issue
-from backend.src.models.IssueDAO import IssueDAO
+from src.models.Issue import Issue
+from src.models.IssueDAO import IssueDAO
 
 # Creazione di un'istanza di IssueDAO
 issue_dao = IssueDAO()
@@ -30,7 +30,7 @@ for issue in tutte_issue_dopo:
     print(f"ID: {issue.id}, Descrizione: {issue.descrizione}, Timestamp Apertura: {issue.timestampApertura}, Timestamp Chiusura: {issue.timestampChiusura}, Stato: {issue.stato}, Tipologia Problema: {issue.tipologiaProblema}, Posizione: {issue.posizione}, Operatore Sala ID: {issue.operatoreSala_id}, Operatore Mobile ID: {issue.operatoreMobile_id}, Operazione ID: {issue.operazione_id}")
 
 # Elimina un'issue (ad esempio, con ID 2)
-issue_da_eliminare_id = 2
+issue_da_eliminare_id = 21
 issue_dao.elimina_issue(issue_da_eliminare_id)
 
 # Ottieni tutte le issue dopo l'eliminazione
