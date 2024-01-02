@@ -13,12 +13,20 @@ import {ButtonModule} from "primeng/button";
 import {ToastModule} from "primeng/toast";
 import { FormsModule } from '@angular/forms';
 import {MessageService} from "primeng/api";
-
+import { GestisciIssueComponent } from './issue/gestisci-issue/gestisci-issue.component';
+import {DialogModule} from "primeng/dialog";
+import {EditorModule} from "primeng/editor";
+import {CalendarModule} from "primeng/calendar";
+import {AccordionModule} from "primeng/accordion";
+import {DividerModule} from "primeng/divider";
+import {MultiSelectModule} from "primeng/multiselect";
+import {DropdownModule} from "primeng/dropdown";
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    LoginComponent
+    LoginComponent,
+    GestisciIssueComponent
   ],
     imports: [
         BrowserModule,
@@ -29,7 +37,14 @@ import {MessageService} from "primeng/api";
         ButtonModule,
         ToastModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        DialogModule,
+        EditorModule,
+        CalendarModule,
+        AccordionModule,
+        DividerModule,
+        MultiSelectModule,
+        DropdownModule
     ],
   providers: [MessageService],
   bootstrap: [AppComponent]

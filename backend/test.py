@@ -1,6 +1,8 @@
+
 from flask import Flask
 from flask import jsonify
 from flask_cors import CORS
+from flask import Flask, jsonify, request
 
 from src.models.VeicoloDAO import VeicoloDAO
 
@@ -35,6 +37,20 @@ def detail(id):
     veicolo = veicolo_dao.ottieni_veicolo_per_id(id)
 
     return jsonify(veicolo.__json__())
+
+
+@app.route('/issue/newIssue', methods=['POST'])
+def nuovaIssue():
+    # Ottieni i dati JSON inviati con la richiesta POST
+    data = request.get_json()
+
+    # Fai qualcosa con i dati JSON
+    result = {
+        'message': 'Dati ricevuti con successo',
+        'data': data
+    }
+
+    return jsonify(result)
 
 
 app.run()

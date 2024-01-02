@@ -16,9 +16,9 @@ export class AppMenuComponent implements OnInit {
             items: [
 
                 {
-                    label: 'Edit Profilo',
+                    label: 'Gestisci Issue test',
                     icon: 'pi pi-fw pi-image',
-                    routerLink: ['/dashboard-banking']
+                    routerLink: ['issue']
                 }
             ]
         }]
