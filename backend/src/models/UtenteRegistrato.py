@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import relationship
 
 Base = declarative_base()
+
 
 class UtenteRegistrato(Base):
     __abstract__ = True
@@ -101,12 +102,12 @@ class Autotrasportatore(UtenteRegistrato):
     __tablename__ = 'autotrasportatore'
 
     azienda = Column(String(255), nullable=False)
-    qrCode_id = Column(Integer, ForeignKey('qrCode.id'), nullable=False)
+    qrCode_id = Column(Integer, nullable=False)
 
-    def __init__(self, nome, cognome, azienda, dataNascita, codiceFiscale, email, password, indirizzo, qrCode):
+    def __init__(self, nome, cognome, azienda, dataNascita, codiceFiscale, email, password, indirizzo, qrCode_id):
         super().__init__(nome, cognome, dataNascita, codiceFiscale, email, password, indirizzo)
         self.azienda = azienda
-        self.qrCode = qrCode
+        self.qrCode_id = qrCode_id  # Aggiunta del qrCode_id come argomento
 
     def __json__(self):
         return {
