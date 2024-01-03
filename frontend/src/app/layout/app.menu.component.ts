@@ -19,6 +19,11 @@ export class AppMenuComponent implements OnInit {
                     label: 'Gestisci Issue test',
                     icon: 'pi pi-fw pi-image',
                     routerLink: ['issue']
+                },
+                {
+                    label: 'Registrazione ingresso',
+                    icon: 'pi pi-fw pi-image',
+                    routerLink: ['ingresso']
                 }
             ]
         }]

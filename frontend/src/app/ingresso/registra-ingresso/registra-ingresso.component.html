@@ -1,0 +1,88 @@
+   <div class="p-card" >
+    <div class="p-8">
+        <p style="font-size: 20px"><b>Autotrasportatore</b></p>
+        <br>
+
+        <div class="grid p-fluid formgrid">
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Nome</label>
+                <input type="text" placeholder="Nome" pInputText [(ngModel)]="ingresso.autotrasportatore.nome" />
+            </div>
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Cognome</label>
+                <input type="text" placeholder="Cognome" pInputText [(ngModel)]="ingresso.autotrasportatore.cognome" />
+            </div>
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Azienda</label>
+                <input type="text" placeholder="Azienda" pInputText [(ngModel)]="ingresso.autotrasportatore.azienda" />
+            </div>
+            <p-divider class="col-12 field"></p-divider>
+        </div>
+
+        <p style="font-size: 20px"> <b>Merci</b></p>
+        <br>
+        <div class="grid p-fluid formgrid">
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Tipologia</label>
+                <p-dropdown [options]="tipiMerce" [(ngModel)]="ingresso.merci.tipo" optionLabel="nome" ></p-dropdown>
+            </div>
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Quantità</label>
+                <input type="number" placeholder="Quantità" pInputText [(ngModel)]="ingresso.merci.quantita" />
+            </div>
+            <div class="col-12 field">
+                <label class="text-900 font-semibold">Descrizione</label>
+                <textarea type="text" placeholder="Descrizione Merce" pInputTextarea [(ngModel)]="ingresso.merci.descrizione" ></textarea>
+            </div>
+            <p-divider class="col-12 field"></p-divider>
+        </div>
+
+
+
+        <p style="font-size: 20px"> <b>Veicolo</b></p>
+        <br>
+        <div class="grid p-fluid formgrid">
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Modello</label>
+                <p-dropdown [options]="tipiMerce" [(ngModel)]="ingresso.veicolo.modello" optionLabel="nome" ></p-dropdown>
+            </div>
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Targa</label>
+                <input type="number" placeholder="Targa" pInputText [(ngModel)]="ingresso.veicolo.targa" />
+            </div>
+            <p-divider class="col-12 field"></p-divider>
+        </div>
+
+
+        <p style="font-size: 20px"> <b>Operazione</b></p>
+        <br>
+        <div class="grid p-fluid formgrid">
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Tipo</label>
+                <p-dropdown [options]="tipiOp" [(ngModel)]="ingresso.operazione.tipo" optionLabel="nome" ></p-dropdown>
+            </div>
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Descrizione</label>
+                <textarea type="number" placeholder="Descrizione Operazione" pInputText [(ngModel)]="ingresso.operazione.descrizione"></textarea>
+            </div>
+            <p-divider class="col-12 field"></p-divider>
+        </div>
+
+
+        <p style="font-size: 20px"><b>Destinazione</b></p>
+        <br>
+
+        <div class="grid p-fluid formgrid">
+            <div class="col-6 field">
+                <label class="text-900 font-semibold">Punto di Destinazione</label>
+                <p-dropdown [options]="destinazioni" [(ngModel)]="ingresso.destinazione" optionLabel="nome" ></p-dropdown>
+            </div>
+        </div>
+
+        <div class="col-12 flex justify-content-end mt-4">
+            <button pButton pRipple class="p-button-outlined w-8rem mr-3" icon="pi pi-times" label="Cancella" (click)="cancella()"></button>
+            <button pButton pRipple class="p-button-primary w-8rem mr-3" icon="pi pi-check" label="Salva" (click)="salvaIngresso()"></button>
+        </div>
+
+    </div>
+   </div>

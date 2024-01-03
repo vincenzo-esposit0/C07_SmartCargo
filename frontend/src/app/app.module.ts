@@ -21,12 +21,15 @@ import {AccordionModule} from "primeng/accordion";
 import {DividerModule} from "primeng/divider";
 import {MultiSelectModule} from "primeng/multiselect";
 import {DropdownModule} from "primeng/dropdown";
+import { RegistraIngressoComponent } from './ingresso/registra-ingresso/registra-ingresso.component';
+import {InputTextareaModule} from "primeng/inputtextarea";
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     LoginComponent,
-    GestisciIssueComponent
+    GestisciIssueComponent,
+    RegistraIngressoComponent
   ],
     imports: [
         BrowserModule,
@@ -44,7 +47,8 @@ import {DropdownModule} from "primeng/dropdown";
         AccordionModule,
         DividerModule,
         MultiSelectModule,
-        DropdownModule
+        DropdownModule,
+        InputTextareaModule
     ],
   providers: [MessageService, DatePipe],
   bootstrap: [AppComponent]
