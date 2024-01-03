@@ -2,7 +2,6 @@ from flask import jsonify
 
 from src.models.IncludeDAO import IncludeDAO
 from src.models.VeicoloDAO import VeicoloDAO
-from src.models.MerceDAO import MerceDAO
 from src.models.Include import Include
 from src.models.Operazione import Operazione
 from src.models.OperazioneDAO import OperazioneDAO
@@ -10,21 +9,17 @@ from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 autotrasportatoreDao = AutotrasportatoreDAO()
 operazioneDao = OperazioneDAO()
-merceDao = MerceDAO()
 veicoloDao = VeicoloDAO()
 includeDao = IncludeDAO()
 
 def registrazioneIngresso(ingressoJson):
     try:
-
-        autotrasportatore = autotrasportatoreDao.get_autotrasportatore_per_ingresso(autotrasportatore_nome=ingressoJson["nome"],
-                                                                                    autotrasportatore_cognome=ingressoJson["cognome"],
-                                                                                    autotrasportatore_azienda=ingressoJson["azienda"])
+        autotrasportatoreJson = ingressoJson["autotrasportatore"]
+        autotrasportatore = autotrasportatoreDao.get_autotrasportatore_per_ingresso(autotrasportatore_nome=autotrasportatoreJson["nome"],
+                                                                                    autotrasportatore_cognome=autotrasportatoreJson["cognome"],
+                                                                                    autotrasportatore_azienda=autotrasportatoreJson["azienda"])
 
         merceJson = ingressoJson["merci"]
-        #serve solo id
-        merce = merceDao.get_merce_per_ingresso(merce_tipo=merceJson["tipo"],
-                                                merce_descrizione=ingressoJson["descrizione"])
 
         veicoloJson = ingressoJson["veicolo"]
 
@@ -33,11 +28,11 @@ def registrazioneIngresso(ingressoJson):
 
         operazione = Operazione(
             tipo=ingressoJson["tipo"],
-            puntoDestinazione=ingressoJson["puntoDestinazione"],
-            stato=ingressoJson["stato"],
+            puntoDestinazione=ingressoJson["destinazione"],
+            stato="In Corso",
             autotrasportatore_id=autotrasportatore.id,
             operatoreIngresso_id=ingressoJson["operatoreIngresso_id"],
-            operatoreMagazzino_id=ingressoJson["operatoreMagazzino_id"],
+            operatoreMagazzino_id=ingressoJson["operatoreMagazzino_id"], #è un campo not null in operazione
             percorso_id=1,
             veicolo_id=veicolo.id
         )
@@ -45,8 +40,8 @@ def registrazioneIngresso(ingressoJson):
 
         include = Include(
             operazione_id=operazione.id,
-            merce_id=merce.id,
-            quantita=ingressoJson["quantita"]
+            merce_id=merceJson["merce_id"],
+            quantita=merceJson["quantita"]
         )
         includeDao.aggiungi_include(include)
         result = operazioneDao.aggiungi_operazione(operazione)
