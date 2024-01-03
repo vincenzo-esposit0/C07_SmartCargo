@@ -21,11 +21,15 @@ def registrazioneIngresso(ingressoJson):
                                                                                     autotrasportatore_cognome=ingressoJson["cognome"],
                                                                                     autotrasportatore_azienda=ingressoJson["azienda"])
 
-        merce = merceDao.get_merce_per_ingresso(merce_tipo=ingressoJson["tipo"],
+        merceJson = ingressoJson["merci"]
+        #serve solo id
+        merce = merceDao.get_merce_per_ingresso(merce_tipo=merceJson["tipo"],
                                                 merce_descrizione=ingressoJson["descrizione"])
 
-        veicolo = veicoloDao.get_veicolo_per_ingresso(veicolo_modello=ingressoJson["modello"],
-                                                      veicolo_targa=ingressoJson["targa"])
+        veicoloJson = ingressoJson["veicolo"]
+
+        veicolo = veicoloDao.get_veicolo_per_ingresso(veicolo_modello=veicoloJson["modello"],
+                                                      veicolo_targa=veicoloJson["targa"])
 
         operazione = Operazione(
             tipo=ingressoJson["tipo"],
@@ -36,8 +40,8 @@ def registrazioneIngresso(ingressoJson):
             operatoreMagazzino_id=ingressoJson["operatoreMagazzino_id"],
             percorso_id=1,
             veicolo_id=veicolo.id
-
         )
+
 
         include = Include(
             operazione_id=operazione.id,
@@ -51,3 +55,5 @@ def registrazioneIngresso(ingressoJson):
     except Exception as e:
         print(f"Errore durante la registrazione dell'ingresso: {str(e)}")
         return {}
+
+
