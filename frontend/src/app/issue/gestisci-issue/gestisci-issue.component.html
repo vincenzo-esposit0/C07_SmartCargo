@@ -7,19 +7,19 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Nome</label>
-                <input type="text" placeholder="Nome" pInputText [(ngModel)]="issue.autotrasportatore.nome" />
+                <input [disabled]="true" type="text" placeholder="Nome" pInputText [(ngModel)]="issue.autotrasportatore.nome" />
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Cognome</label>
-                <input type="text" placeholder="Cognome" pInputText [(ngModel)]="issue.autotrasportatore.cognome" />
+                <input [disabled]="true" type="text" placeholder="Cognome" pInputText [(ngModel)]="issue.autotrasportatore.cognome" />
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Targa</label>
-                <input type="text" placeholder="Targa" pInputText [(ngModel)]="issue.autotrasportatore.targa" />
+                <input [disabled]="true" type="text" placeholder="Targa" pInputText [(ngModel)]="issue.autotrasportatore.targa" />
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Azienda</label>
-                <input type="text" placeholder="Azienda" pInputText [(ngModel)]="issue.autotrasportatore.azienda" />
+                <input [disabled]="true" type="text" placeholder="Azienda" pInputText [(ngModel)]="issue.autotrasportatore.azienda" />
             </div>
 
             <p-divider class="col-12 field"></p-divider>
@@ -31,19 +31,19 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Tipologia Problema</label>
-                <p-dropdown [options]="tipiProblema" [(ngModel)]="issue.issue.tipoProblema" optionLabel="nome" ></p-dropdown>
+                <p-dropdown [options]="tipiProblema" [(ngModel)]="issue.tipologiaProblema" optionLabel="nome" ></p-dropdown>
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Posizione</label>
-                <input type="text" placeholder="Posizione" pInputText [(ngModel)]="issue.issue.posizione" />
+                <input type="text" placeholder="Posizione" pInputText [(ngModel)]="issue.posizione" />
             </div>
             <div class="col-12 field">
                 <label class="text-900 font-semibold">Descrizione</label>
-                <input type="text" placeholder="Descrizione" pInputText [(ngModel)]="issue.issue.descrizione" />
+                <input type="text" placeholder="Descrizione" pInputText [(ngModel)]="issue.descrizione" />
             </div>
             <div class="col-6 field mt-0">
                 <label class="text-900 font-semibold">Date e Ora Inizio</label>
-                <p-calendar [(ngModel)]="issue.issue.timestampApertura" [showTime]="true" [showSeconds]="true"></p-calendar>
+                <p-calendar [(ngModel)]="issue.timestampApertura" [showTime]="true" [showSeconds]="true"></p-calendar>
             </div>
             <p-divider class="col-12 field"></p-divider>
         </div>
@@ -54,13 +54,14 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Operatore Mobile</label>
-                <p-dropdown [options]="operatoriMob" [(ngModel)]="issue.operatore" optionLabel="nome" ></p-dropdown>
+                <p-dropdown [options]="operatoriMob" [(ngModel)]="selectedOpMobile" optionLabel="nome" ></p-dropdown>
             </div>
         </div>
 
         <div class="col-12 flex justify-content-end mt-4">
-            <button pButton pRipple class="p-button-outlined w-8rem mr-3" icon="pi pi-times" label="Cancella" (click)="cancelTask()"></button>
-            <button pButton pRipple class="p-button-primary w-8rem" icon="pi pi-check" label="Salva" (click)="save()"></button>
+            <button pButton pRipple class="p-button-primary w-8rem" icon="pi pi-check" label="Test Aggiornamento" (click)="aggiornaTest()"></button>
+            <button pButton pRipple class="p-button-outlined w-8rem mr-3" icon="pi pi-times" label="Cancella" (click)="cancella()"></button>
+            <button pButton pRipple class="p-button-primary w-8rem mr-3" icon="pi pi-check" label="Salva" (click)="salvaNuovaIssue()"></button>
         </div>
 
     </div>

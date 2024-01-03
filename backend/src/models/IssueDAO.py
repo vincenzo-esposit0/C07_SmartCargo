@@ -10,7 +10,9 @@ class IssueDAO:
         session = self.Session()
         session.add(issue)
         session.commit()
+        session.refresh(issue)
         session.close()
+        return issue
 
     def ottieni_tutte_issues(self):
         session = self.Session()
@@ -29,6 +31,7 @@ class IssueDAO:
         session.merge(issue)
         session.commit()
         session.close()
+        return issue
 
     def elimina_issue(self, issue_id):
         session = self.Session()

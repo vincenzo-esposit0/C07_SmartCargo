@@ -11,7 +11,7 @@ class Issue(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     descrizione = Column(String(255))
     timestampApertura = Column(DateTime, nullable=False)
-    timestampChiusura = Column(DateTime, nullable=False)
+    timestampChiusura = Column(DateTime,default=None, nullable=True)
     stato = Column(String(255), nullable=False)
     tipologiaProblema = Column(String(255), nullable=False)
     posizione = Column(String(255), nullable=False)

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import { BrowserModule } from '@angular/platform-browser';
 import {AppLayoutModule} from "./layout/app.layout.module";
@@ -46,7 +46,7 @@ import {DropdownModule} from "primeng/dropdown";
         MultiSelectModule,
         DropdownModule
     ],
-  providers: [MessageService],
+  providers: [MessageService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
