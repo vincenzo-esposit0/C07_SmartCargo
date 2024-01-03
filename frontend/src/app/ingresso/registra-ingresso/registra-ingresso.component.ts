@@ -9,6 +9,8 @@ import {DatePipe} from "@angular/common";
 })
 export class RegistraIngressoComponent {
     ingresso: any = {autotrasportatore: {},veicolo:{},merci:{},operazione:{},destinazione:'',operatoreIngresso_id:0};
+
+
     tipiProblema: any[] = [{nome: "Anomalia Percorso"}, {nome: "Anomalia Carico/Scarico Merce"}];
     tipiMerce: any[] = [{id:1,nome: "Pomodori"}, {id:2,nome: "Melenzane"}];
     tipiModello: any[] = [{nome: "Camion"}, {nome: "Rimorchio"}];

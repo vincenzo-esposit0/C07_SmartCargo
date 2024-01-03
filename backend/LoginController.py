@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from src.config.database import engine
 from sqlalchemy.orm.exc import NoResultFound
+from flask import jsonify
 
 from src.models.UtenteRegistrato import OperatoreSala, OperatoreIngresso, OperatoreMobile, OperatoreMagazzino, Autotrasportatore
 
@@ -8,48 +9,43 @@ def login(email, password):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    #Cerco l'utente in ciascuna tabella
+    # Cerco l'utente in ciascuna tabella
     try:
         operatore_magazzino = session.query(OperatoreMagazzino).filter_by(email=email, password=password).one()
-        return 200, "Operatore Magazzino", operatore_magazzino
+        result = {"stato": 200, "operatore": "Operatore Magazzino", "profilo": operatore_magazzino.__json__()}
+        return jsonify(result)
 
     except NoResultFound:
         pass
 
     try:
         operatore_mobile = session.query(OperatoreMobile).filter_by(email=email, password=password).one()
-        return 200, "Operatore Mobile", operatore_mobile
+        result = {"stato": 200, "operatore": "Operatore Mobile", "profilo": operatore_mobile.__json__()}
+        return jsonify(result)
 
     except NoResultFound:
         pass
 
     try:
         operatore_sala = session.query(OperatoreSala).filter_by(email=email, password=password).one()
-        return 200, "Operatore Sala", operatore_sala
+        result = {"stato": 200, "operatore": "Operatore Sala", "profilo": operatore_sala.__json__()}
+        return jsonify(result)
 
     except NoResultFound:
         pass
 
     try:
         operatore_ingresso = session.query(OperatoreIngresso).filter_by(email=email, password=password).one()
-        return 200, "Operatore Ingresso", operatore_ingresso
+        result = {"stato": 200, "operatore": "Operatore Ingresso", "profilo": operatore_ingresso.__json__()}
+        return jsonify(result)
 
     except NoResultFound:
         pass
 
     try:
         autotrasportatore = session.query(Autotrasportatore).filter_by(email=email, password=password).one()
-        return 200, "Autotrasportatore", autotrasportatore
+        result = {"stato": 200, "operatore": "Autotrasportatore", "profilo": autotrasportatore.__json__()}
+        return jsonify(result)
 
     except NoResultFound:
-        return 401, "Credenziali errate! Utente non trovato", None
-
-#Prova
-status, message, user = login("simone@email.com", "pass12345")
-
-if status == 200:
-    print(f"Login riuscito per {message}")
-elif status == 401:
-    print(f"Errore: {message}")
-else:
-    print(f"Errore interno del server: {message}")
+        return jsonify({"stato": 401, "message": "Credenziali errate! Utente non trovato", "profilo": None})

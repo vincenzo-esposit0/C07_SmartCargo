@@ -1,6 +1,8 @@
 from flask_cors import CORS
 from flask import Flask, request
 import IssueController
+import LoginController
+
 
 
 app = Flask(__name__)
@@ -12,7 +14,7 @@ CORS(app)
 @app.route('/issue/newIssue', methods=['POST'])
 def nuovaIssue():
     data = request.get_json()
-    return IssueTest.nuovaIssue(data)
+    return IssueController.nuovaIssue(data)
 
 @app.route('/issue/updateIssue', methods=['POST'])
 def aggiornaIssue():
@@ -31,5 +33,10 @@ def getIssue(id):
 def getAllIssue():
     return
 
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    return LoginController.login(data["username"],data["password"])
 
 app.run()

@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AppSidebarComponent } from './app.sidebar.component';
+import {AutenticazioneService} from "../autenticazione/autenticazione.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-topbar',
@@ -12,7 +14,7 @@ export class AppTopbarComponent {
 
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
 
-    constructor(public layoutService: LayoutService, public el: ElementRef) { }
+    constructor(public router:Router,public layoutService: LayoutService, public el: ElementRef,private aut: AutenticazioneService) { }
 
 
     onMenuButtonClick() {
@@ -32,4 +34,8 @@ export class AppTopbarComponent {
         return logo;
     }
 
+    logout() {
+        this.aut.profile=null;
+        this.router.navigate(['login']);
+    }
 }
