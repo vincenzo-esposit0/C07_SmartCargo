@@ -36,3 +36,9 @@ class AutotrasportatoreDAO:
         session.delete(autotrasportatore)
         session.commit()
         session.close()
+
+    def get_autotrasportatore_per_ingresso(self, autotrasportatore_nome, autotrasportatore_cognome, autotrasportatore_azienda):
+        session = self.Session()
+        autotrasportatore = session.query(Autotrasportatore).filter_by(nome=autotrasportatore_nome, cognome=autotrasportatore_cognome, azienda=autotrasportatore_azienda).first()
+        session.close()
+        return autotrasportatore
