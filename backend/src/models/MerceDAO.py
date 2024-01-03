@@ -37,3 +37,9 @@ class MerceDAO:
         session.delete(merce)
         session.commit()
         session.close()
+
+    def get_merce_per_ingresso(self, merce_tipo, merce_descrizione):
+        session = self.Session()
+        merce = session.query(Merce).filter_by(tipo = merce_tipo, descrizione = merce_descrizione).first()
+        session.close()
+        return merce

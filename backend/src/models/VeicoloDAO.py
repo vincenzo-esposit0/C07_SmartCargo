@@ -40,3 +40,9 @@ class VeicoloDAO:
         session.delete(veicolo)
         session.commit()
         session.close()
+
+    def get_veicolo_per_ingresso(self, veicolo_modello, veicolo_targa):
+        session = self.Session()
+        veicolo = session.query(Veicolo).filter_by(modello=veicolo_modello, azienda=veicolo_targa).first()
+        session.close()
+        return veicolo
