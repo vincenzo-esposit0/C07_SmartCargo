@@ -32,7 +32,7 @@ for qrCode in tutti_qrCode_dopo:
     print(f"ID: {qrCode.id}, isValido: {qrCode.isValido}, dataCreazione: {qrCode.dataCreazione}")
 
 # Elimina un Qr Code (ad esempio, con ID 2)
-qrCode_da_eliminare_id = 22
+qrCode_da_eliminare_id = 21
 qrCode_dao.elimina_qrCode(qrCode_da_eliminare_id)
 
 # Ottieni tutti i Qr Code dopo l'eliminazione

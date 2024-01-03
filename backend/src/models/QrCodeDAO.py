@@ -12,7 +12,9 @@ class QrCodeDAO:
         session = self.Session()
         session.add(qrCode)
         session.commit()
+        session.refresh(qrCode)
         session.close()
+        return qrCode
 
     def ottieni_tutti_qrCode(self):
         session = self.Session()
