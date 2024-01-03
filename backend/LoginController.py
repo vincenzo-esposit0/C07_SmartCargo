@@ -5,7 +5,6 @@ from sqlalchemy.orm.exc import NoResultFound
 from src.models.UtenteRegistrato import OperatoreSala, OperatoreIngresso, OperatoreMobile, OperatoreMagazzino, Autotrasportatore
 
 def login(email, password):
-    #DOVREI SCRIVERE LA CONNESSIONE???
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -43,10 +42,7 @@ def login(email, password):
         return 200, "Autotrasportatore", autotrasportatore
 
     except NoResultFound:
-        return 401, "Credenziali errate", None
-
-    # Se nessuna corrispondenza è stata trovata, l'utente non esiste o la password è errata
-    return 404, "Utente non trovato", None
+        return 401, "Credenziali errate! Utente non trovato", None
 
 #Prova
 status, message, user = login("simone@email.com", "pass12345")
@@ -54,8 +50,6 @@ status, message, user = login("simone@email.com", "pass12345")
 if status == 200:
     print(f"Login riuscito per {message}")
 elif status == 401:
-    print(f"Errore: {message}")
-elif status == 404:
     print(f"Errore: {message}")
 else:
     print(f"Errore interno del server: {message}")
