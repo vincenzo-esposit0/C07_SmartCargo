@@ -1,3 +1,5 @@
+import random
+
 from flask import jsonify
 
 from src.models.IncludeDAO import IncludeDAO
@@ -6,11 +8,13 @@ from src.models.Include import Include
 from src.models.Operazione import Operazione
 from src.models.OperazioneDAO import OperazioneDAO
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
+from src.models.OperatoreMagazzinoDAO import OperatoreMagazzinoDAO
 
 autotrasportatoreDao = AutotrasportatoreDAO()
 operazioneDao = OperazioneDAO()
 veicoloDao = VeicoloDAO()
 includeDao = IncludeDAO()
+operatoreMagazzinoDAO = OperatoreMagazzinoDAO
 
 def registrazioneIngresso(ingressoJson):
     try:
@@ -26,17 +30,23 @@ def registrazioneIngresso(ingressoJson):
         veicolo = veicoloDao.get_veicolo_per_ingresso(veicolo_modello=veicoloJson["modello"],
                                                       veicolo_targa=veicoloJson["targa"])
 
+        #Recupero tutti gli operatori di magazzino disponibili
+        operatoriMagazzino_disponibili = operatoreMagazzinoDAO.ottieni_tutti_operatori_magazzino()
+
+        #Scelgo casualmente un operatore di magazzino tra quelli disponibili che viene assegnato all'operazione
+        operatoreMagazzinoScelto = random.choice(operatoriMagazzino_disponibili)
+
         operazione = Operazione(
             tipo=ingressoJson["tipo"],
             puntoDestinazione=ingressoJson["destinazione"],
             stato="In Corso",
             autotrasportatore_id=autotrasportatore.id,
             operatoreIngresso_id=ingressoJson["operatoreIngresso_id"],
-            operatoreMagazzino_id=1, #è un campo not null in operazione
-            percorso_id=1,
+            operatoreMagazzino_id=operatoreMagazzinoScelto.id,
+            percorso_id=1, #da rivedere
             veicolo_id=veicolo.id
         )
-
+        result = operazioneDao.aggiungi_operazione(operazione)
 
         include = Include(
             operazione_id=operazione.id,
@@ -44,7 +54,6 @@ def registrazioneIngresso(ingressoJson):
             quantita=merceJson["quantita"]
         )
         includeDao.aggiungi_include(include)
-        result = operazioneDao.aggiungi_operazione(operazione)
         return jsonify(result.__json__())
 
     except Exception as e:

@@ -31,13 +31,14 @@ def nuovaIssue(issueJson):
             operatoreMobile_id=issueJson["operatoreMobile_id"],
             operazione_id=issueJson["operazione_id"]
         )
-        """
+
         #ricerca qrcode attraverso l'id dell'operazione
         operazione = operazione_dao.ottieni_operazione_per_id(issueJson["operazione_id"])
         autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
         qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
-        """
-        qrcode, operazione = QrCodeFacade.ottieniQrcodeValidazione(issueJson["operazione_id"])
+
+        #qrcode, operazione = QrCodeFacade.ottieniQrcodeValidazione(issueJson["operazione_id"])
+
         #invalidazione qrcode
         qrcode.isValido = False
         qrcode_dao.aggiorna_qrCode(qrcode)
@@ -79,13 +80,14 @@ def aggiornaIssue(issueJson):
             autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
             qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
 
-            #invalidazione qrcode
-            qrcode.isValido = True
-            qrcode_dao.aggiorna_qrCode(qrcode)
+            if issue.stato == "Chiusa":
+                #validazione qrcode
+                qrcode.isValido = True
+                qrcode_dao.aggiorna_qrCode(qrcode)
 
-            #set stato operazione in issue aperta
-            operazione.stato = "In corso / Regolare"
-            operazione_dao.aggiorna_operazione(operazione)
+                #set stato operazione in regolare
+                operazione.stato = "In corso / Regolare"
+                operazione_dao.aggiorna_operazione(operazione)
 
             result = issue_dao.aggiorna_issue(issue)
             return jsonify(result.__json__())

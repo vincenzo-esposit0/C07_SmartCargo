@@ -21,6 +21,9 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
             isValido = True,
             dataCreazione = date.today()
         )
+
+        qrCode = qrCodeDao.aggiungi_qrCode(qrCode)
+
         autotrasportatore = Autotrasportatore(
             nome = autotrasportatoreJson["nome"],
             cognome= autotrasportatoreJson["cognome"],
@@ -32,7 +35,7 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
             azienda= autotrasportatoreJson["azienda"],
             qrCode_id= qrCode.id
         )
-        qrCodeDao.aggiungi_qrCode(qrCode)
+
         result = autotrasportatoreDao.aggiungi_autotrasportatore(autotrasportatore)
         return jsonify(result._json_())
 
