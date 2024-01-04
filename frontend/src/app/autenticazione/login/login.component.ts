@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AutenticazioneService} from "../autenticazione.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers:[MessageService]
 })
 
 export class LoginComponent {
@@ -13,7 +15,8 @@ export class LoginComponent {
     username: any='';
     password: any='';
     showAuth: boolean = false;
-    constructor(private router: Router,private autenticazioneService : AutenticazioneService){}
+    codice: string = "";
+    constructor(private messageService: MessageService,private router: Router,private autenticazioneService : AutenticazioneService){}
 
     login($event: MouseEvent) {
         if(this.username){
@@ -30,13 +33,11 @@ export class LoginComponent {
                             this.autenticazioneService.profile.password=this.password;
                             this.router.navigate(['home']);
                         }else{
-                            console.log(value.message);
+                            this.messageService.add({ severity: 'error', summary: 'Login', detail: value.message });
                         }
-                        console.log(dati);
                     },error => {
                         console.log(error);
                     });
-                    console.log(JSON.stringify(this.autenticazioneService.profile));
 
                 }
 
@@ -44,10 +45,9 @@ export class LoginComponent {
         }
     }
 
-    registrazione() {
-        //to-do
-        this.showAuth = true;
+    checkCodice() {
+        if(this.codice == "123456")  this.router.navigate(['registrati']);
+        else this.messageService.add({ severity: 'error', summary: 'Autenticazione', detail: 'Codice Errato!' });
 
-        //this.router.navigate()
     }
 }
