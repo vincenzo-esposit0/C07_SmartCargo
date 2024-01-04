@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from src.dataManagement.QrCodeFacade import QrCodeFacade
 from src.models.QrCodeDAO import QrCodeDAO
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 from src.models.OperazioneDAO import OperazioneDAO
@@ -30,11 +31,13 @@ def nuovaIssue(issueJson):
             operatoreMobile_id=issueJson["operatoreMobile_id"],
             operazione_id=issueJson["operazione_id"]
         )
+        """
         #ricerca qrcode attraverso l'id dell'operazione
         operazione = operazione_dao.ottieni_operazione_per_id(issueJson["operazione_id"])
         autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
         qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
-
+        """
+        qrcode, operazione = QrCodeFacade.ottieniQrcodeValidazione(issueJson["operazione_id"])
         #invalidazione qrcode
         qrcode.isValido = False
         qrcode_dao.aggiorna_qrCode(qrcode)

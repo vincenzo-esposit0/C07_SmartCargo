@@ -1,8 +1,3 @@
-from datetime import date
-
-from src.models.QrCode import QrCode
-from src.models.QrCodeDAO import QrCodeDAO
-from src.models.UtenteRegistrato import Autotrasportatore
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 # Creazione di un'istanza di AutotrasportatoreDAO
