@@ -32,7 +32,7 @@ def registrazioneIngresso(ingressoJson):
             stato="In Corso",
             autotrasportatore_id=autotrasportatore.id,
             operatoreIngresso_id=ingressoJson["operatoreIngresso_id"],
-            operatoreMagazzino_id=ingressoJson["operatoreMagazzino_id"], #è un campo not null in operazione
+            operatoreMagazzino_id=1, #è un campo not null in operazione
             percorso_id=1,
             veicolo_id=veicolo.id
         )
