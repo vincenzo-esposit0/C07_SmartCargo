@@ -26,6 +26,7 @@ class IssueDAO:
         session.close()
         return issue
 
+
     def aggiorna_issue(self, issue):
         session = self.Session()
         session.merge(issue)

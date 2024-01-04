@@ -1,5 +1,5 @@
 from flask_cors import CORS
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import IssueController
 import LoginController
 
@@ -22,11 +22,10 @@ def aggiornaIssue():
     return IssueController.aggiornaIssue(data)
 
 
-
 @app.route('/issue/getIssue/<id>', methods=['GET'])
-def getIssue(id):
-
-    return
+def ottieniIssue(id):
+    result = IssueController.ottieniIssue(id)
+    return jsonify(result)
 
 
 @app.route('/issue/getAll', methods=['GET'])

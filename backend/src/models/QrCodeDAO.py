@@ -28,9 +28,9 @@ class QrCodeDAO:
         session.close()
         return qrCode
 
-    def aggiorna_qrCode(self, qrCode_id):
+    def aggiorna_qrCode(self, qrCode):
         session = self.Session()
-        session.merge(qrCode_id)
+        session.merge(qrCode)
         session.commit()
         session.close()
 

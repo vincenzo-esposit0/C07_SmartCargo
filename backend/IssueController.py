@@ -1,9 +1,16 @@
 from datetime import datetime
+
+from src.models.QrCodeDAO import QrCodeDAO
+from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
+from src.models.OperazioneDAO import OperazioneDAO
 from src.models.Issue import Issue
 from src.models.IssueDAO import IssueDAO
 from flask import jsonify
 
 issue_dao = IssueDAO()
+operazione_dao = OperazioneDAO()
+autotrasportatore_dao = AutotrasportatoreDAO()
+qrcode_dao= QrCodeDAO()
 
 def nuovaIssue(issueJson):
     try:
@@ -23,6 +30,15 @@ def nuovaIssue(issueJson):
             operatoreMobile_id=issueJson["operatoreMobile_id"],
             operazione_id=issueJson["operazione_id"]
         )
+        #ricerca qrcode attraverso l'id dell'operazione
+        operazione = operazione_dao.ottieni_operazione_per_id(issueJson["operazione_id"])
+        autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
+        qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
+
+        #invalidazione qrcode
+        qrcode.isValido = False
+        qrcode_dao.aggiorna_qrCode(qrcode)
+
         result = issue_dao.aggiungi_issue(issue)
         return jsonify(result.__json__())
 
@@ -56,4 +72,18 @@ def aggiornaIssue(issueJson):
 
     except Exception as e:
         print(f"Errore durante l'aggiornamento dell'issue: {str(e)}")
+        return {}
+
+def ottieniIssue(issue_id):
+    try:
+        issue = issue_dao.ottieni_issue_per_id(issue_id)
+
+        if issue:
+            # Restituisci i dettagli dell'issue come JSON
+            return issue.__json__()
+        else:
+            return {"message": "Issue non trovata"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dell'issue: {str(e)}")
         return {}
