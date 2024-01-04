@@ -42,3 +42,14 @@ class AutotrasportatoreDAO:
         autotrasportatore = session.query(Autotrasportatore).filter_by(nome=autotrasportatore_nome, cognome=autotrasportatore_cognome, azienda=autotrasportatore_azienda).first()
         session.close()
         return autotrasportatore
+
+    def is_autotrasportatore_registrato(self, email):
+        """
+        Verifica se un autotrasportatore è già registrato sulla base dell'email.
+        :param email: L'email dell'autotrasportatore da verificare.
+        :return: True se l'autotrasportatore è già registrato, False altrimenti.
+        """
+        session = self.Session()
+        autotrasportatore = session.query(Autotrasportatore).filter_by(email=email).first()
+        session.close()
+        return autotrasportatore is not None

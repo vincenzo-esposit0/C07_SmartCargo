@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, func, Numeric, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
@@ -17,8 +17,12 @@ class Operazione(Base):
     operatoreMagazzino_id = Column(Integer, ForeignKey('operatoreMagazzino.id'), nullable=False)
     percorso_id = Column(Integer, ForeignKey('percorso.id'), nullable=False)
     veicolo_id = Column(Integer, ForeignKey('veicolo.id'), nullable=False)
-    autotrasportatore = relationship('Autotrasportatore', back_populates='operazioni')
-    include = relationship('Include', back_populates='operazione')
+
+    autotrasportatore = relationship('Autotrasportatore', foreign_keys=[autotrasportatore_id], backref='operazioni_autotrasportatore')
+    operatoreIngresso = relationship('OperatoreIngresso', foreign_keys=[operatoreIngresso_id], backref='operazioni_operatore_ingresso')
+    operatoreMagazzino = relationship('OperatoreMagazzino', foreign_keys=[operatoreMagazzino_id], backref='operazioni_operatore_magazzino')
+    percorso = relationship('Percorso', backref='operazioni')
+    veicolo = relationship('Veicolo', backref='operazioni')
 
     def __init__(self, tipo, puntoDestinazione, stato, autotrasportatore_id, operatoreIngresso_id,
                  operatoreMagazzino_id, percorso_id, veicolo_id, descrizione=None):
@@ -31,17 +35,3 @@ class Operazione(Base):
         self.operatoreMagazzino_id = operatoreMagazzino_id
         self.percorso_id = percorso_id
         self.veicolo_id = veicolo_id
-
-    def __json__(self):
-        return {
-            'id': self.id,
-            'tipo': self.tipo,
-            'descrizione': self.descrizione,
-            'puntoDestinazione': self.puntoDestinazione,
-            'stato': self.stato,
-            'autotrasportatore_id': self.autotrasportatore_id,
-            'operatoreIngresso_id': self.operatoreIngresso_id,
-            'operatoreMagazzino_id': self.operatoreMagazzino_id,
-            'percorso_id': self.percorso_id,
-            'veicolo_id': self.veicolo_id
-        }
