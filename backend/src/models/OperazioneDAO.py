@@ -11,6 +11,7 @@ class OperazioneDAO:
         session.add(operazione)
         session.commit()
         session.close()
+        return operazione
 
     def ottieni_tutte_operazioni(self):
         session = self.Session()
