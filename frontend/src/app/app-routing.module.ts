@@ -13,12 +13,14 @@ const routes: Routes =[
         children: [
             {path: 'dashboard', component: HomePageComponent},
             {path: 'issue', component: GestisciIssueComponent},
-            {path: 'ingresso', component: RegistraIngressoComponent}
+            {path: 'ingresso', component: RegistraIngressoComponent},
+
         ]
     },
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'registrati', component: SignUpComponent}
+
 ];
 
 @NgModule({

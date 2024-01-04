@@ -1,9 +1,16 @@
 <p-toast></p-toast>
 
-<p-dialog [(visible)]="showAuth" [style]="{width: '50vw'}" [breakpoints]="{'992px': '75vw', '576px': '90vw'}">
-    <div class="search-container">
-        <i class="pi pi-search"></i>
-        <input #input type="text" class="p-inputtext search-input" placeholder="Search" />
+<p-dialog header="Autenticazione Autotrasportatore"
+          [(visible)]="showAuth" [style]="{width: '30vw'}" [closable]="true" [draggable]="false" [modal]="true"
+          [breakpoints]="{'992px': '75vw', '576px': '90vw'}">
+    <div class="grid p-fluid formgrid">
+        <div class="col-12 field">
+            <label class="text-900 font-semibold">Inserisci il codice di 6 cifre che ti è stato fornito dagli operatori di Sicurezza</label>
+            <input type="password" placeholder="Codice" pInputText [(ngModel)]="codice" />
+        </div>
+        <div class="col-12 flex justify-content-end mt-4">
+            <button pButton pRipple class="p-button-primary w-10rem" icon="pi pi-check" label="Conferma" (click)="checkCodice()"></button>
+        </div>
     </div>
 </p-dialog>
 
@@ -24,7 +31,7 @@
         </div>
 
         <p class="text-color-secondary font-semibold">
-            Nuovo Autotrasportatore?<a class="text-primary hover:underline cursor-pointer font-medium" (click)="registrazione()"> Clicca Qui</a>
+            Nuovo Autotrasportatore?<a class="text-primary hover:underline cursor-pointer font-medium" (click)="this.showAuth = true"> Clicca Qui</a>
         </p>
     </div>
     <!-- sopra 5 e sotto 6 per avere il bordo a destra -->
