@@ -1,42 +1,34 @@
-from datetime import date
-
-from src.models.QrCode import QrCode
 from src.models.QrCodeDAO import QrCodeDAO
 
-# Creazione di un'istanza di QrCodeDAO
-qrCode_dao = QrCodeDAO()
+qrcode_dao = QrCodeDAO()
 
-# Ottieni tutti i qrCode
-print("Tutti i Qr Code:")
-allQrCode = qrCode_dao.ottieni_tutti_qrCode()
-for qrCode in allQrCode:
-    print(f"ID: {qrCode.id}, isValido: {qrCode.isValido}, dataCreazione: {qrCode.dataCreazione}")
+def ottieniTuttiQRCodes():
+    try:
+        qrcodes = qrcode_dao.ottieni_tutti_qrCode()
 
-# Ottieni un QrCode con ID 3
-print("\nQr Code con ID 3:")
-qrCode_id = 3
-qrCode = qrCode_dao.ottieni_qrCode_per_id(qrCode_id)
-if qrCode:
-    print(f"ID: {qrCode.id}, isValido: {qrCode.isValido}, dataCreazione: {qrCode.dataCreazione}")
-else:
-    print(f"Nessun Qr Code trovato con ID {qrCode_id}")
+        if qrcodes:
+            # Utilizza una lista per ottenere una lista di JSON
+            qrcodesJson = [qrcode.__json__() for qrcode in qrcodes]
 
-# Inserisci un nuovo Qr Code
-nuovo_qrCode = QrCode(isValido=True, dataCreazione=date.today())
-qrCode_dao.aggiungi_qrCode(nuovo_qrCode)
+            # Restituisce la lista di JSON come risultato
+            return qrcodesJson
+        else:
+            return {"message": "QRCodes non trovati"}
 
-# Ottieni tutti i veicoli dopo l'inserimento
-print("\nTutti i Qr Code dopo l'inserimento:")
-tutti_qrCode_dopo = qrCode_dao.ottieni_tutti_qrCode()
-for qrCode in tutti_qrCode_dopo:
-    print(f"ID: {qrCode.id}, isValido: {qrCode.isValido}, dataCreazione: {qrCode.dataCreazione}")
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dei QRCodes: {str(e)}")
+        return {}
 
-# Elimina un Qr Code (ad esempio, con ID 2)
-qrCode_da_eliminare_id = 21
-qrCode_dao.elimina_qrCode(qrCode_da_eliminare_id)
+def ottieniQRCode(qrcode_id):
+    try:
+        qrcode = qrcode_dao.ottieni_qrCode_per_id(qrcode_id)
 
-# Ottieni tutti i Qr Code dopo l'eliminazione
-print("\nTutti i Qr Code dopo l'eliminazione:")
-tutti_QrCode_dopo_elim = qrCode_dao.ottieni_tutti_qrCode()
-for qrCode in tutti_QrCode_dopo_elim:
-    print(f"ID: {qrCode.id}, isValido: {qrCode.isValido}, dataCreazione: {qrCode.dataCreazione}")
+        if qrcode:
+            # Restituisci i dettagli del qrcode come JSON
+            return qrcode.__json__()
+        else:
+            return {"message": "QRCode non trovato"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento del QRCode: {str(e)}")
+        return {}
