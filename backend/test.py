@@ -2,7 +2,7 @@ from flask_cors import CORS
 from flask import Flask, request, jsonify
 import IssueController
 import LoginController
-#import AutotrasportatoreController
+import AutotrasportatoreController
 
 
 
@@ -34,11 +34,11 @@ def getAllIssue():
     return
 
 
-@app.route('/autotrasportatore/getAutotrasportatore/<id>', methods=['GET'])
+@app.route('/autotrasportatore/getById/<id>', methods=['GET'])
 def getAutotrasportatoreId(id):
-    #result = AutotrasportatoreController.ottieniAutotraportatoreById(id)
-    #return jsonify(result)
-    return
+    result = AutotrasportatoreController.ottieniAutotrasportatore(id)
+    return jsonify(result)
+
 
 
 

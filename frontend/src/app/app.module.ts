@@ -24,6 +24,7 @@ import {DropdownModule} from "primeng/dropdown";
 import { RegistraIngressoComponent } from './ingresso/registra-ingresso/registra-ingresso.component';
 import {InputTextareaModule} from "primeng/inputtextarea";
 import { SignUpComponent } from './autenticazione/sign-up/sign-up.component';
+import { MonitoraggioOperazioniAttiveComponent } from './monitoraggio/monitoraggio-operazioni-attive/monitoraggio-operazioni-attive.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { SignUpComponent } from './autenticazione/sign-up/sign-up.component';
     LoginComponent,
     GestisciIssueComponent,
     RegistraIngressoComponent,
-    SignUpComponent
+    SignUpComponent,
+    MonitoraggioOperazioniAttiveComponent
   ],
     imports: [
         BrowserModule,

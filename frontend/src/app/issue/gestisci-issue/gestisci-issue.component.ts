@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {IssueService} from "../issue.service";
+import {UtenteService} from "../../utente/utente.service";
 
 @Component({
   selector: 'app-gestisci-issue',
@@ -14,9 +15,19 @@ export class GestisciIssueComponent {
     operatoriMob: any = [{id: 1, nome: "Paolo"},{id: 2, nome: "Amedeo"}];
     selectedOpMobile: any = {};
 
-    constructor(private service: IssueService, private datePipe: DatePipe) {}
+    constructor(private service: IssueService, private datePipe: DatePipe, private utenteService : UtenteService) {}
 
     ngOnInit(){
+
+        this.utenteService.getAutotrasportatoreById("3").subscribe(dati => {
+           console.log(dati);
+           this.issue.autotrasportatore.nome = dati.nome;
+           this.issue.autotrasportatore.cognome = dati.cognome;
+           this.issue.autotrasportatore.azienda = dati.azienda;
+           this.issue.autotrasportatore.targa = dati?.targa;
+        },error => {
+            console.log(error);
+        });
     }
 
     cancella() {

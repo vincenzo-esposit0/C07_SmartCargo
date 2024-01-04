@@ -42,6 +42,10 @@ def nuovaIssue(issueJson):
         result = issue_dao.aggiungi_issue(issue)
         return jsonify(result.__json__())
 
+
+    ##aggiornare stato opreazioni in In Corso/ Issue aperta
+
+
     except Exception as e:
         print(f"Errore durante l'aggiunta dell'issue: {str(e)}")
         return {}
@@ -67,10 +71,13 @@ def aggiornaIssue(issueJson):
             issue.operatoreMobile_id = issueJson["operatoreMobile_id"]
             issue.operazione_id = issueJson["operazione_id"]
 
- #stato = Chiusa
+
             result = issue_dao.aggiorna_issue(issue)
             return jsonify(result.__json__())
 
+    ##rivalidare qrcode
+    ##aggioranre stato operazioen togliendo issue aperta
+    ##aggiornare stato issue
     except Exception as e:
         print(f"Errore durante l'aggiornamento dell'issue: {str(e)}")
         return {}
