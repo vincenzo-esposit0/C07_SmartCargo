@@ -5,6 +5,7 @@ import {AppLayoutComponent} from "./layout/app.layout.component";
 import {LoginComponent} from "./autenticazione/login/login.component";
 import {GestisciIssueComponent} from "./issue/gestisci-issue/gestisci-issue.component";
 import {RegistraIngressoComponent} from "./ingresso/registra-ingresso/registra-ingresso.component";
+import {SignUpComponent} from "./autenticazione/sign-up/sign-up.component";
 
 const routes: Routes =[
     {
@@ -16,7 +17,8 @@ const routes: Routes =[
         ]
     },
     {path: '', redirectTo: 'login', pathMatch: 'full'},
-    {path: 'login', component: LoginComponent}
+    {path: 'login', component: LoginComponent},
+    {path: 'registrati', component: SignUpComponent}
 ];
 
 @NgModule({

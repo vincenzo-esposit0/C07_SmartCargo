@@ -12,6 +12,7 @@ export class LoginComponent {
 
     username: any='';
     password: any='';
+    showAuth: boolean = false;
     constructor(private router: Router,private autenticazioneService : AutenticazioneService){}
 
     login($event: MouseEvent) {
@@ -41,5 +42,12 @@ export class LoginComponent {
 
             }
         }
+    }
+
+    registrazione() {
+        //to-do
+        this.showAuth = true;
+
+        //this.router.navigate()
     }
 }

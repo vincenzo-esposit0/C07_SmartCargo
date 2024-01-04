@@ -23,13 +23,15 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {DropdownModule} from "primeng/dropdown";
 import { RegistraIngressoComponent } from './ingresso/registra-ingresso/registra-ingresso.component';
 import {InputTextareaModule} from "primeng/inputtextarea";
+import { SignUpComponent } from './autenticazione/sign-up/sign-up.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     LoginComponent,
     GestisciIssueComponent,
-    RegistraIngressoComponent
+    RegistraIngressoComponent,
+    SignUpComponent
   ],
     imports: [
         BrowserModule,

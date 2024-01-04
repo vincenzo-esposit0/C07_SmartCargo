@@ -19,7 +19,7 @@ def nuovaIssue():
 @app.route('/issue/updateIssue', methods=['POST'])
 def aggiornaIssue():
     data = request.get_json()
-    return IssueTest.aggiornaIssue(data)
+    return IssueController.aggiornaIssue(data)
 
 
 
