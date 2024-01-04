@@ -1,1 +1,66 @@
-<p>sign-up works!</p>
+<div class="flex h-screen">
+    <div class="w-full lg:w-4 h-full text-center px-6 py-6 flex flex-column justify-content-between">
+        <img [src]="'assets/layout/images/logo-dark.svg'" class="h-4rem mt-4" alt="diamond-layout" />
+
+        <div class="flex flex-column align-items-center gap-4">
+            <div class="mb-3">
+                <h2>Registrazione Autotrasportatore</h2>
+                <p>Registrati......</p>
+            </div>
+
+            <div class="flex flex-column gap-4">
+
+                <span class="p-input-icon-left w-full">
+                    <input id="nome"  [(ngModel)]="autotrasportatore.nome"  type="text" pInputText class="w-full md:w-25rem" placeholder="Nome">
+                </span>
+                <span class="p-input-icon-left w-full">
+                    <input id="cognome"  [(ngModel)]="autotrasportatore.cognome"  type="text" pInputText class="w-full md:w-25rem" placeholder="Cognome">
+                </span>
+
+                <span class="p-input-icon-left w-full">
+                    <input id="codiceFiscale"  [(ngModel)]="autotrasportatore.codiceFiscale"  type="text" pInputText class="w-full md:w-25rem" placeholder="Codice Fiscale">
+                </span>
+
+                <span class="p-input-icon-left w-full">
+                    <input id="citta"  [(ngModel)]="autotrasportatore.citta"  type="text" pInputText class="w-full md:w-25rem" placeholder="Città">
+                </span>
+
+                <span class="p-input-icon-left w-full">
+                    <p-calendar [(ngModel)]="autotrasportatore.dataNascita" ></p-calendar>
+                </span>
+
+                <span class="p-input-icon-left w-full">
+                    <input id="indirizzo"  [(ngModel)]="autotrasportatore.indirizzo"  type="text" pInputText class="w-full md:w-25rem" placeholder="Indirizzo">
+                </span>
+
+                <span class="p-input-icon-left w-full">
+                    <input id="targa"  [(ngModel)]="autotrasportatore.targa"  type="text" pInputText class="w-full md:w-25rem" placeholder="Targa">
+                </span>
+
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-user"></i>
+                    <input id="email"  [(ngModel)]="autotrasportatore.email"  type="text" pInputText class="w-full md:w-25rem" placeholder="Email">
+                </span>
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-lock"></i>
+                    <input id="password" type="password" [(ngModel)]="autotrasportatore.password" pInputText class="w-full md:w-25rem" placeholder="Password">
+                </span>
+                <!--
+                <div class="flex flex-wrap">
+                    <p-checkbox name="checkbox" value="val" [(ngModel)]="confirmed" styleClass="mr-2" [binary]="true"></p-checkbox>
+                    <label for="checkbox" class="text-color font-semibold mr-2">I have read the</label>
+                    <a class="text-color-secondary font-semibold cursor-pointer hover:text-primary cursor-pointer">Terms and Conditions</a>
+                </div>-->
+                <button pButton pRipple label="SIGN UP" class="w-full mb-4" [routerLink]="['/']"></button>
+                <span class="font-semibold text-color-secondary">Already have an account? <a class="font-semibold cursor-pointer primary-color">Login</a></span>
+            </div>
+        </div>
+
+        <p class="text-color-secondary font-semibold">A problem? <a href="#" class="primary-color">Click here</a> and let us help you.</p>
+    </div>
+    <div class="w-8 hidden lg:flex flex-column justify-content-between align-items-center px-6 py-6 bg-cover bg-norepeat" style="background-image: url('assets/demo/images/auth/bg-login.jpg')">
+        <div class="mt-auto mb-auto">
+            <span class="block text-white text-7xl font-semibold">Crea su <br/>SmartCargo<br/>il tuo account</span>
+        </div>
+    </div>
+</div>

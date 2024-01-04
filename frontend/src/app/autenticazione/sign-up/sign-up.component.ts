@@ -10,5 +10,13 @@ import {AutenticazioneService} from "../autenticazione.service";
 export class SignUpComponent {
 
     constructor(private router: Router,private autenticazioneService : AutenticazioneService){}
+    autotrasportatore: any = {};
 
+    cancella() {
+
+    }
+
+    inserisci() {
+
+    }
 }

@@ -38,4 +38,8 @@ export class AppTopbarComponent {
         this.aut.profile=null;
         this.router.navigate(['login']);
     }
+
+    profilo() {
+        this.router.navigate(['registrati']);
+    }
 }
