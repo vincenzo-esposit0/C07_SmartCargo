@@ -39,12 +39,12 @@ def nuovaIssue(issueJson):
         qrcode.isValido = False
         qrcode_dao.aggiorna_qrCode(qrcode)
 
+        #set stato operazione in issue aperta
+        operazione.stato = "In corso / Issue aperta"
+        operazione_dao.aggiorna_operazione(operazione)
+
         result = issue_dao.aggiungi_issue(issue)
         return jsonify(result.__json__())
-
-
-    ##aggiornare stato opreazioni in In Corso/ Issue aperta
-
 
     except Exception as e:
         print(f"Errore durante l'aggiunta dell'issue: {str(e)}")
@@ -71,13 +71,23 @@ def aggiornaIssue(issueJson):
             issue.operatoreMobile_id = issueJson["operatoreMobile_id"]
             issue.operazione_id = issueJson["operazione_id"]
 
+            #ricerca qrcode attraverso l'id dell'operazione
+            operazione = operazione_dao.ottieni_operazione_per_id(issueJson["operazione_id"])
+            autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
+            qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
+
+            #invalidazione qrcode
+            qrcode.isValido = True
+            qrcode_dao.aggiorna_qrCode(qrcode)
+
+            #set stato operazione in issue aperta
+            operazione.stato = "In corso / Regolare"
+            operazione_dao.aggiorna_operazione(operazione)
 
             result = issue_dao.aggiorna_issue(issue)
             return jsonify(result.__json__())
 
-    ##rivalidare qrcode
-    ##aggioranre stato operazioen togliendo issue aperta
-    ##aggiornare stato issue
+    ##aggiornare stato issue (da discutere)
     except Exception as e:
         print(f"Errore durante l'aggiornamento dell'issue: {str(e)}")
         return {}
