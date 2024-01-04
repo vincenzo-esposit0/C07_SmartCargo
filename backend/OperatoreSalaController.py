@@ -1,42 +1,34 @@
-from src.models.UtenteRegistrato import OperatoreSala
 from src.models.OperatoreSalaDAO import OperatoreSalaDAO
 
-# Creazione di un'istanza di OperatoreSalaDAO
 operatore_sala_dao = OperatoreSalaDAO()
 
-# Ottieni tutti gli operatori di sala
-print("Tutti gli operatori di sala:")
-tutti_operatori_sala = operatore_sala_dao.ottieni_tutti_operatori_sala()
-for operatore_sala in tutti_operatori_sala:
-    print(f"ID: {operatore_sala.id}, Nome: {operatore_sala.nome}, Cognome: {operatore_sala.cognome}")
+def ottieniTuttiOperatoriSala():
+    try:
+        operatori_sala = operatore_sala_dao.ottieni_tutti_operatori_sala()
 
-# Ottieni l'operatore di sala con ID 1
-print("\nOperatore di sala con ID 1:")
-operatore_sala_id = 1
-operatore_sala_1 = operatore_sala_dao.ottieni_operatore_sala_per_id(operatore_sala_id)
-if operatore_sala_1:
-    print(f"ID: {operatore_sala_1.id}, Nome: {operatore_sala_1.nome}, Cognome: {operatore_sala_1.cognome}")
-else:
-    print(f"Nessun operatore di sala trovato con ID {operatore_sala_id}")
+        if operatori_sala:
+            # Utilizza una lista per ottenere una lista di JSON
+            operatori_salaJson = [operatore_sala.__json__() for operatore_sala in operatori_sala]
 
-# Inserisci il nuovo operatore di sala
-nuovo_operatore_sala = OperatoreSala(nome='Nuovo', cognome='Operatore', dataNascita='1990-01-01',
-                                     codiceFiscale='ABC12345', email='nuovo@operatore.it',
-                                     password='password', indirizzo='Indirizzo')
-operatore_sala_dao.aggiungi_operatore_sala(nuovo_operatore_sala)
+            # Restituisce la lista di JSON come risultato
+            return operatori_salaJson
+        else:
+            return {"message": "Operatori Sala non trovati"}
 
-# Ottieni tutti gli operatori di sala dopo l'inserimento
-print("\nTutti gli operatori di sala dopo l'inserimento:")
-tutti_operatori_sala_dopo = operatore_sala_dao.ottieni_tutti_operatori_sala()
-for operatore_sala in tutti_operatori_sala_dopo:
-    print(f"ID: {operatore_sala.id}, Nome: {operatore_sala.nome}, Cognome: {operatore_sala.cognome}")
+    except Exception as e:
+        print(f"Errore durante l'ottenimento degli operatori Sala: {str(e)}")
+        return {}
 
-# Elimina un operatore di sala (ad esempio, con ID 2)
-operatore_sala_da_eliminare_id = 21
-operatore_sala_dao.elimina_operatore_sala(operatore_sala_da_eliminare_id)
+def ottieniOperatoreSala(operatore_sala_id):
+    try:
+        operatore_sala = operatore_sala_dao.ottieni_operatore_sala_per_id(operatore_sala_id)
 
-# Ottieni tutti gli operatori di sala dopo l'eliminazione
-print("\nTutti gli operatori di sala dopo l'eliminazione:")
-tutti_operatori_sala_dopo_elim = operatore_sala_dao.ottieni_tutti_operatori_sala()
-for operatore_sala in tutti_operatori_sala_dopo_elim:
-    print(f"ID: {operatore_sala.id}, Nome: {operatore_sala.nome}, Cognome: {operatore_sala.cognome}")
+        if operatore_sala:
+            # Restituisci i dettagli dell'operatore Sala come JSON
+            return operatore_sala.__json__()
+        else:
+            return {"message": "Operatore Sala non trovato"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dell'operatore Sala: {str(e)}")
+        return {}
