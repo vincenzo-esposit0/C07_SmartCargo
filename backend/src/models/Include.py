@@ -10,8 +10,8 @@ class Include(Base):
     __tablename__ = 'include'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    operazione_id = Column(Integer, ForeignKey('operazione.id'), nullable=False)
-    merce_id = Column(Integer, ForeignKey('merce.id'), nullable=False)
+    operazione_id = Column(Integer, nullable=False)
+    merce_id = Column(Integer, nullable=False)
     quantita = Column(Integer, nullable=False)
 
     # Dichiarazione della relazione con le tabelle referenziate

@@ -12,17 +12,11 @@ class Operazione(Base):
     descrizione = Column(String(255))
     puntoDestinazione = Column(String(32), nullable=False)
     stato = Column(String(32), nullable=False)
-    autotrasportatore_id = Column(Integer, ForeignKey('autotrasportatore.id'), nullable=False)
-    operatoreIngresso_id = Column(Integer, ForeignKey('operatoreIngresso.id'), nullable=False)
-    operatoreMagazzino_id = Column(Integer, ForeignKey('operatoreMagazzino.id'), nullable=False)
-    percorso_id = Column(Integer, ForeignKey('percorso.id'), nullable=False)
-    veicolo_id = Column(Integer, ForeignKey('veicolo.id'), nullable=False)
-
-    autotrasportatore = relationship('Autotrasportatore', foreign_keys=[autotrasportatore_id], backref='operazioni_autotrasportatore')
-    operatoreIngresso = relationship('OperatoreIngresso', foreign_keys=[operatoreIngresso_id], backref='operazioni_operatore_ingresso')
-    operatoreMagazzino = relationship('OperatoreMagazzino', foreign_keys=[operatoreMagazzino_id], backref='operazioni_operatore_magazzino')
-    percorso = relationship('Percorso', backref='operazioni')
-    veicolo = relationship('Veicolo', backref='operazioni')
+    autotrasportatore_id = Column(Integer, nullable=False)
+    operatoreIngresso_id = Column(Integer, nullable=False)
+    operatoreMagazzino_id = Column(Integer, nullable=False)
+    percorso_id = Column(Integer, nullable=False)
+    veicolo_id = Column(Integer, nullable=False)
 
     def __init__(self, tipo, puntoDestinazione, stato, autotrasportatore_id, operatoreIngresso_id,
                  operatoreMagazzino_id, percorso_id, veicolo_id, descrizione=None):

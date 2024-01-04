@@ -67,6 +67,7 @@ def aggiornaIssue(issueJson):
             issue.operatoreMobile_id = issueJson["operatoreMobile_id"]
             issue.operazione_id = issueJson["operazione_id"]
 
+ #stato = Chiusa
             result = issue_dao.aggiorna_issue(issue)
             return jsonify(result.__json__())
 

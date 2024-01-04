@@ -11,13 +11,13 @@ class Issue(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     descrizione = Column(String(255))
     timestampApertura = Column(DateTime, nullable=False)
-    timestampChiusura = Column(DateTime,default=None, nullable=True)
+    timestampChiusura = Column(DateTime, default=None, nullable=True)
     stato = Column(String(255), nullable=False)
     tipologiaProblema = Column(String(255), nullable=False)
     posizione = Column(String(255), nullable=False)
-    operatoreSala_id = Column(Integer)
-    operatoreMobile_id = Column(Integer)
-    operazione_id = Column(Integer)
+    operatoreSala_id = Column(Integer, nullable=False)
+    operatoreMobile_id = Column(Integer, nullable=False)
+    operazione_id = Column(Integer, nullable=False)
 
     def __init__(self, descrizione, timestampApertura, timestampChiusura, stato, tipologiaProblema, posizione,
                  operatoreSala_id, operatoreMobile_id, operazione_id):
