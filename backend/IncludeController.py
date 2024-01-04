@@ -1,40 +1,90 @@
-from src.models import Include
+from flask import jsonify
+
+from src.models.Include import Include
 from src.models.IncludeDAO import IncludeDAO
 
 # Creazione di un'istanza di IncludeDAO
 include_dao = IncludeDAO()
 
-# Ottieni tutti gli Include
-print("Tutti gli Include:")
-tutti_include = include_dao.ottieni_tutti_include()
-for include_item in tutti_include:
-    print(f"ID: {include_item.id}, Operazione ID: {include_item.operazione_id}, Merce ID: {include_item.merce_id}, Quantita: {include_item.quantita}")
+def nuovaInclude(includeJson):
+    try:
+        include = Include(
+            operazione_id=includeJson["operazione_id"],
+            merce_id=includeJson["merce_id"],
+            quantita=includeJson["quantita"]
+        )
 
-# Ottieni un Include con ID 3
-print("\nInclude con ID 3:")
-include_id = 3
-include_3 = include_dao.ottieni_include_per_id(include_id)
-if include_3:
-    print(f"ID: {include_3.id}, Operazione ID: {include_3.operazione_id}, Merce ID: {include_3.merce_id}, Quantita: {include_3.quantita}")
-else:
-    print(f"Nessun Include trovato con ID {include_id}")
+        include = include_dao.aggiungi_include(include)
+        return jsonify(include.__json__())
 
-# Inserisci un nuovo Include
-nuovo_include = Include(operazione_id=1, merce_id=2, quantita=10)
-include_dao.aggiungi_include(nuovo_include)
+    except Exception as e:
+        print(f"Errore durante l'aggiunta della merce: {str(e)}")
+        return {}
 
-# Ottieni tutti gli Include dopo l'inserimento
-print("\nTutti gli Include dopo l'inserimento:")
-tutti_include_dopo = include_dao.ottieni_tutti_include()
-for include_item in tutti_include_dopo:
-    print(f"ID: {include_item.id}, Operazione ID: {include_item.operazione_id}, Merce ID: {include_item.merce_id}, Quantita: {include_item.quantita}")
+def ottieniTutteInclude():
+    try:
+        includeAll = include_dao.ottieni_tutti_include()
 
-# Elimina un Include (ad esempio, con ID 2)
-include_da_eliminare_id = 2
-include_dao.elimina_include(include_da_eliminare_id)
+        if includeAll:
+            # Utilizza una lista per ottenere una lista di JSON
+            includiJson = [include.__json__() for include in includeAll]
 
-# Ottieni tutti gli Include dopo l'eliminazione
-print("\nTutti gli Include dopo l'eliminazione:")
-tutti_include_dopo_elim = include_dao.ottieni_tutti_include()
-for include_item in tutti_include_dopo_elim:
-    print(f"ID: {include_item.id}, Operazione ID: {include_item.operazione_id}, Merce ID: {include_item.merce_id}, Quantita: {include_item.quantita}")
+            # Restituisce la lista di JSON come risultato
+            return includiJson
+        else:
+            return {"message": "Istanze per include non trovate"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento delle istanze per include: {str(e)}")
+        return {}
+
+def ottieniIncludeId(include_id):
+    try:
+        include = include_dao.ottieni_include_per_id(include_id)
+
+        if include:
+            # Restituisci i dettagli della include come JSON
+            return include.__json__()
+        else:
+            return {"message": "Istanza include non trovata"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento della include: {str(e)}")
+        return {}
+
+def eliminaInclude(include_id):
+    try:
+        include = include_dao.ottieni_merce_per_id(include_id)
+
+        if include:
+            include_dao.elimina_include(include_id)
+            return jsonify({"messaggio": f"Include con ID {include_id} eliminata con successo"})
+        else:
+            return jsonify({"errore": f"Nessuna include trovata con ID {include_id}"})
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento della include: {str(e)}")
+        return {}
+
+def aggiornaInclude(include_id, nuoviDatiJson):
+    try:
+        # Ottieni la merce dal dao
+        include_da_aggiornare = include_dao.ottieni_include_per_id(include_id)
+
+        if include_da_aggiornare:
+            # Aggiorna la merce con i nuovi dati
+            include_da_aggiornare.operazione_id = nuoviDatiJson["operazione_id"]
+            include_da_aggiornare.merce_id = nuoviDatiJson["merce_id"]
+            include_da_aggiornare.quantita = nuoviDatiJson["quantita"]
+
+            # Esegui l'aggiornamento nel database
+            include_aggiornata = include_dao.aggiorna_include(include_da_aggiornare)
+
+            return jsonify({"messaggio": f"Include con ID {include_id} aggiornata con successo"})
+        else:
+            return jsonify({"errore": f"Nessuna include trovata con ID {include_id}"})
+
+
+    except Exception as e:
+        print(f"Errore durante l'aggiornamento della include: {str(e)}")
+        return jsonify({"errore": "Errore durante l'aggiornamento della include"})

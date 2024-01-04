@@ -1,40 +1,87 @@
+from flask import jsonify
+
 from src.models.Merce import Merce
 from src.models.MerceDAO import MerceDAO
 
 # Creazione di un'istanza di MerceDAO
 merce_dao = MerceDAO()
 
-# Ottieni tutte le merci
-print("Tutte le merci:")
-tutte_merci = merce_dao.ottieni_tutte_merci()
-for merce in tutte_merci:
-    print(f"ID: {merce.id}, Tipo: {merce.tipo}, Descrizione: {merce.descrizione}")
+def nuovaMerce(merceJson):
+    try:
+        merce = Merce(
+            tipo=merceJson["tipo"],
+            descrizione=merceJson["descrizione"]
+        )
 
-# Ottieni la merce con ID 3
-print("\nMerce con ID 3:")
-merce_id = 3
-merce_3 = merce_dao.ottieni_merce_per_id(merce_id)
-if merce_3:
-    print(f"ID: {merce_3.id}, Tipo: {merce_3.tipo}, Descrizione: {merce_3.descrizione}")
-else:
-    print(f"Nessuna merce trovata con ID {merce_id}")
+        merceCreata = merce_dao.aggiungi_merce(merce)
+        return jsonify(merceCreata.__json__())
 
-# Inserisci la nuova merce
-nuova_merce = Merce(tipo='merce', descrizione='Descrizione della merce')
-merce_dao.aggiungi_merce(nuova_merce)
+    except Exception as e:
+        print(f"Errore durante l'aggiunta della merce: {str(e)}")
+        return {}
+def ottieniTutteMerci():
+    try:
+        merci = merce_dao.ottieni_tutte_merci()
 
-# Ottieni tutte le merci dopo l'inserimento
-print("\nTutte le merci dopo l'inserimento: ")
-tutte_merci_dopo = merce_dao.ottieni_tutte_merci()
-for merce in tutte_merci_dopo:
-    print(f"ID: {merce.id}, Tipo: {merce.tipo}, Descrizione: {merce.descrizione}")
+        if merci:
+            # Utilizza una lista per ottenere una lista di JSON
+            merciJson = [merce.__json__() for merce in merci]
 
-# Elimina una merce (ad esempio, con ID 2)
-merce_da_eliminare_id = 2
-merce_dao.elimina_merce(merce_da_eliminare_id)
+            # Restituisce la lista di JSON come risultato
+            return merciJson
+        else:
+            return {"message": "Merci non trovate"}
 
-# Ottieni tutte le merci dopo l'eliminazione
-print("\nTutti le merci dopo l'eliminazione:")
-tutte_merci_dopo_elim = merce_dao.ottieni_tutte_merci()
-for merce in tutte_merci_dopo_elim:
-    print(f"ID: {merce.id}, Tipo: {merce.tipo}, Descrizione: {merce.descrizione}")
+    except Exception as e:
+        print(f"Errore durante l'ottenimento delle merci: {str(e)}")
+        return {}
+
+def ottieniMerceId(merce_id):
+    try:
+        merce = merce_dao.ottieni_merce_per_id(merce_id)
+
+        if merce:
+            # Restituisci i dettagli della merce come JSON
+            return merce.__json__()
+        else:
+            return {"message": "Merce non trovata"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento della merce: {str(e)}")
+        return {}
+
+def eliminaMerce(merce_id):
+    try:
+        merce = merce_dao.ottieni_merce_per_id(merce_id)
+
+        if merce:
+            merce_dao.elimina_merce(merce)
+            return jsonify({"messaggio": f"Merce con ID {merce_id} eliminata con successo"})
+        else:
+            return jsonify({"errore": f"Nessuna merce trovata con ID {merce_id}"})
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento della merce: {str(e)}")
+        return {}
+
+def aggiorna_merce(merce_id, nuovi_dati):
+    try:
+        # Ottieni la merce dal dao
+        merce_da_aggiornare = merce_dao.ottieni_merce_per_id(merce_id)
+
+        if merce_da_aggiornare:
+            # Aggiorna la merce con i nuovi dati
+            merce_da_aggiornare.tipo = nuovi_dati["tipo"]
+            merce_da_aggiornare.descrizione = nuovi_dati["descrizione"]
+
+            # Esegui l'aggiornamento nel database
+            merce_aggiornata = merce_dao.aggiorna_merce(merce_da_aggiornare)
+
+            return jsonify({"messaggio": f"Merce con ID {merce_id} aggiornata con successo"})
+        else:
+            return jsonify({"errore": f"Nessuna merce trovata con ID {merce_id}"})
+
+
+    except Exception as e:
+        print(f"Errore durante l'aggiornamento della merce: {str(e)}")
+        return jsonify({"errore": "Errore durante l'aggiornamento della merce"})

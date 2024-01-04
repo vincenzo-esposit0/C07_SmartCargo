@@ -11,7 +11,9 @@ class MerceDAO:
         session = self.Session()
         session.add(merce)
         session.commit()
+        session.refresh(merce)
         session.close()
+        return merce
 
     def ottieni_tutte_merci(self):
         session = self.Session()
@@ -30,6 +32,7 @@ class MerceDAO:
         session.merge(merce)
         session.commit()
         session.close()
+        return merce
 
     def elimina_merce(self, merce_id):
         session = self.Session()
@@ -37,9 +40,3 @@ class MerceDAO:
         session.delete(merce)
         session.commit()
         session.close()
-
-    def get_merce_per_ingresso(self, merce_tipo, merce_descrizione):
-        session = self.Session()
-        merce = session.query(Merce).filter_by(tipo = merce_tipo, descrizione = merce_descrizione).first()
-        session.close()
-        return merce

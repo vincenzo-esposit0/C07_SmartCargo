@@ -6,12 +6,14 @@ class IncludeDAO:
     def __init__(self):
         self.Session = sessionmaker(bind=engine)
 
-    def aggiungi_include(self, operazione_id, merce_id, quantita):
+    def aggiungi_include(self, include):
         session = self.Session()
-        nuovo_include = Include(operazione_id=operazione_id, merce_id=merce_id, quantita=quantita)
+        nuovo_include = Include(operazione_id=include.operazione_id, merce_id=include.merce_id, quantita=include.quantita)
         session.add(nuovo_include)
         session.commit()
+        session.refresh(include)
         session.close()
+        return include
 
     def ottieni_tutti_include(self):
         session = self.Session()
@@ -25,7 +27,7 @@ class IncludeDAO:
         session.close()
         return include
 
-    def aggiorna_include(self, include_id, operazione_id, merce_id, quantita):
+    """def aggiorna_include(self, include_id, operazione_id, merce_id, quantita):
         session = self.Session()
         include = session.query(Include).filter_by(id=include_id).first()
         if include:
@@ -41,4 +43,18 @@ class IncludeDAO:
         if include:
             session.delete(include)
             session.commit()
-            session.close()
+            session.close()"""
+
+    def aggiorna_include(self, include):
+        session = self.Session()
+        session.merge(include)
+        session.commit()
+        session.close()
+        return include
+
+    def elimina_include(self, include_id):
+        session = self.Session()
+        include = session.query(Include.Include).filter_by(id=include_id).first()
+        session.delete(include)
+        session.commit()
+        session.close()
