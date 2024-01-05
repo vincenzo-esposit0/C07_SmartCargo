@@ -58,3 +58,9 @@ class IncludeDAO:
         session.delete(include)
         session.commit()
         session.close()
+
+    def ottieni_include_per_operazione_id(self, operazione_id):
+        session = self.Session()
+        include = session.query(Include.Include).filter_by(operazione_id=operazione_id).first()
+        session.close()
+        return include

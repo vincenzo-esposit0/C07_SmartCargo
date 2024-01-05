@@ -2,6 +2,8 @@ import random
 
 from flask import jsonify
 
+from src.models.OperatoreMobileDAO import OperatoreMobileDAO
+from src.models.IssueDAO import IssueDAO
 from src.models.IncludeDAO import IncludeDAO
 from src.models.VeicoloDAO import VeicoloDAO
 from src.models.Include import Include
@@ -14,7 +16,9 @@ autotrasportatore_dao = AutotrasportatoreDAO()
 operazione_dao = OperazioneDAO()
 veicolo_dao = VeicoloDAO()
 include_dao = IncludeDAO()
-operatoreMagazzino_dao = OperatoreMagazzinoDAO
+operatoreMagazzino_dao = OperatoreMagazzinoDAO()
+issue_dao = IssueDAO()
+operatore_mobile_dao = OperatoreMobileDAO()
 
 def registrazioneOperazione(ingressoJson):
     try:
@@ -92,23 +96,35 @@ def ottieniOperazione(operazione_id):
         return {}
 
 def ottieniTutteOperazioniConDettagli():
+    global operatore_mobile
     try:
         operazioni = operazione_dao.ottieni_tutte_operazioni()
 
         if operazioni:
             operazioniJson = []
             for operazione in operazioni:
+                operatore_mobile = None
+
                 # Ottieni le informazioni dell'autotrasportatore usando l'ID
                 autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
 
                 # Ottieni le informazioni del veicolo usando l'ID
                 veicolo = veicolo_dao.ottieni_veicolo_per_id(operazione.veicolo_id)
 
+                # Ottieni le informazioni dell'include usando l'ID dell'operazione
+                include = include_dao.ottieni_include_per_operazione_id(operazione.id)
+
+                issue = issue_dao.ottieni_issue_per_operazione_id(operazione.id)
+                if issue and issue.stato == "Aperta":
+                    operatore_mobile = operatore_mobile_dao.ottieni_operatore_mobile_per_id(issue.operatoreMobile_id)
+
                 # Crea un dizionario con le informazioni dell'operazione, autotrasportatore e veicolo
                 operazioneJson = {
                     "operazione": operazione.__json__(),
                     "autotrasportatore": autotrasportatore.__json__() if autotrasportatore else None,
-                    "veicolo": veicolo.__json__() if veicolo else None
+                    "veicolo": veicolo.__json__() if veicolo else None,
+                    "include": include.__json__() if include else None,
+                    "operatore_mobile": operatore_mobile.__json__() if operatore_mobile else None
                 }
 
                 # Aggiungi il dizionario alla lista di risultati
@@ -122,3 +138,9 @@ def ottieniTutteOperazioniConDettagli():
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {}
+
+# Chiamare la funzione e ottenere il risultato
+risultato = ottieniTutteOperazioniConDettagli()
+
+# Stampare il risultato o fare altre operazioni
+print(risultato)

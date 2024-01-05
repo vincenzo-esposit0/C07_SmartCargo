@@ -40,3 +40,9 @@ class IssueDAO:
         session.delete(issue)
         session.commit()
         session.close()
+
+    def ottieni_issue_per_operazione_id(self, operazione_id):
+        session = self.Session()
+        issue = session.query(Issue.Issue).filter_by(operazione_id=operazione_id).first()
+        session.close()
+        return issue
