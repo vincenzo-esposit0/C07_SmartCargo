@@ -7,7 +7,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class IssueService {
 
-
     constructor(private httpClient: HttpClient) { }
 
 

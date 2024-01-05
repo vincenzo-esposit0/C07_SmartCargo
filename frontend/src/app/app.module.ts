@@ -25,6 +25,11 @@ import { RegistraIngressoComponent } from './ingresso/registra-ingresso/registra
 import {InputTextareaModule} from "primeng/inputtextarea";
 import { SignUpComponent } from './autenticazione/sign-up/sign-up.component';
 import { MonitoraggioOperazioniAttiveComponent } from './monitoraggio/monitoraggio-operazioni-attive/monitoraggio-operazioni-attive.component';
+import {TableModule} from "primeng/table";
+import { DettaglioOperazioneComponent } from './monitoraggio/dettaglio-operazione/dettaglio-operazione.component';
+import {GMapModule} from "primeng/gmap";
+import {PanelModule} from "primeng/panel";
+import {ToolbarModule} from "primeng/toolbar";
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +38,8 @@ import { MonitoraggioOperazioniAttiveComponent } from './monitoraggio/monitoragg
     GestisciIssueComponent,
     RegistraIngressoComponent,
     SignUpComponent,
-    MonitoraggioOperazioniAttiveComponent
+    MonitoraggioOperazioniAttiveComponent,
+    DettaglioOperazioneComponent
   ],
     imports: [
         BrowserModule,
@@ -52,7 +58,11 @@ import { MonitoraggioOperazioniAttiveComponent } from './monitoraggio/monitoragg
         DividerModule,
         MultiSelectModule,
         DropdownModule,
-        InputTextareaModule
+        InputTextareaModule,
+        TableModule,
+        GMapModule,
+        PanelModule,
+        ToolbarModule
     ],
   providers: [MessageService, DatePipe],
   bootstrap: [AppComponent]

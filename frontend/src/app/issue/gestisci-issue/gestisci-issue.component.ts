@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {IssueService} from "../issue.service";
 import {UtenteService} from "../../utente/utente.service";
@@ -14,6 +14,9 @@ export class GestisciIssueComponent {
     tipiProblema: any[] = [{nome: "Anomalia Percorso"}, {nome: "Anomalia Carico/Scarico Merce"}];
     operatoriMob: any = [{id: 1, nome: "Paolo"},{id: 2, nome: "Amedeo"}];
     selectedOpMobile: any = {};
+
+    @Input() operazione: any = {};
+    @Input() tipo: any = "";
 
     constructor(private service: IssueService, private datePipe: DatePipe, private utenteService : UtenteService) {}
 

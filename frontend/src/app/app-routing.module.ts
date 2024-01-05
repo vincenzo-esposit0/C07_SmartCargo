@@ -6,6 +6,8 @@ import {LoginComponent} from "./autenticazione/login/login.component";
 import {GestisciIssueComponent} from "./issue/gestisci-issue/gestisci-issue.component";
 import {RegistraIngressoComponent} from "./ingresso/registra-ingresso/registra-ingresso.component";
 import {SignUpComponent} from "./autenticazione/sign-up/sign-up.component";
+import {MonitoraggioOperazioniAttiveComponent} from "./monitoraggio/monitoraggio-operazioni-attive/monitoraggio-operazioni-attive.component";
+import {DettaglioOperazioneComponent} from "./monitoraggio/dettaglio-operazione/dettaglio-operazione.component";
 
 const routes: Routes =[
     {
@@ -14,7 +16,8 @@ const routes: Routes =[
             {path: 'dashboard', component: HomePageComponent},
             {path: 'issue', component: GestisciIssueComponent},
             {path: 'ingresso', component: RegistraIngressoComponent},
-
+            {path: 'monitoraggioOpAttive', component: MonitoraggioOperazioniAttiveComponent},
+            {path: 'dettaglioOp', component: DettaglioOperazioneComponent}
         ]
     },
     {path: '', redirectTo: 'login', pathMatch: 'full'},

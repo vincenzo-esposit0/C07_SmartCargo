@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 import IssueController
 import LoginController
 import AutotrasportatoreController
-
+import OperazioneController
 
 
 app = Flask(__name__)
@@ -41,11 +41,15 @@ def getAutotrasportatoreId(id):
 
 
 
-
-
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    return LoginController.login(data["username"],data["password"])
+    return LoginController.login(data["username"], data["password"])
+
+
+@app.route('/operazioni/getAll/', methods=['GET'])
+def ottieniOperazioni():
+    result = OperazioneController.ottieniTutteOperazioni()
+    return jsonify(result)
 
 app.run()

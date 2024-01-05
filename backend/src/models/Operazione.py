@@ -29,3 +29,18 @@ class Operazione(Base):
         self.operatoreMagazzino_id = operatoreMagazzino_id
         self.percorso_id = percorso_id
         self.veicolo_id = veicolo_id
+
+
+    def __json__(self):
+        return {
+            'id': self.id,
+            'tipo': self.tipo,
+            'descrizione': self.descrizione,
+            'puntoDestinazione': self.puntoDestinazione,
+            'stato': self.stato,
+            'autotrasportatore_id': self.autotrasportatore_id,
+            'operatoreIngresso_id': self.operatoreIngresso_id,
+            'operatoreMagazzino_id': self.operatoreMagazzino_id,
+            'percorso_id': self.percorso_id,
+            'veicolo_id': self.veicolo_id
+        }
