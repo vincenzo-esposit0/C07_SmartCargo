@@ -6,9 +6,8 @@
     </div>
     <p-toolbar>
         <div class="p-toolbar-group-start">
-            <button pButton icon="pi pi-plus" class="mr-2" (click)="newIssue()"> &nbsp; Nuova Issue</button>
+            <button [disabled]="showNewIssue" pButton icon="pi pi-plus" class="mr-2" (click)="newIssue()"> &nbsp; Nuova Issue</button>
             <button pButton icon="pi pi-upload" class="mr-2" (click)="aggiornaIssue()"> &nbsp;Aggiorna Issue</button>
-            <button pButton icon="pi pi-times"> &nbsp; Chiudi Issue</button>
         </div>
     </p-toolbar>
     <div class="col-12 mt-3 h-20rem border-1 surface-border p-0 w-full bg-cover border-round" *ngIf="true">
@@ -44,21 +43,21 @@
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText [(ngModel)]="operazione.tipo">
+                            <input [disabled]="true" type="text" id="filtro" pInputText [(ngModel)]="data.autotrasportatore.nome">
                             <label for="filtro">Nome </label>
                         </span>
                     </div>
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="operazione.puntoDestinazione">
+                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="data.autotrasportatore.cognome">
                             <label for="filtro">Cognome</label>
                         </span>
                     </div>
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="operazione.descrizione">
+                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="data.veicolo.targa">
                             <label for="filtro">Targa Autoveicolo</label>
                         </span>
                     </div>
@@ -79,21 +78,21 @@
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText [(ngModel)]="operazione.tipo">
+                            <input [disabled]="true" type="text" id="filtro" pInputText [(ngModel)]="data.merce.tipo">
                             <label for="filtro">Tipo Merce </label>
                         </span>
                     </div>
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="operazione.puntoDestinazione">
+                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="data.include.quantita">
                             <label for="filtro">Quantità</label>
                         </span>
                     </div>
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="operazione.descrizione">
+                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="data.merce.descrizione">
                             <label for="filtro">Descrizione Merce</label>
                         </span>
                     </div>
@@ -114,21 +113,21 @@
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText [(ngModel)]="operazione.tipo">
+                            <input [disabled]="true" type="text" id="filtro" pInputText [(ngModel)]="data.operazione.tipo">
                             <label for="filtro">Tipo Operazione </label>
                         </span>
                     </div>
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="operazione.puntoDestinazione">
+                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="data.operazione.puntoDestinazione">
                             <label for="filtro">Punto di Destinazione</label>
                         </span>
                     </div>
 
                     <div class="field col-12 md:col-12">
                         <span class="p-float-label">
-                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="operazione.descrizione">
+                            <input [disabled]="true" type="text" id="filtro" pInputText  [(ngModel)]="data.operazione.descrizione">
                             <label for="filtro">Descrizione</label>
                         </span>
                     </div>
@@ -141,6 +140,7 @@
     </div>
 </div>
 
-<app-gestisci-issue [tipo]="'nuova'" *ngIf="showNewIssueComponent"></app-gestisci-issue>
+<p-dialog [maximizable]="false" [header]="'Nuova Issue'" [(visible)]="showDialog" [modal]="true" [dismissableMask]="true" styleClass="mx-3 sm:mx-0 sm:w-full md:w-11 lg:w-8" contentStyleClass="border-round-bottom border-top-1 surface-border p-0">
+<app-gestisci-issue [data]="data" ></app-gestisci-issue>
 
-<app-gestisci-issue [tipo]="'edit'" *ngIf="showModificaIssueComponent"></app-gestisci-issue>
+</p-dialog>

@@ -15,22 +15,19 @@ export class GestisciIssueComponent {
     operatoriMob: any = [{id: 1, nome: "Paolo"},{id: 2, nome: "Amedeo"}];
     selectedOpMobile: any = {};
 
-    @Input() operazione: any = {};
-    @Input() tipo: any = "";
+    @Input() data: any = {};
+    modalitaEdit: boolean = false; //significa che già esiste un issue
 
     constructor(private service: IssueService, private datePipe: DatePipe, private utenteService : UtenteService) {}
 
     ngOnInit(){
 
-        this.utenteService.getAutotrasportatoreById("3").subscribe(dati => {
-           console.log(dati);
-           this.issue.autotrasportatore.nome = dati.nome;
-           this.issue.autotrasportatore.cognome = dati.cognome;
-           this.issue.autotrasportatore.azienda = dati.azienda;
-           this.issue.autotrasportatore.targa = dati?.targa;
-        },error => {
-            console.log(error);
-        });
+        if(this.data){
+            if(this.data.issue){
+                this.modalitaEdit = true;
+            }
+        }
+
     }
 
     cancella() {
@@ -57,15 +54,15 @@ export class GestisciIssueComponent {
     }
 
 
-    aggiornaTest() {
-        this.issue.id = 3
+    aggiorna() {
+        this.issue.id = this.data.issue.id;
         this.issue.stato = "Chiusa";
         this.issue.operatoreSala_id = 1; //id dell'utente corrente
         this.issue.operatoreMobile_id = this.selectedOpMobile.id; //da chiedere lato server la lista di tutti gli operatori
-        this.issue.operazione_id = 3;//operazione su cui hai cliccato da passare come parametro al componente gestisci issue
+        this.issue.operazione_id = this.data.operazione.id;//operazione su cui hai cliccato da passare come parametro al componente gestisci issue
         this.issue.timestampChiusura = "";
         this.issue.timestampApertura = this.datePipe.transform(this.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
-        this.issue.tipologiaProblema = this.issue.tipologiaProblema.nome;
+        this.issue.tipologiaProblema = this.data.issue.tipologiaProblema;
         this.service.aggiornaIssue(this.issue).subscribe(dati => {
             console.log(dati);
         },error => {

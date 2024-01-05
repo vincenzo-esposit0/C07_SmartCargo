@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 })
 export class DettaglioOperazioneComponent {
 
-    operazione: any = {};
+    data: any = {};
     options: any;
 
     content: any[] = [
@@ -16,8 +16,11 @@ export class DettaglioOperazioneComponent {
         {icon: 'pi pi-fw pi-map-marker', title: 'Il nostro Ufficio', info: ''},
         {icon: 'pi pi-fw pi-print', title: 'Fax', info:+''}
     ];
-    showNewIssueComponent: boolean = false;
-    showModificaIssueComponent: boolean = false;
+
+    showDialog: boolean = false;
+
+    //solo se nn ci sono già issue aperte sull'operazione
+    showNewIssue : boolean = true;
 
     constructor(private router: Router) {
         if (this.router.getCurrentNavigation()?.extras.state) {
@@ -25,15 +28,24 @@ export class DettaglioOperazioneComponent {
             let routeState = this.router.getCurrentNavigation().extras.state;
             if (routeState) {
                 // @ts-ignore
-                this.operazione = routeState.operazioneJson;
+                this.data = routeState.dataJson;
             }
         }
     }
+
 
     ngOnInit(){
 
         let latitude = 40.85;
         let longitude = 14.4829;
+
+        if(this.data){
+            if(this.data.issue){
+                if(this.data.issue.stato == 'Aperta')
+                    this.showNewIssue = false;
+            }
+        }
+
 
         this.options = {
             center: {lat: latitude, lng: longitude},
@@ -42,11 +54,10 @@ export class DettaglioOperazioneComponent {
     }
 
     newIssue() {
-        this.showNewIssueComponent = true;
-
+        this.showDialog = true;
     }
 
     aggiornaIssue() {
-        this.showModificaIssueComponent = true;
+        this.showDialog = true;
     }
 }

@@ -15,9 +15,9 @@ class Merce(Base):
         self.tipo = tipo
         self.descrizione = descrizione
 
-def __json__(self):
-    return {
-        'id': self.id,
-        'tipo': self.tipo,
-        'descrizione': self.descrizione
-    }
+    def __json__(self):
+        return {
+            'id': self.id,
+            'tipo': self.tipo,
+            'descrizione': self.descrizione
+        }

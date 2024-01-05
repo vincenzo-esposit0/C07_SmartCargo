@@ -49,7 +49,7 @@ def login():
 
 @app.route('/operazioni/getAll/', methods=['GET'])
 def ottieniOperazioni():
-    result = OperazioneController.ottieniTutteOperazioni()
+    result = OperazioneController.ottieniTutteOperazioniConDettagli()
     return jsonify(result)
 
 app.run()

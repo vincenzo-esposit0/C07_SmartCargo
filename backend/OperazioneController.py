@@ -11,7 +11,7 @@ from src.models.Operazione import Operazione
 from src.models.OperazioneDAO import OperazioneDAO
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 from src.models.OperatoreMagazzinoDAO import OperatoreMagazzinoDAO
-
+from src.models.MerceDAO import MerceDAO
 autotrasportatore_dao = AutotrasportatoreDAO()
 operazione_dao = OperazioneDAO()
 veicolo_dao = VeicoloDAO()
@@ -19,6 +19,10 @@ include_dao = IncludeDAO()
 operatoreMagazzino_dao = OperatoreMagazzinoDAO()
 issue_dao = IssueDAO()
 operatore_mobile_dao = OperatoreMobileDAO()
+
+merce_dao = MerceDAO()
+
+import MerceController
 
 def registrazioneOperazione(ingressoJson):
     try:
@@ -95,6 +99,8 @@ def ottieniOperazione(operazione_id):
         print(f"Errore durante l'ottenimento dell'operazione: {str(e)}")
         return {}
 
+
+
 def ottieniTutteOperazioniConDettagli():
     global operatore_mobile
     try:
@@ -114,6 +120,8 @@ def ottieniTutteOperazioniConDettagli():
                 # Ottieni le informazioni dell'include usando l'ID dell'operazione
                 include = include_dao.ottieni_include_per_operazione_id(operazione.id)
 
+                merce = MerceController.ottieniMerceId(include.merce_id)
+
                 issue = issue_dao.ottieni_issue_per_operazione_id(operazione.id)
                 if issue and issue.stato == "Aperta":
                     operatore_mobile = operatore_mobile_dao.ottieni_operatore_mobile_per_id(issue.operatoreMobile_id)
@@ -124,7 +132,9 @@ def ottieniTutteOperazioniConDettagli():
                     "autotrasportatore": autotrasportatore.__json__() if autotrasportatore else None,
                     "veicolo": veicolo.__json__() if veicolo else None,
                     "include": include.__json__() if include else None,
-                    "operatore_mobile": operatore_mobile.__json__() if operatore_mobile else None
+                    "operatore_mobile": operatore_mobile.__json__() if operatore_mobile else None,
+                    "issue": issue.__json__() if issue else None,
+                    "merce": merce
                 }
 
                 # Aggiungi il dizionario alla lista di risultati

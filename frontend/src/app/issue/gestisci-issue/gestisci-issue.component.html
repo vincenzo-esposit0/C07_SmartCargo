@@ -1,5 +1,4 @@
 <p-toast></p-toast>
-<p-dialog [maximizable]="false" [header]="'Nuova Issue'" [(visible)]="showDialog" [modal]="true" [dismissableMask]="true" styleClass="mx-3 sm:mx-0 sm:w-full md:w-11 lg:w-8" contentStyleClass="border-round-bottom border-top-1 surface-border p-0">
     <div class="p-8">
         <p style="font-size: 20px"><b>Informazioni Autotrasportatore</b></p>
         <br>
@@ -7,19 +6,19 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Nome</label>
-                <input [disabled]="true" type="text" placeholder="Nome" pInputText [(ngModel)]="issue.autotrasportatore.nome" />
+                <input [disabled]="true" type="text" placeholder="Nome" pInputText [(ngModel)]="data.autotrasportatore.nome" />
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Cognome</label>
-                <input [disabled]="true" type="text" placeholder="Cognome" pInputText [(ngModel)]="issue.autotrasportatore.cognome" />
+                <input [disabled]="true" type="text" placeholder="Cognome" pInputText [(ngModel)]="data.autotrasportatore.cognome" />
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Targa</label>
-                <input [disabled]="true" type="text" placeholder="Targa" pInputText [(ngModel)]="issue.autotrasportatore.targa" />
+                <input [disabled]="true" type="text" placeholder="Targa" pInputText [(ngModel)]="data.veicolo.targa" />
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Azienda</label>
-                <input [disabled]="true" type="text" placeholder="Azienda" pInputText [(ngModel)]="issue.autotrasportatore.azienda" />
+                <input [disabled]="true" type="text" placeholder="Azienda" pInputText [(ngModel)]="data.autotrasportatore.azienda" />
             </div>
 
             <p-divider class="col-12 field"></p-divider>
@@ -31,19 +30,24 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Tipologia Problema</label>
-                <p-dropdown [options]="tipiProblema" [(ngModel)]="issue.tipologiaProblema" optionLabel="nome" ></p-dropdown>
+                <p-dropdown [options]="tipiProblema" [(ngModel)]="data.issue.tipologiaProblema" optionLabel="nome" ></p-dropdown>
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Posizione</label>
-                <input type="text" placeholder="Posizione" pInputText [(ngModel)]="issue.posizione" />
+                <input type="text" placeholder="Posizione" pInputText [(ngModel)]="data.issue.posizione" />
             </div>
             <div class="col-12 field">
                 <label class="text-900 font-semibold">Descrizione</label>
-                <input type="text" placeholder="Descrizione" pInputText [(ngModel)]="issue.descrizione" />
+                <input type="text" placeholder="Descrizione" pInputText [(ngModel)]="data.issue.descrizione" />
             </div>
             <div class="col-6 field mt-0">
                 <label class="text-900 font-semibold">Date e Ora Inizio</label>
-                <p-calendar [(ngModel)]="issue.timestampApertura" [showTime]="true" [showSeconds]="true"></p-calendar>
+                <p-calendar [(ngModel)]="data.issue.timestampApertura" [showTime]="true" [showSeconds]="true"></p-calendar>
+            </div>
+
+            <div class="col-6 field mt-0" *ngIf="modalitaEdit">
+                <label class="text-900 font-semibold">Date e Ora Chiusura</label>
+                <p-calendar [(ngModel)]="data.issue.timestampChiusura" [showTime]="true" [showSeconds]="true"></p-calendar>
             </div>
             <p-divider class="col-12 field"></p-divider>
         </div>
@@ -59,10 +63,8 @@
         </div>
 
         <div class="col-12 flex justify-content-end mt-4">
-            <button pButton pRipple class="p-button-primary w-8rem" icon="pi pi-check" label="Test Aggiornamento" (click)="aggiornaTest()"></button>
-            <button pButton pRipple class="p-button-outlined w-8rem mr-3" icon="pi pi-times" label="Cancella" (click)="cancella()"></button>
-            <button pButton pRipple class="p-button-primary w-8rem mr-3" icon="pi pi-check" label="Salva" (click)="salvaNuovaIssue()"></button>
+            <button *ngIf="modalitaEdit" pButton pRipple class="p-button-primary w-14rem" icon="pi pi-check" label="Aggiorna/Chiudi" (click)="aggiorna()"></button>
+            <button *ngIf="!modalitaEdit" pButton pRipple class="p-button-primary w-8rem mr-3" icon="pi pi-check" label="Salva" (click)="salvaNuovaIssue()"></button>
         </div>
 
     </div>
-</p-dialog>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MonitoraggioService} from "../monitoraggio.service";
 import {Router} from "@angular/router";
+import {Table} from "primeng/table";
 
 @Component({
   selector: 'app-monitoraggio-operazioni-attive',
@@ -23,13 +24,17 @@ export class MonitoraggioOperazioniAttiveComponent {
     }
 
 
-    openDettagliOp(operazione: any) {
+    openDettagliOp(data: any) {
 
         this.router.navigate(['home/dettaglioOp'], {
             state: {
-                operazioneJson: operazione
+                dataJson: data
             }
         });
+
+    }
+
+    onGlobalFilter(dt1: Table, $event: Event) {
 
     }
 }

@@ -1,19 +1,16 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <h5>Filter Menu</h5>
+            <h5>Monitoraggio Operazioni Attive</h5>
             <p-table #dt1 [value]="operazioni" dataKey="id" [rows]="10" [loading]="false" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['']" responsiveLayout="scroll">
-               <!--
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
-                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
                         <span class="p-input-icon-left mb-2">
 							<i class="pi pi-search"></i>
 							<input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)" placeholder="Search Keyword" class="w-full"/>
 						</span>
                     </div>
                 </ng-template>
-                -->
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3rem">
@@ -52,6 +49,13 @@
                             </div>
                         </th>
 
+                        <th style="min-width: 10rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Issue
+                            </div>
+                        </th>
+
+
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
                                 Operatore Assegnato
@@ -66,29 +70,33 @@
 
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-operazione>
+                <ng-template pTemplate="body" let-data>
                     <tr>
                         <td>
-                            {{operazione.id}}
+                            {{data.operazione.id}}
                         </td>
                         <td>
-                            <span class="image-text ml-2">{{operazione.descrizione}}</span>
+                            <span class="image-text ml-2">{{data.operazione.descrizione}}</span>
                         </td>
                         <td>
                             <!--
                             <img [alt]="customer.representative.name" src="assets/demo/images/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle"/>
                             -->
-                            <span class="image-text ml-2">{{operazione.puntoDestinazione}}</span>
+                            <span class="image-text ml-2">{{data.operazione.puntoDestinazione}}</span>
                         </td>
-                        <td>{{operazione.stato}}</td>
 
-                        <td> </td>
+                        <td>{{data.operazione.stato}}</td>
 
-                        <td> </td>
+                        <td> {{data.autotrasportatore.nome+ ' '+data.autotrasportatore.cognome }}</td>
 
-                        <td> </td>
+                        <td> {{data.veicolo.targa}} </td>
 
-                        <td style="text-align: center"> <p-button icon="pi pi-info" (click)="openDettagliOp(operazione)"></p-button> </td>
+                        <td *ngIf="data.issue.stato == 'Chiuso'"> {{data.issue.stato}} </td>
+                        <td *ngIf="data.issue.stato != 'Chiuso'" style="text-color: red"> {{data.issue.stato}} </td>
+
+                        <td> {{data.operatore_mobile?.id}}</td>
+
+                        <td style="text-align: center"> <p-button icon="pi pi-info" (click)="openDettagliOp(data)"></p-button> </td>
 
                     </tr>
                 </ng-template>
