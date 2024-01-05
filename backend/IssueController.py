@@ -11,7 +11,8 @@ from flask import jsonify
 issue_dao = IssueDAO()
 operazione_dao = OperazioneDAO()
 autotrasportatore_dao = AutotrasportatoreDAO()
-qrcode_dao= QrCodeDAO()
+qrcode_dao = QrCodeDAO()
+qrcode_facade = QrCodeFacade()
 
 def nuovaIssue(issueJson):
     try:
@@ -31,13 +32,13 @@ def nuovaIssue(issueJson):
             operatoreMobile_id=issueJson["operatoreMobile_id"],
             operazione_id=issueJson["operazione_id"]
         )
-
+        """"
         #ricerca qrcode attraverso l'id dell'operazione
         operazione = operazione_dao.ottieni_operazione_per_id(issueJson["operazione_id"])
         autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
         qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
-
-        #qrcode, operazione = QrCodeFacade.ottieniQrcodeValidazione(issueJson["operazione_id"])
+        """
+        qrcode, operazione = qrcode_facade.ottieniQrcodeValidazione(issueJson["operazione_id"])
 
         #invalidazione qrcode
         qrcode.isValido = False

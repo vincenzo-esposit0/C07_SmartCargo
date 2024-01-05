@@ -90,3 +90,35 @@ def ottieniOperazione(operazione_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'operazione: {str(e)}")
         return {}
+
+def ottieniTutteOperazioniConDettagli():
+    try:
+        operazioni = operazione_dao.ottieni_tutte_operazioni()
+
+        if operazioni:
+            operazioniJson = []
+            for operazione in operazioni:
+                # Ottieni le informazioni dell'autotrasportatore usando l'ID
+                autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
+
+                # Ottieni le informazioni del veicolo usando l'ID
+                veicolo = veicolo_dao.ottieni_veicolo_per_id(operazione.veicolo_id)
+
+                # Crea un dizionario con le informazioni dell'operazione, autotrasportatore e veicolo
+                operazioneJson = {
+                    "operazione": operazione.__json__(),
+                    "autotrasportatore": autotrasportatore.__json__() if autotrasportatore else None,
+                    "veicolo": veicolo.__json__() if veicolo else None
+                }
+
+                # Aggiungi il dizionario alla lista di risultati
+                operazioniJson.append(operazioneJson)
+
+            # Restituisce la lista di JSON come risultato
+            return operazioniJson
+        else:
+            return {"message": "Operazioni non trovate"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
+        return {}
