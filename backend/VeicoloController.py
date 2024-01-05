@@ -24,7 +24,7 @@ def ottieniVeicolo(veicolo_id):
         veicolo = veicolo_dao.ottieni_veicolo_per_id(veicolo_id)
 
         if veicolo:
-            # Restituisci i dettagli del veicolo come JSON
+            # Restituisce i dettagli del veicolo come JSON
             return veicolo.__json__()
         else:
             return {"message": "Veicolo non trovato"}

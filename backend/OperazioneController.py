@@ -138,9 +138,3 @@ def ottieniTutteOperazioniConDettagli():
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {}
-
-# Chiamare la funzione e ottenere il risultato
-risultato = ottieniTutteOperazioniConDettagli()
-
-# Stampare il risultato o fare altre operazioni
-print(risultato)
