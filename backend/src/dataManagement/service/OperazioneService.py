@@ -59,25 +59,23 @@ def ottieniTutteOperazioniConDettagli():
                 veicolo = VeicoloService.ottieniVeicoloPerId(operazione.veicolo_id)
 
                 # Ottieni le informazioni dell'include usando l'ID dell'operazione
-                include = IncludeService.ottieniIncludePerId(operazione.id)
+                include = IncludeService.ottieniIncludePerIdOperazione(operazione.id)
 
                 # Ottieni le informazioni della merce usando l'ID
-                merce = MerceService.ottieniMercePerId(include.merce_id)
+                merce = MerceService.ottieniMercePerId(include["merce_id"])
 
                 # Ottieni le informazioni dell'issue usando l'ID dell'operazione così da individuare l'operatore mobile
-                issue = IssueService.ottieniIssuePerId(operazione.id)
-                if issue and issue.stato == "Aperta":
-                    operatore_mobile = OperatoreMobileService.ottieniOperatoreMobilePerId(issue.operatoreMobile_id)
+                issue = IssueService.ottieniIssuePerIdOperazione(operazione.id)
 
-                """
-                Crea un dizionario con le informazioni dell'operazione, autotrasportatore, veicolo, quantita merce e 
-                operatore mobile se vi è una issue aperta a questa operazione
-                """
+                if issue is not None and issue != {}:
+                    operatore_mobile = OperatoreMobileService.ottieniOperatoreMobilePerId(issue["operatoreMobile_id"])
+
+
                 operazioneJson = {
                     "operazione": operazione.__json__(),
                     "autotrasportatore": autotrasportatore if autotrasportatore else None,
                     "veicolo": veicolo if veicolo else None,
-                    "include": include if include else None,
+                    "include":  include,
                     "operatore_mobile": operatore_mobile if operatore_mobile else None,
                     "issue": issue if issue else None,
                     "merce": merce

@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import {IssueService} from "../../issue/issue.service";
 import {DatePipe} from "@angular/common";
 import {IngressoService} from "../ingresso.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-registra-ingresso',
   templateUrl: './registra-ingresso.component.html',
-  styleUrls: ['./registra-ingresso.component.scss']
+  styleUrls: ['./registra-ingresso.component.scss'],
+    providers:[MessageService]
 })
 export class RegistraIngressoComponent {
     ingresso: any = {autotrasportatore: {},veicolo:{},merci:{},operazione:{},destinazione:'',operatoreIngresso_id:0};
@@ -17,9 +19,11 @@ export class RegistraIngressoComponent {
     selectedOpMobile: any = {};
     tipiMerce:any;
     tipiModello:any;
-    constructor(private service: IngressoService, private datePipe: DatePipe) {}
+    constructor(private messageService: MessageService,private service: IngressoService, private datePipe: DatePipe) {}
 
     ngOnInit(){
+        this.ingresso.operazione.descrizione = "";
+        this.ingresso.autotrasportatore.nome = this.ingresso.autotrasportatore.cognome = this.ingresso.autotrasportatore.azienda = "";
         this.service.merci().subscribe(dati=> {
             this.tipiMerce=dati;
             console.log(dati);
@@ -36,6 +40,9 @@ export class RegistraIngressoComponent {
     }
 
     salvaIngresso() {
+
+        if(!this.checkFormValidity()) return;
+
         this.ingresso.operatoreIngresso_id=1;
         this.service.registrazioneIngresso(this.ingresso).subscribe(dati => {
             console.log(dati);
@@ -44,24 +51,44 @@ export class RegistraIngressoComponent {
         });
     }
 
+    checkFormValidity(): boolean {
 
-    aggiornaTest() {
+        const nomeRegex = /^[a-zA-Z\s.'-]{2,30}$/;
+        const cognomeRegex = /^[a-zA-Z\s.'-]{2,30}$/;
+        const aziendaRegex = /^[a-zA-Z0-9\s.'-]{3,30}$/;
 
-        /*
-        this.issue.id = 3
-        this.issue.stato = "Chiusa";
-        this.issue.operatoreSala_id = 1; //id dell'utente corrente
-        this.issue.operatoreMobile_id = this.selectedOpMobile.id; //da chiedere lato server la lista di tutti gli operatori
-        this.issue.operazione_id = 3;//operazione su cui hai cliccato da passare come parametro al componente gestisci issue
-        this.issue.timestampChiusura = "";
-        this.issue.timestampApertura = this.datePipe.transform(this.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
-        this.issue.tipologiaProblema = this.issue.tipologiaProblema.nome;
-        this.service.aggiornaIssue(this.issue).subscribe(dati => {
-            console.log(dati);
-        },error => {
-            console.log(error);
-        });
+        if (!nomeRegex.test(this.ingresso.autotrasportatore.nome) || this.ingresso.autotrasportatore.nome.trim().length <= 0) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Nome non valido' });
+            return false;
+        }
 
-         */
+        if (!cognomeRegex.test(this.ingresso.autotrasportatore.cognome) || this.ingresso.autotrasportatore.cognome.trim().length <= 0) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Cognome non valido' });
+            return false;
+
+        }
+        if (!aziendaRegex.test(this.ingresso.autotrasportatore.azienda) || this.ingresso.autotrasportatore.azienda.trim().length <= 0) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Azienda non valida' });
+            return false;
+
+        }
+
+        const qtaRegex = /^[1-9]\d*$/;
+
+        if (!qtaRegex.test(this.ingresso.merci.quantita)) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Quantità non valida' });
+            return false;
+        }
+
+        const maxLength250Regex = /^.{1,254}$/;
+
+        if (!maxLength250Regex.test(this.ingresso.operazione.descrizione) || this.ingresso.operazione.descrizione.trim().length <= 0) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Descrizione non valida!' });
+            return false;
+        }
+
+        return true;
+
     }
+
 }

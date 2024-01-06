@@ -21,6 +21,7 @@ export class DettaglioOperazioneComponent {
 
     //solo se nn ci sono già issue aperte sull'operazione
     showNewIssue : boolean = true;
+    noIssue: boolean = false;
 
     constructor(private router: Router) {
         if (this.router.getCurrentNavigation()?.extras.state) {
@@ -41,9 +42,14 @@ export class DettaglioOperazioneComponent {
 
         if(this.data){
             if(this.data.issue){
-                if(this.data.issue.stato == 'Aperta')
+                if(this.data.issue?.stato == 'Aperta'){
                     this.showNewIssue = false;
+                }
+                else if(this.data.issue?.stato == 'Chiusa' || this.data.issue?.stato == 'Chiuso'){
+                    this.noIssue = true;
+                }
             }
+            else this.data.issue = {};
         }
 
 

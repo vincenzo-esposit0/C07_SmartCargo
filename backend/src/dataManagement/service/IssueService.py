@@ -2,15 +2,15 @@ from src.models.IssueDAO import IssueDAO
 
 issue_dao = IssueDAO()
 
-def ottieniIssuePerId(issue_id):
+def ottieniIssuePerIdOperazione(op_id):
     try:
-        issue = issue_dao.ottieni_issue_per_id(issue_id)
+        issue = issue_dao.ottieni_issue_per_id_operazione(op_id)
 
         if issue:
             # Restituisci i dettagli dell'issue come JSON
             return issue.__json__()
         else:
-            return {"message": "Issue non trovata"}
+            return {}
 
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'issue: {str(e)}")

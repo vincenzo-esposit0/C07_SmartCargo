@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from src.models import Include
+from src.models.Include import Include
 from src.config.database import engine, Session
 
 class IncludeDAO:
@@ -21,9 +21,9 @@ class IncludeDAO:
         session.close()
         return includes
 
-    def ottieni_include_per_id(self, include_id):
+    def ottieni_include_per_id_operazione(self, op_id):
         session = self.Session()
-        include = session.query(Include).filter_by(id=include_id).first()
+        include = session.query(Include).filter_by(operazione_id=op_id).first()
         session.close()
         return include
 

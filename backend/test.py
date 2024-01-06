@@ -22,10 +22,12 @@ def registrazione():
     data = request.get_json()
     return RegistrazioneAutotrasportatoreController.registrazioneAutotrasportatore(data)
 
+
 @app.route('/issue/newIssue', methods=['POST'])
 def nuovaIssue():
     data = request.get_json()
     return IssueController.nuovaIssue(data)
+
 
 @app.route('/issue/updateIssue', methods=['POST'])
 def aggiornaIssue():
@@ -50,7 +52,6 @@ def getAutotrasportatoreId(id):
     return jsonify(result)
 
 
-
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -62,19 +63,23 @@ def ottieniOperazioni():
     result = OperazioneService.ottieniTutteOperazioniConDettagli()
     return jsonify(result)
 
+
 @app.route('/merci', methods=['GET'])
 def ottieniTutteMerci():
     result = MerceService.ottieniTutteMerci()
     return jsonify(result)
+
 
 @app.route('/modello', methods=['GET'])
 def ottieniTuttiVeicoli():
     result = VeicoloService.ottieniTuttiVeicoli()
     return jsonify(result)
 
+
 @app.route('/registrazioneIngresso', methods=['POST'])
 def registrazioneIngresso():
- 	data = request.get_json()
- 	return IngressoController.registrazioneIngresso(data)
+    data = request.get_json()
+    return IngressoController.registrazioneIngresso(data)
+
 
 app.run()
