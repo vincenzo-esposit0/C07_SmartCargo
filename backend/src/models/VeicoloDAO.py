@@ -17,13 +17,13 @@ class VeicoloDAO:
 
     def ottieni_tutti_veicoli(self):
         session = self.Session()
-        veicoli = session.query(Veicolo.Veicolo).all()
+        veicoli = session.query(Veicolo).all()
         session.close()
         return veicoli
 
     def ottieni_veicolo_per_id(self, veicolo_id):
         session = self.Session()
-        veicolo = session.query(Veicolo.Veicolo).filter_by(id=veicolo_id).first()
+        veicolo = session.query(Veicolo).filter_by(id=veicolo_id).first()
         session.close()
         return veicolo
 
@@ -35,7 +35,7 @@ class VeicoloDAO:
 
     def elimina_veicolo(self, veicolo_id):
         session = self.Session()
-        veicolo = session.query(Veicolo.Veicolo).filter_by(id=veicolo_id).first()
+        veicolo = session.query(Veicolo).filter_by(id=veicolo_id).first()
         session.delete(veicolo)
         session.commit()
         session.close()

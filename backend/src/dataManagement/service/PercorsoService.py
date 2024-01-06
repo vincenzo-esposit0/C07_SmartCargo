@@ -1,7 +1,7 @@
 from flask import jsonify
 
-from src.models.Percorso import Percorso
-from src.models.PercorsoDAO import PercorsoDAO
+from backend.src.models.Percorso import Percorso
+from backend.src.models.PercorsoDAO import PercorsoDAO
 
 # Creazione di un'istanza di PercorsoDAO
 percorso_dao = PercorsoDAO()
@@ -83,3 +83,21 @@ def aggiorna_percorso(percorso_id, nuovi_dati):
     except Exception as e:
         print(f"Errore durante l'aggiornamento del percorso: {str(e)}")
         return jsonify({"errore": "Errore durante l'aggiornamento del percorso"})
+
+def aggiornaPercorsoByAlgoritmo(percorsoId, latString, lonString):
+    try:
+        percorsoDaAggiornare = percorso_dao.ottieni_percorso_per_id(percorsoId)
+
+        if percorsoDaAggiornare:
+            percorsoDaAggiornare.puntiLatitudineCorretti = latString
+            percorsoDaAggiornare.puntiLongitudineCorretti = lonString
+
+            percorsoAggiornato = percorso_dao.aggiorna_percorso(percorsoDaAggiornare)
+
+            return {"messaggio": f"Percorso con ID {percorsoId} aggiornato con successo"}
+        else:
+            return {"errore": f"Nessun percorso trovato con ID {percorsoId}"}
+
+    except Exception as e:
+        print(f"Errore durante l'aggiornamento del percorso: {str(e)}")
+        return {"errore": "Errore durante l'aggiornamento del percorso"}

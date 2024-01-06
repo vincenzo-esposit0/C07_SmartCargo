@@ -14,7 +14,7 @@ export class RegistraIngressoComponent {
     ingresso: any = {autotrasportatore: {},veicolo:{},merci:{},operazione:{},destinazione:'',operatoreIngresso_id:0};
     tipiProblema: any[] = [{nome: "Anomalia Percorso"}, {nome: "Anomalia Carico/Scarico Merce"}];
     tipiOp: any[] = [{nome: "Consegna"}, {nome: "Trasporto"},{nome:"Distribuzione"}];
-    destinazioni: any[] = [{nome: "M1"}, {nome: "M2"}];
+    destinazioni: any[] = [{nome: "M1"}, {nome: "M2"}, {nome: "M3"}];
     operatoriMob: any = [{id: 1, nome: "Paolo"},{id: 2, nome: "Amedeo"}];
     selectedOpMobile: any = {};
     tipiMerce:any;

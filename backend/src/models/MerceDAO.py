@@ -17,13 +17,13 @@ class MerceDAO:
 
     def ottieni_tutte_merci(self):
         session = self.Session()
-        merci = session.query(Merce.Merce).all()
+        merci = session.query(Merce).all()
         session.close()
         return merci
 
     def ottieni_merce_per_id(self, merce_id):
         session = self.Session()
-        merce = session.query(Merce.Merce).filter_by(id=merce_id).first()
+        merce = session.query(Merce).filter_by(id=merce_id).first()
         session.close()
         return merce
 
@@ -36,7 +36,7 @@ class MerceDAO:
 
     def elimina_merce(self, merce_id):
         session = self.Session()
-        merce = session.query(Merce.Merce).filter_by(id=merce_id).first()
+        merce = session.query(Merce).filter_by(id=merce_id).first()
         session.delete(merce)
         session.commit()
         session.close()

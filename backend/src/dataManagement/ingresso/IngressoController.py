@@ -16,11 +16,22 @@ operazione_dao = OperazioneDAO()
 include_dao = IncludeDAO()
 
 def registrazioneIngresso(ingressoJson):
+    #global percordoId
     try:
+        percorsoId = None
+
         #scomposizione Json per l'operazione
         operazioneJson = ingressoJson["operazione"]
         tipoOperazioneJson = operazioneJson["tipo"]
         destinazioneOperazioneJson = ingressoJson["destinazione"]
+
+        #controllo per definire il percorso associato
+        if destinazioneOperazioneJson["nome"] == "M1":
+            percorsoId = 1
+        elif destinazioneOperazioneJson["nome"] == "M2":
+            percorsoId = 2
+        else:
+            percorsoId = 3
 
         #scomposizione Json per la merce
         merceJson = ingressoJson["merci"]
@@ -57,7 +68,7 @@ def registrazioneIngresso(ingressoJson):
             autotrasportatore_id=autotrasportatore.id,
             operatoreIngresso_id=ingressoJson["operatoreIngresso_id"],
             operatoreMagazzino_id=operatoreMagazzinoScelto.id,
-            percorso_id=1, #da rivedere
+            percorso_id=percorsoId,
             veicolo_id=modelloJson["id"]
         )
         result = operazione_dao.aggiungi_operazione(operazione)
