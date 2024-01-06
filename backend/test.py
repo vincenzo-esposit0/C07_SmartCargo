@@ -1,9 +1,12 @@
 from flask_cors import CORS
 from flask import Flask, request, jsonify
-import IssueController
-import LoginController
-import AutotrasportatoreController
-import OperazioneController
+
+from src.dataManagement.autenticazione import LoginController
+from src.dataManagement.issue import IssueController
+
+from src.dataManagement.service import OperazioneService
+from src.dataManagement.service import AutotrasportatoreService
+from src.dataManagement.service import IssueService
 
 
 app = Flask(__name__)
@@ -25,7 +28,7 @@ def aggiornaIssue():
 
 @app.route('/issue/getIssue/<id>', methods=['GET'])
 def ottieniIssue(id):
-    result = IssueController.ottieniIssue(id)
+    result = IssueService.ottieniIssue(id)
     return jsonify(result)
 
 
@@ -36,7 +39,7 @@ def getAllIssue():
 
 @app.route('/autotrasportatore/getById/<id>', methods=['GET'])
 def getAutotrasportatoreId(id):
-    result = AutotrasportatoreController.ottieniAutotrasportatore(id)
+    result = AutotrasportatoreService.ottieniAutotrasportatore(id)
     return jsonify(result)
 
 
@@ -49,7 +52,7 @@ def login():
 
 @app.route('/operazioni/getAll/', methods=['GET'])
 def ottieniOperazioni():
-    result = OperazioneController.ottieniTutteOperazioniConDettagli()
+    result = OperazioneService.ottieniTutteOperazioniConDettagli()
     return jsonify(result)
 
 app.run()
