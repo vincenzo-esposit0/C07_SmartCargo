@@ -19,7 +19,7 @@ def ottieniTuttiOperatoriSala():
         print(f"Errore durante l'ottenimento degli operatori Sala: {str(e)}")
         return {}
 
-def ottieniOperatoreSala(operatore_sala_id):
+def ottieniOperatoreSalaPerId(operatore_sala_id):
     try:
         operatore_sala = operatore_sala_dao.ottieni_operatore_sala_per_id(operatore_sala_id)
 

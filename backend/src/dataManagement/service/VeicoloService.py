@@ -19,7 +19,7 @@ def ottieniTuttiVeicoli():
         print(f"Errore durante l'ottenimento dei veicoli: {str(e)}")
         return {}
 
-def ottieniVeicolo(veicolo_id):
+def ottieniVeicoloPerId(veicolo_id):
     try:
         veicolo = veicolo_dao.ottieni_veicolo_per_id(veicolo_id)
 

@@ -19,7 +19,7 @@ def ottieniTuttiOperatoriMagazzino():
         print(f"Errore durante l'ottenimento degli operatori Magazzino: {str(e)}")
         return {}
 
-def ottieniOperatoreMagazzino(operatore_magazzino_id):
+def ottieniOperatoreMagazzinoPerId(operatore_magazzino_id):
     try:
         operatore_magazzino = operatore_magazzino_dao.ottieni_operatore_magazzino_per_id(operatore_magazzino_id)
 

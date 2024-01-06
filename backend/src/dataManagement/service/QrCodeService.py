@@ -19,7 +19,7 @@ def ottieniTuttiQRCodes():
         print(f"Errore durante l'ottenimento dei QRCodes: {str(e)}")
         return {}
 
-def ottieniQRCode(qrcode_id):
+def ottieniQRCodePerId(qrcode_id):
     try:
         qrcode = qrcode_dao.ottieni_qrCode_per_id(qrcode_id)
 

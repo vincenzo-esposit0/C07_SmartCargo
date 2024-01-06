@@ -19,7 +19,7 @@ def ottieniTuttiOperatoriIngresso():
         print(f"Errore durante l'ottenimento degli operatori Ingresso: {str(e)}")
         return {}
 
-def ottieniOperatoreIngresso(operatore_ingresso_id):
+def ottieniOperatoreIngressoPerId(operatore_ingresso_id):
     try:
         operatore_ingresso = operatore_ingresso_dao.ottieni_operatore_ingresso_per_id(operatore_ingresso_id)
 

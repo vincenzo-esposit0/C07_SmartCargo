@@ -19,7 +19,7 @@ def ottieniTuttiOperatoriMobile():
         print(f"Errore durante l'ottenimento degli operatori Mobile: {str(e)}")
         return {}
 
-def ottieniOperatoreMobile(operatore_mobile_id):
+def ottieniOperatoreMobilePerId(operatore_mobile_id):
     try:
         operatore_mobile = operatore_mobile_dao.ottieni_operatore_mobile_per_id(operatore_mobile_id)
 

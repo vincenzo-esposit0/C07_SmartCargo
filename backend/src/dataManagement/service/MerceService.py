@@ -36,7 +36,7 @@ def ottieniTutteMerci():
         print(f"Errore durante l'ottenimento delle merci: {str(e)}")
         return {}
 
-def ottieniMerceId(merce_id):
+def ottieniMercePerId(merce_id):
     try:
         merce = merce_dao.ottieni_merce_per_id(merce_id)
 

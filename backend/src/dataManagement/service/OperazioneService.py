@@ -1,5 +1,12 @@
 from src.models.OperazioneDAO import OperazioneDAO
 
+from src.dataManagement.service import MerceService
+from src.dataManagement.service import AutotrasportatoreService
+from src.dataManagement.service import VeicoloService
+from src.dataManagement.service import IncludeService
+from src.dataManagement.service import IssueService
+from src.dataManagement.service import OperatoreMobileService
+
 operazione_dao = OperazioneDAO()
 
 def ottieniTutteOperazioni():
@@ -19,7 +26,7 @@ def ottieniTutteOperazioni():
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {}
 
-def ottieniOperazione(operazione_id):
+def ottieniOperazionePerId(operazione_id):
     try:
         operazione = operazione_dao.ottieni_operazione_per_id(operazione_id)
 
@@ -46,20 +53,21 @@ def ottieniTutteOperazioniConDettagli():
                 operatore_mobile = None
 
                 # Ottieni le informazioni dell'autotrasportatore usando l'ID
-                autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
+                autotrasportatore = AutotrasportatoreService.ottieniAutotrasportatorePerId(operazione.autotrasportatore_id)
 
                 # Ottieni le informazioni del veicolo usando l'ID
-                veicolo = veicolo_dao.ottieni_veicolo_per_id(operazione.veicolo_id)
+                veicolo = VeicoloService.ottieniVeicoloPerId(operazione.veicolo_id)
 
                 # Ottieni le informazioni dell'include usando l'ID dell'operazione
-                include = include_dao.ottieni_include_per_operazione_id(operazione.id)
+                include = IncludeService.ottieniIncludePerId(operazione.id)
 
-                merce = MerceController.ottieniMerceId(include.merce_id)
+                # Ottieni le informazioni della merce usando l'ID
+                merce = MerceService.ottieniMercePerId(include.merce_id)
 
                 # Ottieni le informazioni dell'issue usando l'ID dell'operazione così da individuare l'operatore mobile
-                issue = issue_dao.ottieni_issue_per_operazione_id(operazione.id)
+                issue = IssueService.ottieniIssuePerId(operazione.id)
                 if issue and issue.stato == "Aperta":
-                    operatore_mobile = operatore_mobile_dao.ottieni_operatore_mobile_per_id(issue.operatoreMobile_id)
+                    operatore_mobile = OperatoreMobileService.ottieniOperatoreMobilePerId(issue.operatoreMobile_id)
 
                 """
                 Crea un dizionario con le informazioni dell'operazione, autotrasportatore, veicolo, quantita merce e 
@@ -67,11 +75,11 @@ def ottieniTutteOperazioniConDettagli():
                 """
                 operazioneJson = {
                     "operazione": operazione.__json__(),
-                    "autotrasportatore": autotrasportatore.__json__() if autotrasportatore else None,
-                    "veicolo": veicolo.__json__() if veicolo else None,
-                    "include": include.__json__() if include else None,
-                    "operatore_mobile": operatore_mobile.__json__() if operatore_mobile else None,
-                    "issue": issue.__json__() if issue else None,
+                    "autotrasportatore": autotrasportatore if autotrasportatore else None,
+                    "veicolo": veicolo if veicolo else None,
+                    "include": include if include else None,
+                    "operatore_mobile": operatore_mobile if operatore_mobile else None,
+                    "issue": issue if issue else None,
                     "merce": merce
                 }
 

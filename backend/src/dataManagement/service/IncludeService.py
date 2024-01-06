@@ -38,7 +38,7 @@ def ottieniTutteInclude():
         print(f"Errore durante l'ottenimento delle istanze per include: {str(e)}")
         return {}
 
-def ottieniIncludeId(include_id):
+def ottieniIncludePerId(include_id):
     try:
         include = include_dao.ottieni_include_per_id(include_id)
 
