@@ -4,11 +4,13 @@ from flask import Flask, request, jsonify
 from src.dataManagement.account import RegistrazioneAutotrasportatoreController
 from src.dataManagement.autenticazione import LoginController
 from src.dataManagement.issue import IssueController
+from src.dataManagement.ingresso import IngressoController
 
 from src.dataManagement.service import OperazioneService
 from src.dataManagement.service import AutotrasportatoreService
 from src.dataManagement.service import IssueService
-
+from src.dataManagement.service import MerceService
+from src.dataManagement.service import VeicoloService
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -59,5 +61,20 @@ def login():
 def ottieniOperazioni():
     result = OperazioneService.ottieniTutteOperazioniConDettagli()
     return jsonify(result)
+
+@app.route('/merci', methods=['GET'])
+def ottieniTutteMerci():
+    result = MerceService.ottieniTutteMerci()
+    return jsonify(result)
+
+@app.route('/modello', methods=['GET'])
+def ottieniTuttiVeicoli():
+    result = VeicoloService.ottieniTuttiVeicoli()
+    return jsonify(result)
+
+@app.route('/registrazioneIngresso', methods=['POST'])
+def registrazioneIngresso():
+ 	data = request.get_json()
+ 	return IngressoController.registrazioneIngresso(data)
 
 app.run()

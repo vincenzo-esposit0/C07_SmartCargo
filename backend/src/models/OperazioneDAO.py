@@ -10,6 +10,7 @@ class OperazioneDAO:
         session = self.Session()
         session.add(operazione)
         session.commit()
+        session.refresh(operazione)
         session.close()
         return operazione
 

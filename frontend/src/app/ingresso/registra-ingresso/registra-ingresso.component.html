@@ -24,16 +24,16 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Tipologia</label>
-                <p-dropdown [options]="tipiMerce" [(ngModel)]="ingresso.merci.tipo" optionLabel="nome" ></p-dropdown>
+                <p-dropdown [options]="tipiMerce" [(ngModel)]="ingresso.merci.tipo" optionLabel="tipo" ></p-dropdown>
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Quantità</label>
                 <input type="number" placeholder="Quantità" pInputText [(ngModel)]="ingresso.merci.quantita" />
             </div>
-            <div class="col-12 field">
+            <!--<div class="col-12 field">
                 <label class="text-900 font-semibold">Descrizione</label>
                 <textarea type="text" placeholder="Descrizione Merce" pInputTextarea [(ngModel)]="ingresso.merci.descrizione" ></textarea>
-            </div>
+            </div>-->
             <p-divider class="col-12 field"></p-divider>
         </div>
 
@@ -44,7 +44,7 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Modello</label>
-                <p-dropdown [options]="tipiMerce" [(ngModel)]="ingresso.veicolo.modello" optionLabel="nome" ></p-dropdown>
+                <p-dropdown [options]="tipiModello" [(ngModel)]="ingresso.veicolo.modello" optionLabel="descrizione" ></p-dropdown>
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Targa</label>

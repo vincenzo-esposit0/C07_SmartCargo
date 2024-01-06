@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IssueService} from "../../issue/issue.service";
 import {DatePipe} from "@angular/common";
+import {IngressoService} from "../ingresso.service";
 
 @Component({
   selector: 'app-registra-ingresso',
@@ -9,19 +10,24 @@ import {DatePipe} from "@angular/common";
 })
 export class RegistraIngressoComponent {
     ingresso: any = {autotrasportatore: {},veicolo:{},merci:{},operazione:{},destinazione:'',operatoreIngresso_id:0};
-
-
     tipiProblema: any[] = [{nome: "Anomalia Percorso"}, {nome: "Anomalia Carico/Scarico Merce"}];
-    tipiMerce: any[] = [{id:1,nome: "Pomodori"}, {id:2,nome: "Melenzane"}];
-    tipiModello: any[] = [{nome: "Camion"}, {nome: "Rimorchio"}];
-    tipiOp: any[] = [{nome: "Carico"}, {nome: "Scarico"}];
+    tipiOp: any[] = [{nome: "Consegna"}, {nome: "Trasporto"},{nome:"Distribuzione"}];
     destinazioni: any[] = [{nome: "M1"}, {nome: "M2"}];
     operatoriMob: any = [{id: 1, nome: "Paolo"},{id: 2, nome: "Amedeo"}];
     selectedOpMobile: any = {};
-
-    constructor(private service: IssueService, private datePipe: DatePipe) {}
+    tipiMerce:any;
+    tipiModello:any;
+    constructor(private service: IngressoService, private datePipe: DatePipe) {}
 
     ngOnInit(){
+        this.service.merci().subscribe(dati=> {
+            this.tipiMerce=dati;
+            console.log(dati);
+        });
+        this.service.modello().subscribe(dati=> {
+            this.tipiModello=dati;
+            console.log(dati);
+        });
     }
 
     cancella() {
@@ -31,11 +37,16 @@ export class RegistraIngressoComponent {
 
     salvaIngresso() {
         this.ingresso.operatoreIngresso_id=1;
-        console.log(JSON.stringify(this.ingresso));
+        this.service.registrazioneIngresso(this.ingresso).subscribe(dati => {
+            console.log(dati);
+        },error => {
+            console.log(error);
+        });
     }
 
 
     aggiornaTest() {
+
         /*
         this.issue.id = 3
         this.issue.stato = "Chiusa";
