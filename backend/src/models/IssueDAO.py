@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from src.models import Issue
+from src.models.Issue import Issue
 from src.config.database import engine, Session
 
 class IssueDAO:
@@ -16,13 +16,20 @@ class IssueDAO:
 
     def ottieni_tutte_issues(self):
         session = self.Session()
-        issues = session.query(Issue.Issue).all()
+        issues = session.query(Issue).all()
         session.close()
         return issues
 
     def ottieni_issue_per_id(self, issue_id):
         session = self.Session()
-        issue = session.query(Issue.Issue).filter_by(id=issue_id).first()
+        issue = session.query(Issue).filter_by(id=issue_id).first()
+        session.close()
+        return issue
+
+
+    def ottieni_issue_per_id_operazione(self, op_id):
+        session = self.Session()
+        issue = session.query(Issue).filter_by(operazione_id=op_id).first()
         session.close()
         return issue
 
@@ -36,13 +43,13 @@ class IssueDAO:
 
     def elimina_issue(self, issue_id):
         session = self.Session()
-        issue = session.query(Issue.Issue).filter_by(id=issue_id).first()
+        issue = session.query(Issue).filter_by(id=issue_id).first()
         session.delete(issue)
         session.commit()
         session.close()
 
-    def ottieni_issue_per_operazione_id(self, operazione_id):
+    def ottieni_issue_per_id(self, id):
         session = self.Session()
-        issue = session.query(Issue.Issue).filter_by(operazione_id=operazione_id).first()
+        issue = session.query(Issue).filter_by(id=id).first()
         session.close()
         return issue

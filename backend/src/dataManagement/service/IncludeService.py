@@ -38,9 +38,9 @@ def ottieniTutteInclude():
         print(f"Errore durante l'ottenimento delle istanze per include: {str(e)}")
         return {}
 
-def ottieniIncludePerId(include_id):
+def ottieniIncludePerIdOperazione(op_id):
     try:
-        include = include_dao.ottieni_include_per_id(include_id)
+        include = include_dao.ottieni_include_per_id_operazione(op_id)
 
         if include:
             # Restituisci i dettagli della include come JSON

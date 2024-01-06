@@ -40,12 +40,12 @@
                 <label class="text-900 font-semibold">Descrizione</label>
                 <input type="text" placeholder="Descrizione" pInputText [(ngModel)]="data.issue.descrizione" />
             </div>
-            <div class="col-6 field mt-0">
+            <div class="col-6 field mt-0" *ngIf="!modalitaEdit">
                 <label class="text-900 font-semibold">Date e Ora Inizio</label>
                 <p-calendar [(ngModel)]="data.issue.timestampApertura" [showTime]="true" [showSeconds]="true"></p-calendar>
             </div>
 
-            <div class="col-6 field mt-0" *ngIf="modalitaEdit">
+            <div class="col-6 field mt-0" *ngIf="false">
                 <label class="text-900 font-semibold">Date e Ora Chiusura</label>
                 <p-calendar [(ngModel)]="data.issue.timestampChiusura" [showTime]="true" [showSeconds]="true"></p-calendar>
             </div>

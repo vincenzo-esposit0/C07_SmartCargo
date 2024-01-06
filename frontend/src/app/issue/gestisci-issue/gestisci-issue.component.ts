@@ -1,16 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {IssueService} from "../issue.service";
 import {UtenteService} from "../../utente/utente.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-gestisci-issue',
   templateUrl: './gestisci-issue.component.html',
-  styleUrls: ['./gestisci-issue.component.scss']
+  styleUrls: ['./gestisci-issue.component.scss'],
+    providers:[MessageService]
 })
 export class GestisciIssueComponent {
     showDialog: boolean = true;
-    issue: any = {autotrasportatore: {}};
+    issue: any = {};
     tipiProblema: any[] = [{nome: "Anomalia Percorso"}, {nome: "Anomalia Carico/Scarico Merce"}];
     operatoriMob: any = [{id: 1, nome: "Paolo"},{id: 2, nome: "Amedeo"}];
     selectedOpMobile: any = {};
@@ -18,13 +20,26 @@ export class GestisciIssueComponent {
     @Input() data: any = {};
     modalitaEdit: boolean = false; //significa che già esiste un issue
 
-    constructor(private service: IssueService, private datePipe: DatePipe, private utenteService : UtenteService) {}
+    @Output() disableDialog = new EventEmitter<any>();
+
+    constructor(private messageService: MessageService,private service: IssueService, private datePipe: DatePipe, private utenteService : UtenteService) {}
 
     ngOnInit(){
 
+        console.log(this.data);
+        /*
+
+         */
         if(this.data){
             if(this.data.issue){
-                this.modalitaEdit = true;
+                if(this.data.issue?.stato == 'Aperta' || this.data.issue?.stato == 'Aperto')
+                    this.modalitaEdit = true;
+                else if(this.data.issue.id === undefined || this.data.issue.id == null){
+                    this.data.issue = {};
+                    this.data.issue.timestampApertura = new Date();
+                    this.data.issue.posizione = "37.7749, -122.4194";
+                    this.data.issue.descrizione = ""
+                }
             }
         }
 
@@ -38,35 +53,81 @@ export class GestisciIssueComponent {
 
     salvaNuovaIssue() {
 
-        //dati fake to-do
-        this.issue.stato = "Aperta";
-        this.issue.operatoreSala_id = 1; //id dell'utente corrente
-        this.issue.operatoreMobile_id = this.selectedOpMobile.id; //da chiedere lato server la lista di tutti gli operatori
-        this.issue.operazione_id = 3;//operazione su cui hai cliccato da passare come parametro al componente gestisci issue
-        this.issue.timestampChiusura = "";
-        this.issue.timestampApertura = this.datePipe.transform(this.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
-        this.issue.tipologiaProblema = this.issue.tipologiaProblema.nome;
-        this.service.inviaIssue(this.issue).subscribe(dati => {
+        if(!this.checkFormValidity()) return;
+
+        this.data.issue.stato = "Aperta";
+        this.data.issue.operatoreSala_id = 1; //dovrei prenderlo dal profilo corrente
+        this.data.issue.operazione_id = this.data.operazione.id;
+
+        this.data.issue.timestampApertura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
+        this.data.issue.timestampChiusura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
+
+        this.data.issue.operatoreMobile_id = this.selectedOpMobile.id;
+
+        console.log(this.data.issue);
+        this.data.issue.tipologiaProblema = this.data.issue.tipologiaProblema.nome
+        this.service.inviaIssue(this.data.issue).subscribe(dati => {
            console.log(dati);
+            this.disableDialog.emit(false);
+            this.showDialog = false;
         },error => {
+            this.showDialog = false;
+            this.disableDialog.emit(false);
             console.log(error);
         });
     }
 
 
     aggiorna() {
-        this.issue.id = this.data.issue.id;
-        this.issue.stato = "Chiusa";
-        this.issue.operatoreSala_id = 1; //id dell'utente corrente
-        this.issue.operatoreMobile_id = this.selectedOpMobile.id; //da chiedere lato server la lista di tutti gli operatori
-        this.issue.operazione_id = this.data.operazione.id;//operazione su cui hai cliccato da passare come parametro al componente gestisci issue
-        this.issue.timestampChiusura = "";
-        this.issue.timestampApertura = this.datePipe.transform(this.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
-        this.issue.tipologiaProblema = this.data.issue.tipologiaProblema;
-        this.service.aggiornaIssue(this.issue).subscribe(dati => {
+
+        if(!this.checkFormValidity()) return;
+        this.data.issue.stato = "Chiusa";
+        this.data.issue.operatoreSala_id = 1; //dovrei prenderlo dal profilo corrente
+        this.data.issue.operazione_id = this.data.operazione.id;
+
+        this.data.issue.timestampApertura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
+        this.data.issue.timestampChiusura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
+
+
+        this.data.issue.operatoreMobile_id = this.selectedOpMobile.id;
+        this.data.issue.tipologiaProblema = this.data.issue.tipologiaProblema.nome
+        this.service.aggiornaIssue(this.data.issue).subscribe(dati => {
             console.log(dati);
+            this.showDialog = false;
+            this.disableDialog.emit(false);
         },error => {
+            this.showDialog = false;
             console.log(error);
+            this.disableDialog.emit(false);
         });
     }
+
+
+
+    checkFormValidity(): boolean {
+        const posizoneRegex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*[,]\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
+
+        const input = this.data.issue.posizione;
+
+        if (!posizoneRegex.test(input)) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Coordinate Posizione non valide' });
+            return false;
+        }
+
+        const maxLength250Regex = /^.{1,254}$/;
+
+        if (!maxLength250Regex.test(this.data.issue.descrizione) || this.data.issue.descrizione.trim().length <= 0) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Descrizione non valida!' });
+            return false;
+        }
+
+
+        return true;
+
+    }
+
+
+
+
+
 }

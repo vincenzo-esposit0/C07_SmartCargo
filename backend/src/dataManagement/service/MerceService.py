@@ -19,6 +19,7 @@ def nuovaMerce(merceJson):
     except Exception as e:
         print(f"Errore durante l'aggiunta della merce: {str(e)}")
         return {}
+
 def ottieniTutteMerci():
     try:
         merci = merce_dao.ottieni_tutte_merci()
