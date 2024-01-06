@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="flex h-screen">
     <div class="w-full lg:w-4 h-full text-center px-6 py-6 flex flex-column justify-content-between">
         <img [src]="'assets/layout/images/logo-dark.svg'" class="h-4rem mt-4" alt="diamond-layout" />
@@ -5,62 +6,51 @@
         <div class="flex flex-column align-items-center gap-4">
             <div class="mb-3">
                 <h2>Registrazione Autotrasportatore</h2>
-                <p>Registrati......</p>
             </div>
 
             <div class="flex flex-column gap-4">
-
-                <span class="p-input-icon-left w-full">
-                    <input id="nome"  [(ngModel)]="autotrasportatore.nome"  type="text" pInputText class="w-full md:w-25rem" placeholder="Nome">
+                <span class="p-input w-full">
+                    <input id="nome" [(ngModel)]="autotrasportatore.nome" type="text" pInputText class="w-full md:w-25rem" placeholder="Nome" pattern="^[A-zÀ-ù ‘-]{2,30}$">
                 </span>
-                <span class="p-input-icon-left w-full">
-                    <input id="cognome"  [(ngModel)]="autotrasportatore.cognome"  type="text" pInputText class="w-full md:w-25rem" placeholder="Cognome">
-                </span>
-
-                <span class="p-input-icon-left w-full">
-                    <input id="codiceFiscale"  [(ngModel)]="autotrasportatore.codiceFiscale"  type="text" pInputText class="w-full md:w-25rem" placeholder="Codice Fiscale">
+                <span class="p-input w-full">
+                    <input id="cognome" [(ngModel)]="autotrasportatore.cognome" type="text" pInputText class="w-full md:w-25rem" placeholder="Cognome" pattern="^[A-zÀ-ù ‘-]{2,30}$">
                 </span>
 
-                <span class="p-input-icon-left w-full">
-                    <input id="citta"  [(ngModel)]="autotrasportatore.citta"  type="text" pInputText class="w-full md:w-25rem" placeholder="Città">
+                <span class="p-input w-full">
+                    <input id="azienda" [(ngModel)]="autotrasportatore.azienda" type="text" pInputText class="w-full md:w-25rem" placeholder="Azienda" pattern="^[a-zA-Z0-9\s.'-]{3,30}$">
                 </span>
 
-                <span class="p-input-icon-left w-full">
-                    <p-calendar [(ngModel)]="autotrasportatore.dataNascita" ></p-calendar>
+                <span class="p-input w-full">
+                    <input id="codiceFiscale" [(ngModel)]="autotrasportatore.codiceFiscale" type="text" pInputText class="w-full md:w-25rem" placeholder="Codice Fiscale" pattern="^[A-Z]{6}\d{2}[ABCDEHLMPRST]\d{02}[A-Z]\d{03}[A-Z]$">
                 </span>
 
-                <span class="p-input-icon-left w-full">
-                    <input id="indirizzo"  [(ngModel)]="autotrasportatore.indirizzo"  type="text" pInputText class="w-full md:w-25rem" placeholder="Indirizzo">
+                <span class="p-input w-full">
+                    <p-calendar [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" [(ngModel)]="autotrasportatore.dataNascita" placeholder="Data Di Nascita" pattern="^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$"></p-calendar>
                 </span>
 
-                <span class="p-input-icon-left w-full">
-                    <input id="targa"  [(ngModel)]="autotrasportatore.targa"  type="text" pInputText class="w-full md:w-25rem" placeholder="Targa">
+                <span class="p-input w-full">
+                    <input id="indirizzo" [(ngModel)]="autotrasportatore.indirizzo" type="text" pInputText class="w-full md:w-25rem" placeholder="Indirizzo" pattern="^([a-zA-Zà-úÀ-Ú0-9\s.'-]+),\s*(\d+),\s*([a-zA-Zà-úÀ-Ú\s.'-]+),\s*([0-9]{5})$">
+                </span>
+
+                <span class="p-input w-full">
+                    <input id="citta" [(ngModel)]="autotrasportatore.citta" type="text" pInputText class="w-full md:w-25rem" placeholder="Città">
                 </span>
 
                 <span class="p-input-icon-left w-full">
                     <i class="pi pi-user"></i>
-                    <input id="email"  [(ngModel)]="autotrasportatore.email"  type="text" pInputText class="w-full md:w-25rem" placeholder="Email">
+                    <input id="email" [(ngModel)]="autotrasportatore.email" type="text" pInputText class="w-full md:w-25rem" placeholder="Email" pattern="^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,10}$">
                 </span>
                 <span class="p-input-icon-left w-full">
                     <i class="pi pi-lock"></i>
-                    <input id="password" type="password" [(ngModel)]="autotrasportatore.password" pInputText class="w-full md:w-25rem" placeholder="Password">
+                    <input id="password" type="password" [(ngModel)]="autotrasportatore.password" pInputText class="w-full md:w-25rem" placeholder="Password" pattern="^.{8,}$">
                 </span>
-                <!--
-                <div class="flex flex-wrap">
-                    <p-checkbox name="checkbox" value="val" [(ngModel)]="confirmed" styleClass="mr-2" [binary]="true"></p-checkbox>
-                    <label for="checkbox" class="text-color font-semibold mr-2">I have read the</label>
-                    <a class="text-color-secondary font-semibold cursor-pointer hover:text-primary cursor-pointer">Terms and Conditions</a>
-                </div>-->
-                <button pButton pRipple label="SIGN UP" class="w-full mb-4" [routerLink]="['/']"></button>
-                <span class="font-semibold text-color-secondary">Already have an account? <a class="font-semibold cursor-pointer primary-color">Login</a></span>
             </div>
         </div>
 
-        <p class="text-color-secondary font-semibold">A problem? <a href="#" class="primary-color">Click here</a> and let us help you.</p>
-    </div>
-    <div class="w-8 hidden lg:flex flex-column justify-content-between align-items-center px-6 py-6 bg-cover bg-norepeat" style="background-image: url('assets/demo/images/auth/bg-login.jpg')">
-        <div class="mt-auto mb-auto">
-            <span class="block text-white text-7xl font-semibold">Crea su <br/>SmartCargo<br/>il tuo account</span>
+        <div class="col-12 flex justify-content-end mt-4">
+            <button pButton pRipple class="p-button-primary w-8rem mr-3" icon="pi pi-check" label="Salva" (click)="inserisci()"></button>
         </div>
+    </div>
+    <div class="w-8 hidden lg:flex flex-column justify-content-between align-items-center px-6 py-6 bg-cover bg-norepeat" style="background-image: url('assets/layout/images/registrazioneAuto.jpg')">
     </div>
 </div>

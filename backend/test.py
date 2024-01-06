@@ -14,6 +14,10 @@ app.config["DEBUG"] = True
 CORS(app)
 
 
+@app.route('/registrazione', methods=['POST'])
+def registrazione():
+    data = request.get_json()
+    return AutotrasportatoreController.registrazioneAutotrasportatore(data)
 
 @app.route('/issue/newIssue', methods=['POST'])
 def nuovaIssue():

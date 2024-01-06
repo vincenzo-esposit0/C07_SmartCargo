@@ -25,8 +25,8 @@
             <div class="mb-3">
                 <h2>Accedi al tuo account</h2>
                  </div>
-            <input pInputText id="email" placeholder="Email" class="w-20rem" [(ngModel)]="username"/>
-            <p-password id="password" placeholder="Password" [feedback]="true" inputStyleClass="w-20rem" [(ngModel)]="password"></p-password>
+            <input pInputText id="email" placeholder="Email" class="w-20rem" [(ngModel)]="username" pattern="^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,10}$"/>
+            <p-password id="password" placeholder="Password" [feedback]="true" inputStyleClass="w-20rem" [(ngModel)]="password"  pattern="^.{8,}$"></p-password>
             <button pButton label="Continua" type="button" class="w-20rem" (click)="login($event)"></button>
         </div>
 
