@@ -1,5 +1,5 @@
 from src.models.UtenteRegistrato import OperatoreMagazzino
-from src.config.database import engine
+from src.config.database import engine, Session
 from sqlalchemy.orm import sessionmaker
 
 class OperatoreMagazzinoDAO:
@@ -10,7 +10,9 @@ class OperatoreMagazzinoDAO:
         session = self.Session()
         session.add(operatore_magazzino)
         session.commit()
+        session.refresh(operatore_magazzino)
         session.close()
+        return operatore_magazzino
 
     def ottieni_tutti_operatori_magazzino(self):
         session = self.Session()

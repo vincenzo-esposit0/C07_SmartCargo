@@ -10,7 +10,9 @@ class PercorsoDAO:
         session = self.Session()
         session.add(percorso)
         session.commit()
+        session.refresh(percorso)
         session.close()
+        return percorso
 
     def ottieni_tutti_percorsi(self):
         session = self.Session()

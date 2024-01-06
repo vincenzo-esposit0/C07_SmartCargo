@@ -11,6 +11,7 @@ class AutotrasportatoreDAO:
         session.add(autotrasportatore)
         session.commit()
         session.close()
+        return autotrasportatore
 
     def ottieni_tutti_autotrasportatori(self):
         session = self.Session()

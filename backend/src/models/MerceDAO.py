@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from src.models import Merce
+from src.models.Merce import Merce
 from src.config.database import engine, Session
 
 

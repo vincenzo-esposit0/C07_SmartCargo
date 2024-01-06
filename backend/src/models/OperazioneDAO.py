@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from src.config.database import engine
+from src.config.database import engine, Session
 from src.models.Operazione import Operazione
 
 class OperazioneDAO:

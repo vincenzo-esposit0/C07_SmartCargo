@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from src.models.UtenteRegistrato import OperatoreIngresso
-from src.config.database import engine
+from src.config.database import engine, Session
 
 class OperatoreIngressoDAO:
     def __init__(self):
@@ -10,7 +10,9 @@ class OperatoreIngressoDAO:
         session = self.Session()
         session.add(operatore_ingresso)
         session.commit()
+        session.refresh(operatore_ingresso)
         session.close()
+        return operatore_ingresso
 
     def ottieni_tutti_operatori_ingresso(self):
         session = self.Session()

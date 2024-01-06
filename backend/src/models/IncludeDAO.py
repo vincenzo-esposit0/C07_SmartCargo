@@ -8,8 +8,7 @@ class IncludeDAO:
 
     def aggiungi_include(self, include):
         session = self.Session()
-        nuovo_include = Include(operazione_id=include.operazione_id, merce_id=include.merce_id, quantita=include.quantita)
-        session.add(nuovo_include)
+        session.add(include)
         session.commit()
         session.refresh(include)
         session.close()
@@ -21,9 +20,9 @@ class IncludeDAO:
         session.close()
         return includes
 
-    def ottieni_include_per_id_operazione(self, op_id):
+    def ottieni_include_per_id(self, include_id):
         session = self.Session()
-        include = session.query(Include).filter_by(operazione_id=op_id).first()
+        include = session.query(Include).filter_by(id=include_id).first()
         session.close()
         return include
 

@@ -17,20 +17,27 @@ include_dao = IncludeDAO()
 
 def registrazioneIngresso(ingressoJson):
     try:
+        #scomposizione Json per l'operazione
         operazioneJson = ingressoJson["operazione"]
         tipoOperazioneJson = operazioneJson["tipo"]
         destinazioneOperazioneJson = ingressoJson["destinazione"]
 
+        #scomposizione Json per la merce
+        merceJson = ingressoJson["merci"]
+        tipoMerceJson = merceJson["tipo"]
+
+        #scomposizione Json per il veicolo
+        veicoloJson = ingressoJson["veicolo"]
+        modelloJson = veicoloJson["modello"]
+
+        #scomposizione Json per l'autotrasportatore
         autotrasportatoreJson = ingressoJson["autotrasportatore"]
+
+        #ricerca autotrasportatore per i parametri nome, cognome e azienda
         autotrasportatore = autotrasportatore_dao.get_autotrasportatore_per_ingresso(autotrasportatore_nome=autotrasportatoreJson["nome"],
                                                                                      autotrasportatore_cognome=autotrasportatoreJson["cognome"],
                                                                                      autotrasportatore_azienda=autotrasportatoreJson["azienda"])
 
-        merceJson = ingressoJson["merci"]
-        tipoMerceJson = merceJson["tipo"]
-
-        veicoloJson = ingressoJson["veicolo"]
-        modelloJson = veicoloJson["modello"]
         """
         veicolo = veicolo_dao.get_veicolo_per_ingresso(veicolo_modello=veicoloJson["modello"],
                                                        veicolo_targa=veicoloJson["targa"])
@@ -61,6 +68,7 @@ def registrazioneIngresso(ingressoJson):
             quantita=merceJson["quantita"]
         )
         include_dao.aggiungi_include(include)
+        print(type(result))
         return jsonify(result.__json__())
 
     except Exception as e:
