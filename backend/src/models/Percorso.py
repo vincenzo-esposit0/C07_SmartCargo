@@ -7,15 +7,16 @@ class Percorso(Base):
     __tablename__ = 'percorso'
 
     id = Column(Integer, primary_key=True)
-    puntiLatitudineCorretti = Column(Numeric(9, 6))
-    puntiLongitudineCorretti = Column(Numeric(9, 6))
-    puntiLatitudinePercorsi = Column(Numeric(9, 6))
-    puntiLongitudinePercorsi = Column(Numeric(9, 6))
-    def __init__(self, puntiLatitudineCorretti, puntiLongitudineCorretti, puntiLatitudinePercorsi, puntiLongitudinePercorsi):
-        self.puntiLatitudineCorretti = puntiLatitudineCorretti
-        self.puntiLongitudineCorretti = puntiLongitudineCorretti
+    puntiLatitudinePercorsi = Column(String(3000), nullable=False)
+    puntiLongitudinePercorsi = Column(String(3000), nullable=False)
+    puntiLatitudineCorretti = Column(String(3000))
+    puntiLongitudineCorretti = Column(String(3000))
+
+    def __init__(self, puntiLatitudinePercorsi, puntiLongitudinePercorsi, puntiLatitudineCorretti=None, puntiLongitudineCorretti=None):
         self.puntiLatitudinePercorsi = puntiLatitudinePercorsi
         self.puntiLongitudinePercorsi = puntiLongitudinePercorsi
+        self.puntiLatitudineCorretti = puntiLatitudineCorretti
+        self.puntiLongitudineCorretti = puntiLongitudineCorretti
 
     def __json__(self):
         return {
