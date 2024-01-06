@@ -1,6 +1,7 @@
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 
+from src.dataManagement.account import RegistrazioneAutotrasportatoreController
 from src.dataManagement.autenticazione import LoginController
 from src.dataManagement.issue import IssueController
 
@@ -17,7 +18,7 @@ CORS(app)
 @app.route('/registrazione', methods=['POST'])
 def registrazione():
     data = request.get_json()
-    return AutotrasportatoreController.registrazioneAutotrasportatore(data)
+    return RegistrazioneAutotrasportatoreController.registrazioneAutotrasportatore(data)
 
 @app.route('/issue/newIssue', methods=['POST'])
 def nuovaIssue():
@@ -32,7 +33,7 @@ def aggiornaIssue():
 
 @app.route('/issue/getIssue/<id>', methods=['GET'])
 def ottieniIssue(id):
-    result = IssueService.ottieniIssue(id)
+    result = IssueService.ottieniIssuePerId(id)
     return jsonify(result)
 
 
@@ -43,7 +44,7 @@ def getAllIssue():
 
 @app.route('/autotrasportatore/getById/<id>', methods=['GET'])
 def getAutotrasportatoreId(id):
-    result = AutotrasportatoreService.ottieniAutotrasportatore(id)
+    result = AutotrasportatoreService.ottieniAutotrasportatorePerId(id)
     return jsonify(result)
 
 
