@@ -6,7 +6,7 @@ Base = declarative_base()
 class Percorso(Base):
     __tablename__ = 'percorso'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     puntiLatitudinePercorsi = Column(String(3000), nullable=False)
     puntiLongitudinePercorsi = Column(String(3000), nullable=False)
     puntiLatitudineCorretti = Column(String(3000))

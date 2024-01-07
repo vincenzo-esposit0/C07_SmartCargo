@@ -6,7 +6,7 @@ Base = declarative_base()
 class Operazione(Base):
     __tablename__ = 'operazione'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     tipo = Column(String(32), nullable=False)
     descrizione = Column(String(255))
     puntoDestinazione = Column(String(32), nullable=False)

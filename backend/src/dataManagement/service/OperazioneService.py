@@ -6,6 +6,7 @@ from src.dataManagement.service import VeicoloService
 from src.dataManagement.service import IncludeService
 from src.dataManagement.service import IssueService
 from src.dataManagement.service import OperatoreMobileService
+from src.dataManagement.service import PercorsoService
 
 operazione_dao = OperazioneDAO()
 
@@ -67,6 +68,9 @@ def ottieniTutteOperazioniConDettagli():
                 # Ottieni le informazioni dell'issue usando l'ID dell'operazione così da individuare l'operatore mobile
                 issue = IssueService.ottieniIssuePerIdOperazione(operazione.id)
 
+                #Ottieni le informazioni sul percorso usando l'id
+                percorso = PercorsoService.ottieniPercorsoPerId(operazione.percorso_id)
+
                 if issue is not None and issue != {}:
                     operatore_mobile = OperatoreMobileService.ottieniOperatoreMobilePerId(issue["operatoreMobile_id"])
 
@@ -78,7 +82,8 @@ def ottieniTutteOperazioniConDettagli():
                     "include":  include,
                     "operatore_mobile": operatore_mobile if operatore_mobile else None,
                     "issue": issue if issue else None,
-                    "merce": merce
+                    "merce": merce,
+                    "percorso": percorso
                 }
 
                 # Aggiungi il dizionario alla lista di risultati
