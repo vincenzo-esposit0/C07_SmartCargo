@@ -52,8 +52,8 @@ def detection(df, soglia): #la soglia rappresenta la distanza massima consentita
     return ok_path_df
 
 # Costruisco il DataFrame tramite il DataSet di Training
-df = pd.read_excel(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\training\22July_porto.xlsx')
-df.to_csv(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\training.csv', index=None, header=True)
+df = pd.read_excel('training/22July_porto.xlsx')
+df.to_csv('training.csv', index=None, header=True)
 
 #prendo le prime istanze per vedere se effettivamente sto costruendo bene il DataFrame
 df.head()
@@ -104,7 +104,7 @@ rep_points.tail()
 
 # Estraggo la riga dal set di dati originali (per prendere le restanti informazioni su ciascuna coppia di coordinate) in cui lat/lon corrisponde alla lat/lon di ciascuna riga dei punti rappresentativi
 rs = rep_points.apply(lambda row: df[(df['latitude'] == row['lat']) & (df['longitude'] == row['lon'])].iloc[0], axis=1)
-rs.to_csv(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\DBSCAN.csv', encoding='utf-8')
+rs.to_csv('DBSCAN.csv', encoding='utf-8')
 rs.tail()
 
 # Mostro l'insieme di cluster che indicano il percorso ammesso
@@ -118,8 +118,8 @@ ax.legend([df_scatter, rs_scatter], ['Full set', 'Reduced set'], loc='upper left
 plt.show()
 
 # Percorso di test 1
-df_test_1 = pd.read_excel(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\test\22JulyDOS.xlsx')
-df_test_1.to_csv(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\test_1.csv', index=None, header=True)
+df_test_1 = pd.read_excel('test/22JulyDOS.xlsx')
+df_test_1.to_csv('test_1.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
 ok_path_df = detection(df_test_1, 100)
@@ -150,8 +150,8 @@ messaggio = PercorsoService.aggiornaPercorsoByAlgoritmo(1, latitudini_string, lo
 print(messaggio)
 
 # Percorso di test 2
-df_test_2 = pd.read_excel(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\test\23JulyDOS.xlsx')
-df_test_2.to_csv(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\test_2.csv', index=None, header=True)
+df_test_2 = pd.read_excel('test/23JulyDOS.xlsx')
+df_test_2.to_csv('test_2.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
 ok_path_df2 = detection(df_test_2, 100)
@@ -168,8 +168,8 @@ messaggio = PercorsoService.aggiornaPercorsoByAlgoritmo(2, latitudini_string, lo
 print(messaggio)
 
 # Percorso di test 3
-df_test_3 = pd.read_excel(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\test\29JulyDOS.xlsx')
-df_test_3.to_csv(r'C:\Users\maria\IdeaProjects\C07_SmartCargo\backend\src\config\test_3.csv', index=None, header=True)
+df_test_3 = pd.read_excel('test/29JulyDOS.xlsx')
+df_test_3.to_csv('test_3.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
 ok_path_df3 = detection(df_test_3, 100)
