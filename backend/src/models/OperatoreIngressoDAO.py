@@ -40,12 +40,8 @@ class OperatoreIngressoDAO:
         session.close()
 
     def is_opIngresso_registrato(self, email):
-        """
-        Verifica se un autotrasportatore è già registrato sulla base dell'email.
-        :param email: L'email dell'autotrasportatore da verificare.
-        :return: True se l'autotrasportatore è già registrato, False altrimenti.
-        """
+
         session = self.Session()
-        autotrasportatore = session.query(OperatoreIngresso).filter_by(email=email).first()
+        opIngresso = session.query(OperatoreIngresso).filter_by(email=email).first()
         session.close()
-        return autotrasportatore is not None
+        return opIngresso is not None

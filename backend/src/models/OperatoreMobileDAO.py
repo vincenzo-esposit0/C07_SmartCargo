@@ -38,3 +38,10 @@ class OperatoreMobileDAO:
         session.delete(operatore_sala)
         session.commit()
         session.close()
+
+    def is_opMobile_registrato(self, email):
+
+        session = self.Session()
+        opMobile = session.query(OperatoreMobile).filter_by(email=email).first()
+        session.close()
+        return opMobile is not None

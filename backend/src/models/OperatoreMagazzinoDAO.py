@@ -38,3 +38,11 @@ class OperatoreMagazzinoDAO:
         session.delete(operatore_magazzino)
         session.commit()
         session.close()
+
+
+    def is_opMagazzino_registrato(self, email):
+
+        session = self.Session()
+        opMagazzino = session.query(OperatoreMagazzino).filter_by(email=email).first()
+        session.close()
+        return opMagazzino is not None
