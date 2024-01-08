@@ -7,8 +7,10 @@ from src.dataManagement.service import IncludeService
 from src.dataManagement.service import IssueService
 from src.dataManagement.service import OperatoreMobileService
 from src.dataManagement.service import PercorsoService
+from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 operazione_dao = OperazioneDAO()
+autotrasportatore_dao = AutotrasportatoreDAO()
 
 def ottieniTutteOperazioni():
     try:
@@ -96,4 +98,11 @@ def ottieniTutteOperazioniConDettagli():
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
+        return {}
+
+def getOpByFilter(autotrasportatoreNome, autotrasportatoreCognome, dataInizio, dataFine, statoIssue):
+    try:
+        autotrasportatore = AutotrasportatoreService.AutotrasportatoreByFilter(autotrasportatoreNome, autotrasportatoreCognome)
+    except Exception as e:
+        print(f"Errore durante il recupero delle operazioni: {str(e)}")
         return {}

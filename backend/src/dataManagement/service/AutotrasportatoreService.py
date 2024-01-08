@@ -1,4 +1,4 @@
-from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
+from backend.src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 autotrasportatore_dao = AutotrasportatoreDAO()
 
@@ -46,5 +46,32 @@ def AutotrasportatoreByIdQrCode(qrCode_id):
         print(f"Errore durante l'ottenimento dell'autotrasportatore: {str(e)}")
         return {}
 
-autotrasportatore = AutotrasportatoreByIdQrCode(1)
-print(autotrasportatore)
+def AutotrasportatoreByFilter(nome, cognome):
+    try:
+        autotrasportatore = autotrasportatore_dao.getAutotrasportatoreByFilter(nome, cognome)
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dell'autotrasportatore: {str(e)}")
+        return {}
+
+"""def allAut(nome, cognome):
+    try:
+        aut_trovati=[]
+        results = autotrasportatore_dao.ottieni_tutti_autotrasportatori()
+
+        if results:
+            for a in results:
+                if a.nome == nome or a.cognome == cognome:
+                    aut_trovati.append(a)
+
+        if aut_trovati:
+            return aut_trovati
+        else:
+            print(f"Errore durante l'ottenimento dell'autotrasportatore")
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dell'autotrasportatore: {str(e)}")
+        return {}
+
+    prova = allAut("Marco", "Rossi")
+    print(prova)"""

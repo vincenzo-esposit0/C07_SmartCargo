@@ -1,5 +1,5 @@
-from src.models.UtenteRegistrato import Autotrasportatore
-from src.config.database import engine
+from backend.src.models.UtenteRegistrato import Autotrasportatore
+from backend.src.config.database import engine
 from sqlalchemy.orm import sessionmaker
 
 class AutotrasportatoreDAO:
@@ -62,3 +62,11 @@ class AutotrasportatoreDAO:
         autotrasportatore = session.query(Autotrasportatore).filter_by(qrCode_id=qrCodeId).first()
         session.close()
         return autotrasportatore
+
+    def getAutotrasportatoreByFilter(self, nome, cognome):
+        session = self.Session()
+        autotrasportatori = session.query(Autotrasportatore).filter_by(nome=nome, cognome=cognome).all()
+        session.close()
+        return autotrasportatori
+
+
