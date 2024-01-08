@@ -1,7 +1,7 @@
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 
-from src.dataManagement.account import RegistrazioneAutotrasportatoreController
+from src.dataManagement.account import AccountAutotrasportatoreController
 from src.dataManagement.autenticazione import LoginController
 from src.dataManagement.issue import IssueController
 from src.dataManagement.ingresso import IngressoController
@@ -20,7 +20,7 @@ CORS(app)
 @app.route('/registrazione', methods=['POST'])
 def registrazione():
     data = request.get_json()
-    return RegistrazioneAutotrasportatoreController.registrazioneAutotrasportatore(data)
+    return AccountAutotrasportatoreController.registrazioneAutotrasportatore(data)
 
 
 @app.route('/issue/newIssue', methods=['POST'])
