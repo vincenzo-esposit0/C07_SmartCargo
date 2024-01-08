@@ -31,6 +31,7 @@ class OperatoreIngressoDAO:
         session.merge(operatore_ingresso)
         session.commit()
         session.close()
+        return operatore_ingresso
 
     def elimina_operatore_ingresso(self, operatore_ingresso_id):
         session = self.Session()

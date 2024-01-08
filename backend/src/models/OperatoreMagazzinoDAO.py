@@ -31,6 +31,7 @@ class OperatoreMagazzinoDAO:
         session.merge(operatore_magazzino)
         session.commit()
         session.close()
+        return operatore_magazzino
 
     def elimina_operatore_magazzino(self, operatore_magazzino_id):
         session = self.Session()
