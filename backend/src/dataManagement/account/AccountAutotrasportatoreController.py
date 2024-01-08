@@ -34,7 +34,11 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
         )
 
         result = autotrasportatore_dao.aggiungi_autotrasportatore(autotrasportatore)
-        return jsonify(result.__json__())
+
+        if result:
+            return jsonify({'message': 'Autotrasportatore registrato con successo', 'success': True, 'autotrasportatore': result.__json__()})
+        else:
+            return jsonify({'message': 'Errore durante la registrazione dell\'autotrasportatore', 'success': False})
 
     except Exception as e:
         print(f"Errore durante la registrazione di un autotrasportatore: {str(e)}")
