@@ -56,3 +56,9 @@ class AutotrasportatoreDAO:
         autotrasportatore = session.query(Autotrasportatore).filter_by(email=email).first()
         session.close()
         return autotrasportatore is not None
+
+    def ottieni_Autotrasportatore_By_IdQrCode(self, qrCodeId):
+        session = self.Session()
+        autotrasportatore = session.query(Autotrasportatore).filter_by(qrCode_id=qrCodeId).first()
+        session.close()
+        return autotrasportatore

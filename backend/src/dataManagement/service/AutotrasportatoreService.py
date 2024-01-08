@@ -32,3 +32,19 @@ def ottieniAutotrasportatorePerId(autotrasportatore_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'autotrasportatore: {str(e)}")
         return {}
+
+def AutotrasportatoreByIdQrCode(qrCode_id):
+    try:
+        autotrasportatore = autotrasportatore_dao.ottieni_Autotrasportatore_By_IdQrCode(qrCode_id)
+
+        if autotrasportatore:
+            return autotrasportatore.__json__()
+        else:
+            return {"message": "Autotrasportatore non trovato"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dell'autotrasportatore: {str(e)}")
+        return {}
+
+autotrasportatore = AutotrasportatoreByIdQrCode(1)
+print(autotrasportatore)
