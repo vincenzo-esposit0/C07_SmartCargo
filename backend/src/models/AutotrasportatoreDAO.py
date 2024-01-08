@@ -30,6 +30,7 @@ class AutotrasportatoreDAO:
         session.merge(autotrasportatore)
         session.commit()
         session.close()
+        return autotrasportatore
 
     def elimina_autotrasportatore(self, autotrasportatore_id):
         session = self.Session()
