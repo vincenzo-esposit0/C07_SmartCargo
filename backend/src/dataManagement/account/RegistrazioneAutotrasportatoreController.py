@@ -39,3 +39,27 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
     except Exception as e:
         print(f"Errore durante la registrazione di un autotrasportatore: {str(e)}")
         return {}
+
+def modificaAutotrasportatore(autotrasportatoreJson):
+    try:
+        opId = autotrasportatoreJson["id"]
+
+        autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(opId)
+
+        if autotrasportatore:
+
+            autotrasportatore.nome = autotrasportatoreJson["nome"]
+            autotrasportatore.cognome= autotrasportatoreJson["cognome"]
+            autotrasportatore.dataNascita=datetime.strptime(autotrasportatoreJson["dataNascita"], "%Y-%m-%dT%H:%M:%S")
+            autotrasportatore.codiceFiscale= autotrasportatoreJson["codiceFiscale"]
+            autotrasportatore.email= autotrasportatoreJson["email"]
+            autotrasportatore.password= autotrasportatoreJson["password"]
+            autotrasportatore.indirizzo= autotrasportatoreJson["indirizzo"]
+            autotrasportatore.azienda= autotrasportatoreJson["azienda"]
+
+        result = autotrasportatore_dao.aggiorna_autotrasportatore(autotrasportatore)
+        return jsonify(result.__json__())
+
+    except Exception as e:
+        print(f"Errore durante la registrazione di un autotrasportatore: {str(e)}")
+        return {}
