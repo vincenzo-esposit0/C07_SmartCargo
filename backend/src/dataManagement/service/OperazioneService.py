@@ -62,8 +62,8 @@ def ottieniTutteOperazioniConDettagli():
 
                 operazioneJson = {
                     "operazione": operazione.__json__(),
-                    "autotrasportatore": autotrasportatore if autotrasportatore else None,
-                    "veicolo": veicolo if veicolo else None,
+                    "autotrasportatore": autotrasportatore,
+                    "veicolo": veicolo,
                     "include":  include,
                     "operatore_mobile": operatore_mobile if operatore_mobile else None,
                     "issue": issue if issue else None,

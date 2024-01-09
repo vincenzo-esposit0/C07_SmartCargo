@@ -1,9 +1,49 @@
 from src.dataManagement.service import OperazioneService, AutotrasportatoreService, IncludeService, MerceService
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
-from backend.src.models.OperazioneDAO import OperazioneDAO
+from src.models.OperazioneDAO import OperazioneDAO
 
 autotrasportatore_dao = AutotrasportatoreDAO()
 operazione_dao = OperazioneDAO()
+
+def trova_operazioni_per_filtri(filtri):
+    try:
+        operazioni_filtrate = []
+
+        operazioniJson = OperazioneService.ottieniTutteOperazioniConDettagli()
+
+        for operazioneJson in operazioniJson:
+            corrispondenza = True
+
+            #scomposizone dell'autotrasportatore
+            autotrasportatoreJson = operazioneJson["autotrasportatore"]
+            autotrasportatoreNomeCognome = f"{autotrasportatoreJson['nome']} {autotrasportatoreJson['cognome']}"
+            autotrasportatoreAzienda = autotrasportatoreJson["azienda"]
+
+            #scomposizione del veicolo
+            veicoloJson = operazioneJson["veicolo"]
+            veicoloTarga = veicoloJson["targa"]
+
+            for chiave, valore in filtri.items():
+                if valore == None:
+                    continue
+                if chiave == 'autotrasportatore' and autotrasportatoreNomeCognome != valore:
+                    corrispondenza = False
+                    break
+                elif chiave == 'azienda' and autotrasportatoreAzienda != valore:
+                    corrispondenza = False
+                    break
+                elif chiave == 'targa' and veicoloTarga != valore:
+                    corrispondenza = False
+                    break
+
+            if corrispondenza:
+                operazioni_filtrate.append(operazioneJson)
+
+        return operazioni_filtrate
+
+    except Exception as e:
+        print(f"Errore durante il recupero delle operazioni per lo storico: {str(e)}")
+        return {}
 
 def storicoOperazioniPerAutotrasportatore(storicoJson):
     try:
