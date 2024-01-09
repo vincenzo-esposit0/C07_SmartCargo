@@ -5,12 +5,14 @@ from src.dataManagement.account import AccountAutotrasportatoreController
 from src.dataManagement.autenticazione import LoginController
 from src.dataManagement.issue import IssueController
 from src.dataManagement.ingresso import IngressoController
+from src.dataManagement.monitoraggio import MonitoraggioController
 
 from src.dataManagement.service import OperazioneService
 from src.dataManagement.service import AutotrasportatoreService
 from src.dataManagement.service import IssueService
 from src.dataManagement.service import MerceService
 from src.dataManagement.service import VeicoloService
+
 from src.models import QrCodeDAO
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -80,6 +82,16 @@ def ottieniTuttiVeicoli():
 def registrazioneIngresso():
     data = request.get_json()
     return IngressoController.registrazioneIngresso(data)
+
+@app.route('/qrCodeIngresso', methods=['POST'])
+def AutotrasportatoreByIdQrCode():
+    data = request.get_json()
+    return AutotrasportatoreService.AutotrasportatoreByIdQrCode(data)
+
+@app.route('/getStorico', methods=['POST'])
+def trova_operazioni_per_filtri():
+    data = request.get_json()
+    return MonitoraggioController.trova_operazioni_per_filtri(data)
 
 
 app.run()

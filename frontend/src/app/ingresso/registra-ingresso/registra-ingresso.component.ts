@@ -43,9 +43,7 @@ export class RegistraIngressoComponent {
     }
 
     salvaIngresso() {
-
         if(!this.checkFormValidity()) return;
-
         this.ingresso.operatoreIngresso_id=1;
         this.service.registrazioneIngresso(this.ingresso).subscribe(dati => {
             console.log(dati);
@@ -95,8 +93,12 @@ export class RegistraIngressoComponent {
     }
 
     cerca() {
-        let dati={qrCode_id:1}
-        this.service.qrCodeIngresso(dati).subscribe(dati=> {
+        let qrCode_id = this.qrCode.split("_").pop();
+        this.service.qrCodeIngresso(qrCode_id).subscribe(dati=> {
+            this.ingresso.autotrasportatore.nome=dati.nome
+            this.ingresso.autotrasportatore.cognome=dati.cognome;
+            this.ingresso.autotrasportatore.azienda=dati.azienda;
+            this.visibile=false;
             console.log(dati);
         });
     }

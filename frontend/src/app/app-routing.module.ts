@@ -9,6 +9,7 @@ import {SignUpComponent} from "./autenticazione/sign-up/sign-up.component";
 import {MonitoraggioOperazioniAttiveComponent} from "./monitoraggio/monitoraggio-operazioni-attive/monitoraggio-operazioni-attive.component";
 import {DettaglioOperazioneComponent} from "./monitoraggio/dettaglio-operazione/dettaglio-operazione.component";
 import {StoricoOperazioniComponent} from "./monitoraggio/storico-operazioni/storico-operazioni.component";
+import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component";
 
 const routes: Routes =[
     {
@@ -19,7 +20,8 @@ const routes: Routes =[
             {path: 'storico', component: StoricoOperazioniComponent},
             {path: 'ingresso', component: RegistraIngressoComponent},
             {path: 'monitoraggioOpAttive', component: MonitoraggioOperazioniAttiveComponent},
-            {path: 'dettaglioOp', component: DettaglioOperazioneComponent}
+            {path: 'dettaglioOp', component: DettaglioOperazioneComponent},
+            {path: 'editProfilo', component: EditProfiloComponent}
         ]
     },
     {path: '', redirectTo: 'login', pathMatch: 'full'},

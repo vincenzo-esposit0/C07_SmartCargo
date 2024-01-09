@@ -1,0 +1,48 @@
+<div class="card">
+    <span class="text-900 text-xl font-bold mb-4 block">Modifica Profilo</span>
+    <div class="grid">
+        <div class="col-12 lg:col-2">
+            <p class="m-0 p-0 text-600 line-height-3 mr-3">Personalizza il tuo profilo nel modo migliore possibile.</p>
+        </div>
+        <div class="col-12 lg:col-10">
+            <div class="grid formgrid p-fluid">
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="nome" class="font-medium text-900" >Nome</label>
+                    <input id="nome" type="text"  disabled [(ngModel)]=" this.profilo.nome" pInputText>
+                </div>
+
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="cognome" class="font-medium text-900">Cognome</label>
+                    <input id="cognome" type="text"  disabled [(ngModel)]=" this.profilo.cognome"  pInputText>
+                </div>
+
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="codicef" class="font-medium text-900">Codice Fiscale</label>
+                    <input id="codicef" type="text"   disabled [(ngModel)]=" this.profilo.codiceFiscale"  pInputText>
+                </div>
+
+                <div class="field mb-4 col-12 md:col-6">
+                    <label class="font-medium text-900">Data Nascita</label>
+                    <p-calendar [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" [(ngModel)]="this.profilo.dataNascita" placeholder="Data Di Nascita" dateFormat="dd/mm/yy" ></p-calendar>
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="indirizzo" class="font-medium text-900">Indirizzo</label>
+                    <input id="indirizzo" type="text"  [(ngModel)]=" this.profilo.indirizzo"  pInputText>
+                </div>
+
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="email" class="font-medium text-900">Email</label>
+                    <input id="email" type="text"  [(ngModel)]=" this.profilo.email"  pInputText>
+                </div>
+
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="password" class="font-medium text-900">Password</label>
+                    <p-password id="password" [toggleMask]="true"  [(ngModel)]=" this.profilo.password" ></p-password>
+                </div>
+                <div class="col-12">
+                    <button pButton pRipple label="Modifica" class="w-auto mt-3"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

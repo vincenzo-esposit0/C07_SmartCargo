@@ -34,6 +34,7 @@ import {ToolbarModule} from "primeng/toolbar";
 import { StoricoOperazioniComponent } from './monitoraggio/storico-operazioni/storico-operazioni.component';
 import {QRCodeModule} from "angularx-qrcode";
 import {AgmCoreModule} from "@agm/core";
+import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import {AgmCoreModule} from "@agm/core";
     SignUpComponent,
     MonitoraggioOperazioniAttiveComponent,
     DettaglioOperazioneComponent,
-    StoricoOperazioniComponent
+    StoricoOperazioniComponent,
+    EditProfiloComponent
   ],
     imports: [
         BrowserModule,
