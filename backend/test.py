@@ -11,6 +11,7 @@ from src.dataManagement.service import AutotrasportatoreService
 from src.dataManagement.service import IssueService
 from src.dataManagement.service import MerceService
 from src.dataManagement.service import VeicoloService
+
 from src.models import QrCodeDAO
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -81,5 +82,9 @@ def registrazioneIngresso():
     data = request.get_json()
     return IngressoController.registrazioneIngresso(data)
 
+@app.route('/qrCodeIngresso', methods=['POST'])
+def AutotrasportatoreByIdQrCode():
+    data = request.get_json()
+    return AutotrasportatoreService.AutotrasportatoreByIdQrCode(data)
 
 app.run()
