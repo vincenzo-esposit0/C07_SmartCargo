@@ -8,6 +8,7 @@ import {RegistraIngressoComponent} from "./ingresso/registra-ingresso/registra-i
 import {SignUpComponent} from "./autenticazione/sign-up/sign-up.component";
 import {MonitoraggioOperazioniAttiveComponent} from "./monitoraggio/monitoraggio-operazioni-attive/monitoraggio-operazioni-attive.component";
 import {DettaglioOperazioneComponent} from "./monitoraggio/dettaglio-operazione/dettaglio-operazione.component";
+import {StoricoOperazioniComponent} from "./monitoraggio/storico-operazioni/storico-operazioni.component";
 
 const routes: Routes =[
     {
@@ -15,6 +16,7 @@ const routes: Routes =[
         children: [
             {path: 'dashboard', component: HomePageComponent},
             {path: 'issue', component: GestisciIssueComponent},
+            {path: 'storico', component: StoricoOperazioniComponent},
             {path: 'ingresso', component: RegistraIngressoComponent},
             {path: 'monitoraggioOpAttive', component: MonitoraggioOperazioniAttiveComponent},
             {path: 'dettaglioOp', component: DettaglioOperazioneComponent}

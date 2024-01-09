@@ -14,4 +14,9 @@ export class MonitoraggioService {
         const issues = this.httpClient.get<any>('http://127.0.0.1:5000/operazioni/getAll');
         return issues;
     }
+
+    getStorico(): Observable<any>{
+        const issues = this.httpClient.get<any>('http://127.0.0.1:5000/operazioni/getAll');
+        return issues;
+    }
 }

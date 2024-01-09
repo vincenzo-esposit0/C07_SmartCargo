@@ -27,4 +27,12 @@ export class IngressoService {
         return this.httpClient.post<any>('http://127.0.0.1:5000/registrazioneIngresso', JSON.stringify(data), { headers: headers });
     }
 
+
+    qrCodeIngresso(data: any): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+        return this.httpClient.post<any>('http://127.0.0.1:5000/qrCodeIngresso', JSON.stringify(data), { headers: headers });
+    }
+
 }

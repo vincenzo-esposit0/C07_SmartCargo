@@ -11,7 +11,7 @@ from src.dataManagement.service import AutotrasportatoreService
 from src.dataManagement.service import IssueService
 from src.dataManagement.service import MerceService
 from src.dataManagement.service import VeicoloService
-
+from src.models import QrCodeDAO
 app = Flask(__name__)
 app.config["DEBUG"] = True
 CORS(app)

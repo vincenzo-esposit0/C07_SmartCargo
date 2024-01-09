@@ -30,6 +30,9 @@ import { DettaglioOperazioneComponent } from './monitoraggio/dettaglio-operazion
 import {GMapModule} from "primeng/gmap";
 import {PanelModule} from "primeng/panel";
 import {ToolbarModule} from "primeng/toolbar";
+
+import { StoricoOperazioniComponent } from './monitoraggio/storico-operazioni/storico-operazioni.component';
+import {QRCodeModule} from "angularx-qrcode";
 import {AgmCoreModule} from "@agm/core";
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import {AgmCoreModule} from "@agm/core";
     RegistraIngressoComponent,
     SignUpComponent,
     MonitoraggioOperazioniAttiveComponent,
-    DettaglioOperazioneComponent
+    DettaglioOperazioneComponent,
+    StoricoOperazioniComponent
   ],
     imports: [
         BrowserModule,
@@ -67,6 +71,8 @@ import {AgmCoreModule} from "@agm/core";
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyC8RUeomWkI3pS7yRcVvIpM4DM7GpRpiqo',
         }),
+        ToolbarModule,
+        QRCodeModule
     ],
   providers: [MessageService, DatePipe],
   bootstrap: [AppComponent]

@@ -1,0 +1,150 @@
+
+<p-accordion>
+    <p-accordionTab header="Elenco Parametri di Ricerca"  [(selected)]="filtroSelected">
+
+            <div class="grid p-fluid">
+                <div class="field col-12 md:col-4" >
+            <span class="p-float-label">
+                <input type="text" id="filtro.autotrasportatore" pInputText [(ngModel)]="filtro.autotrasportatore">
+                <label for="filtro.autotrasportatore">Autotrasportatore</label>
+            </span>
+                </div>
+
+                <div class="field col-12 md:col-4"  >
+            <span class="p-float-label">
+                <input type="text" id="filtro.azienda" pInputText [(ngModel)]="filtro.azienda">
+                <label for="filtro.azienda">Azienda</label>
+            </span>
+                </div>
+
+                <div class="field col-12 md:col-4"  >
+            <span class="p-float-label">
+                <input type="text" id="filtro.targa" pInputText [(ngModel)]="filtro.targa">
+                <label for="filtro.targa">Targa</label>
+            </span>
+                </div>
+
+                <div class="field col-12 md:col-4">
+            <span class="p-float-label">
+                <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" inputId="icon" [(ngModel)]="filtro.dataDa" id="filtro.dataDa"></p-calendar>
+                <label for="filtro.dataDa">Data Dal</label>
+            </span>
+                </div>
+                <div class="field col-12 md:col-4">
+            <span class="p-float-label">
+                <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" inputId="icon" [(ngModel)]="filtro.dataA" id="filtro.dataA"></p-calendar>
+                <label for="filtro.dataA">Data Al</label>
+            </span>
+                </div>
+        </div>
+        <div class="grid">
+            <div class="col-9"></div>
+            <div class="col-5"></div>
+            <div class="col-2 field align-content-end">
+                <p-button label="Cerca" icon="pi pi-search" (click)="cerca()"></p-button>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </p-accordionTab>
+</p-accordion>
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>Monitoraggio Operazioni Attive</h5>
+            <p-table #dt1 [value]="operazioni" dataKey="id" [rows]="10" [loading]="false" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['']" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Descrizione Operazione
+                            </div>
+                        </th>
+
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Punto di Destinazione
+                            </div>
+                        </th>
+
+                        <th style="min-width: 8rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Stato Operazione
+                            </div>
+                        </th>
+
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Autotrasportatore
+                            </div>
+                        </th>
+
+                        <th style="min-width: 8rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Targa Veicolo
+                            </div>
+                        </th>
+
+                        <th style="min-width: 10rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Issue
+                            </div>
+                        </th>
+
+
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Operatore Assegnato
+                            </div>
+                        </th>
+
+                        <th style="min-width: 10rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Dettagli
+                            </div>
+                        </th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td>
+                            {{data.operazione.id}}
+                        </td>
+                        <td>
+                            <span class="image-text ml-2">{{data.operazione.descrizione}}</span>
+                        </td>
+                        <td>
+                            <!--
+                            <img [alt]="customer.representative.name" src="assets/demo/images/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle"/>
+                            -->
+                            <span class="image-text ml-2">{{data.operazione.puntoDestinazione}}</span>
+                        </td>
+
+                        <td>{{data.operazione.stato}}</td>
+
+                        <td> {{data.autotrasportatore.nome+ ' '+data.autotrasportatore.cognome }}</td>
+
+                        <td> {{data.veicolo.targa}} </td>
+
+                        <td *ngIf="data.issue?.stato == 'Chiuso'"> {{data.issue?.stato}} </td>
+                        <td *ngIf="data.issue?.stato != 'Chiuso'" style="text-color: red"> {{data.issue?.stato}} </td>
+
+                        <td> {{data.operatore_mobile != null ? data.operatore_mobile?.nome + ' '+ data.operatore_mobile?.cognome : ''}}</td>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">Nessun Operazione Attiva.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="8">Caricamento Operazioni. Attendere!</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+    </div>
+</div>

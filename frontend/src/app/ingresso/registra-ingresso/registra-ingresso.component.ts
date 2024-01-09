@@ -19,6 +19,9 @@ export class RegistraIngressoComponent {
     selectedOpMobile: any = {};
     tipiMerce:any;
     tipiModello:any;
+    visibile:boolean=true;
+    visibileQr:boolean=false;
+    qrCode:any;
     constructor(private messageService: MessageService,private service: IngressoService, private datePipe: DatePipe) {}
 
     ngOnInit(){
@@ -91,4 +94,15 @@ export class RegistraIngressoComponent {
 
     }
 
+    cerca() {
+        let dati={qrCode_id:1}
+        this.service.qrCodeIngresso(dati).subscribe(dati=> {
+            console.log(dati);
+        });
+    }
+
+    confermaCodice() {
+        this.visibileQr=true;
+
+    }
 }

@@ -1,4 +1,28 @@
 <p-toast></p-toast>
+<p-dialog header="Scansiona Codice a Barre" [(visible)]="visibile" [modal]="true" [dismissableMask]="true" styleClass="mx-3 sm:mx-0 sm:w-full md:w-8 lg:w-6" contentStyleClass="border-round-bottom border-top-1 surface-border p-0">
+    <div class="p-4">
+        <div class="grid p-fluid formgrid">
+            <div class="col-12 field">
+                <label for="descrizione" class="text-900 font-semibold">Codice a Barre </label>
+                <div class="p-inputgroup">
+                <input id="descrizione" type="text" [(ngModel)]="this.qrCode" placeholder="Inserisci il codice a barre manualmente o scansiona quello dell'autrasportatore...." pInputText  />
+                <button type="button" pButton icon="pi pi-check" class="p-button-success" (click)="confermaCodice()"></button>
+                    </div>
+
+                <!-- [(ngModel)]="newUdc.descrizione" -->
+            </div>
+            <div class="col-12 field text-center" *ngIf="visibileQr">
+                <qrcode [qrdata]="this.qrCode" [width]="256" [ariaLabel]="this.qrCode" [errorCorrectionLevel]="'M'"></qrcode>
+                <p class="qr-code-label">{{ this.qrCode }}</p>
+            </div>
+
+            <div class="col-12 flex justify-content-end mt-4">
+                <button pButton pRipple class="p-button-outlined w-8rem mr-3" icon="pi pi-times" label="Annulla" (click)=" visibile = false;"></button>
+                <button pButton pRipple class="p-button-primary w-8rem" icon="pi pi-check" label="Salva" (click)="cerca()" ></button>
+            </div>
+        </div>
+    </div>
+</p-dialog>
 
 <div class="p-card" >
     <div class="p-8">

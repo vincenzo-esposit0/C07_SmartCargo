@@ -26,7 +26,6 @@ export class SignUpComponent {
         const indirizzoRegex = /^([a-zA-Zà-úÀ-Ú0-9\s.'-]+),\s*(\d+),\s*([a-zA-Zà-úÀ-Ú\s.'-]+),\s*([0-9]{5})$/;
         const aziendaRegex = /^[a-zA-Z0-9\s.'-]{3,30}$/;
         const passwordRegex = /^.{8,}$/;
-        const dataNascitaRegex=/^0[1-9]|[12][0-9]|3[01]\/(0[1-9]|1[0-2])\/\d{4}$/
 
         if (!nomeRegex.test(this.autotrasportatore.nome)) {
             this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Nome non valido' });
@@ -46,12 +45,6 @@ export class SignUpComponent {
 
         if (!codiceFiscaleRegex.test(this.autotrasportatore.codiceFiscale)) {
             this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Codice Fiscale non valido' });
-            return false;
-
-        }
-
-        if (!dataNascitaRegex.test(this.autotrasportatore.dataNascita)) {
-            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Data nascita non valida' });
             return false;
 
         }
@@ -83,6 +76,33 @@ export class SignUpComponent {
             this.autenticazioneService.registrazione(this.autotrasportatore).subscribe(dati => {
                 let value = dati;
                 console.log(JSON.stringify(value));
+                //Todo controlla se lo stato è corretto
+                debugger;
+                if (this.autotrasportatore.email) {
+                    if (this.autotrasportatore.password) {
+                        if (!this.autenticazioneService.profile) {
+                            this.autenticazioneService.profile = {};
+                            let profilo = {username: "", password: ""};
+                            profilo.username = this.autotrasportatore.email;
+                            profilo.password = this.autotrasportatore.password;
+                            this.autenticazioneService.login(profilo).subscribe(dati => {
+                                let value = dati;
+                                if (value.stato == 200) {
+                                    this.autenticazioneService.profile.username = this.autotrasportatore.email;
+                                    this.autenticazioneService.profile.password = this.autotrasportatore.password;
+                                    this.autenticazioneService.profile.operatore = value.operatore;
+                                    this.router.navigate(['home']);
+                                } else {
+                                    this.messageService.add({severity: 'error', summary: 'Login', detail: value.message});
+                                }
+                            }, error => {
+                                console.log(error);
+                            });
+
+                        }
+
+                    }
+                }
                 /* if(value.stato==200){
 
                      this.autenticazioneService.profile.operatore=value.operatore;
