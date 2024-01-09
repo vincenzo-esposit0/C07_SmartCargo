@@ -63,7 +63,7 @@ class AutotrasportatoreDAO:
         session.close()
         return autotrasportatore
 
-    def getAutotrasportatoreByFilter(self, nome, cognome):
+    def ottieni_autotrasportatore_per_nomeCognome(self, nome, cognome):
         session = self.Session()
         autotrasportatori = session.query(Autotrasportatore).filter_by(nome=nome, cognome=cognome).all()
         session.close()

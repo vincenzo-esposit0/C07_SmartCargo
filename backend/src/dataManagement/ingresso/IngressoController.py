@@ -16,7 +16,6 @@ operazione_dao = OperazioneDAO()
 include_dao = IncludeDAO()
 
 def registrazioneIngresso(ingressoJson):
-    #global percordoId
     try:
         percorsoId = None
 
@@ -24,14 +23,6 @@ def registrazioneIngresso(ingressoJson):
         operazioneJson = ingressoJson["operazione"]
         tipoOperazioneJson = operazioneJson["tipo"]
         destinazioneOperazioneJson = ingressoJson["destinazione"]
-
-        #controllo per definire il percorso associato
-        if destinazioneOperazioneJson["nome"] == "M1":
-            percorsoId = 1
-        elif destinazioneOperazioneJson["nome"] == "M2":
-            percorsoId = 2
-        else:
-            percorsoId = 3
 
         #scomposizione Json per la merce
         merceJson = ingressoJson["merci"]
@@ -48,6 +39,14 @@ def registrazioneIngresso(ingressoJson):
         autotrasportatore = autotrasportatore_dao.get_autotrasportatore_per_ingresso(autotrasportatore_nome=autotrasportatoreJson["nome"],
                                                                                      autotrasportatore_cognome=autotrasportatoreJson["cognome"],
                                                                                      autotrasportatore_azienda=autotrasportatoreJson["azienda"])
+
+        #controllo per definire il percorso associato
+        if destinazioneOperazioneJson["nome"] == "M1":
+            percorsoId = 1
+        elif destinazioneOperazioneJson["nome"] == "M2":
+            percorsoId = 2
+        elif destinazioneOperazioneJson["nome"] == "M3":
+            percorsoId = 3
 
         """
         veicolo = veicolo_dao.get_veicolo_per_ingresso(veicolo_modello=veicoloJson["modello"],
@@ -79,7 +78,6 @@ def registrazioneIngresso(ingressoJson):
             quantita=merceJson["quantita"]
         )
         include_dao.aggiungi_include(include)
-        print(type(result))
         return jsonify(result.__json__())
 
     except Exception as e:

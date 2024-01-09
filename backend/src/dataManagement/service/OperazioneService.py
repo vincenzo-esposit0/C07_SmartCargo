@@ -29,24 +29,7 @@ def ottieniTutteOperazioni():
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {}
 
-def ottieniOperazionePerId(operazione_id):
-    try:
-        operazione = operazione_dao.ottieni_operazione_per_id(operazione_id)
-
-        if operazione:
-            # Restituisci i dettagli dell'operazione come JSON
-            return operazione.__json__()
-        else:
-            return {"message": "Operazione non trovata"}
-
-    except Exception as e:
-        print(f"Errore durante l'ottenimento dell'operazione: {str(e)}")
-        return {}
-
-
-
 def ottieniTutteOperazioniConDettagli():
-    global operatore_mobile
     try:
         operazioni = operazione_dao.ottieni_tutte_operazioni()
 
@@ -100,9 +83,96 @@ def ottieniTutteOperazioniConDettagli():
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {}
 
-def getOpByFilter(autotrasportatoreNome, autotrasportatoreCognome, dataInizio, dataFine, statoIssue):
+def ottieniAlcuneOperazioniConDettagli(operazioni):
     try:
-        autotrasportatore = AutotrasportatoreService.AutotrasportatoreByFilter(autotrasportatoreNome, autotrasportatoreCognome)
+        operazioni = operazioni
+
+        if operazioni:
+            operazioniJson = []
+            for operazione in operazioni:
+                operatore_mobile = None
+
+                # Ottieni le informazioni dell'autotrasportatore usando l'ID
+                autotrasportatore = AutotrasportatoreService.ottieniAutotrasportatorePerId(operazione.autotrasportatore_id)
+
+                # Ottieni le informazioni del veicolo usando l'ID
+                veicolo = VeicoloService.ottieniVeicoloPerId(operazione.veicolo_id)
+
+                # Ottieni le informazioni dell'include usando l'ID dell'operazione
+                include = IncludeService.ottieniIncludePerIdOperazione(operazione.id)
+
+                # Ottieni le informazioni della merce usando l'ID
+                merce = MerceService.ottieniMercePerId(include["merce_id"])
+
+                # Ottieni le informazioni dell'issue usando l'ID dell'operazione così da individuare l'operatore mobile
+                issue = IssueService.ottieniIssuePerIdOperazione(operazione.id)
+
+                #Ottieni le informazioni sul percorso usando l'id
+                percorso = PercorsoService.ottieniPercorsoPerId(operazione.percorso_id)
+
+                if issue is not None and issue != {}:
+                    operatore_mobile = OperatoreMobileService.ottieniOperatoreMobilePerId(issue["operatoreMobile_id"])
+
+
+                operazioneJson = {
+                    "operazione": operazione.__json__(),
+                    "autotrasportatore": autotrasportatore if autotrasportatore else None,
+                    "veicolo": veicolo if veicolo else None,
+                    "include":  include,
+                    "operatore_mobile": operatore_mobile if operatore_mobile else None,
+                    "issue": issue if issue else None,
+                    "merce": merce,
+                    "percorso": percorso
+                }
+
+                # Aggiungi il dizionario alla lista di risultati
+                operazioniJson.append(operazioneJson)
+
+            # Restituisce la lista di JSON come risultato
+            return operazioniJson
+        else:
+            return {"message": "Operazioni non trovate"}
+
     except Exception as e:
-        print(f"Errore durante il recupero delle operazioni: {str(e)}")
+        print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
+        return {}
+
+def ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore_id):
+    try:
+        operazioni = operazione_dao.ottieni_operazioni_per_idAutotrasportatore(autotrasportatore_id)
+
+        operazioniJson = ottieniAlcuneOperazioniConDettagli(operazioni)
+        return operazioniJson
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
+        return {}
+
+def ottieniOperazioniConDettagliPerIssue(issue_stato):
+    try:
+        operazioni = None
+        if issue_stato == True:
+            operazioni = operazione_dao.ottieni_operazioni_per_stato("In corso / Issue aperta")
+        elif issue_stato == False:
+            operazioni = operazione_dao.ottieni_operazioni_per_stato("In corso / Regolare")
+
+        operazioniJson = ottieniAlcuneOperazioniConDettagli(operazioni)
+        return operazioniJson
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
+        return {}
+
+def ottieniOperazionePerId(operazione_id):
+    try:
+        operazione = operazione_dao.ottieni_operazione_per_id(operazione_id)
+
+        if operazione:
+            # Restituisci i dettagli dell'operazione come JSON
+            return operazione.__json__()
+        else:
+            return {"message": "Operazione non trovata"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dell'operazione: {str(e)}")
         return {}

@@ -38,3 +38,15 @@ class OperazioneDAO:
         session.delete(operazione)
         session.commit()
         session.close()
+
+    def ottieni_operazioni_per_idAutotrasportatore(self, autotrasportatore_id):
+        session = self.Session()
+        operazione = session.query(Operazione).filter_by(autotrasportatore_id=autotrasportatore_id).all()
+        session.close()
+        return operazione
+
+    def ottieni_operazioni_per_stato(self, stato):
+        session = self.Session()
+        operazione = session.query(Operazione).filter_by(stato=stato).all()
+        session.close()
+        return operazione
