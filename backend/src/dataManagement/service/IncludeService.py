@@ -40,7 +40,7 @@ def ottieniTutteInclude():
 
 def ottieniIncludePerIdOperazione(op_id):
     try:
-        include = include_dao.ottieni_include_per_id_operazione(op_id)
+        include = include_dao.ottieni_include_per_operazione_id(op_id)
 
         if include:
             # Restituisci i dettagli della include come JSON

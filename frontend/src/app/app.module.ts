@@ -30,6 +30,7 @@ import { DettaglioOperazioneComponent } from './monitoraggio/dettaglio-operazion
 import {GMapModule} from "primeng/gmap";
 import {PanelModule} from "primeng/panel";
 import {ToolbarModule} from "primeng/toolbar";
+import {AgmCoreModule} from "@agm/core";
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,10 @@ import {ToolbarModule} from "primeng/toolbar";
         TableModule,
         GMapModule,
         PanelModule,
-        ToolbarModule
+        ToolbarModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyC8RUeomWkI3pS7yRcVvIpM4DM7GpRpiqo',
+        }),
     ],
   providers: [MessageService, DatePipe],
   bootstrap: [AppComponent]
