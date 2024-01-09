@@ -5,6 +5,7 @@ from src.dataManagement.account import AccountAutotrasportatoreController
 from src.dataManagement.autenticazione import LoginController
 from src.dataManagement.issue import IssueController
 from src.dataManagement.ingresso import IngressoController
+from src.dataManagement.monitoraggio import MonitoraggioController
 
 from src.dataManagement.service import OperazioneService
 from src.dataManagement.service import AutotrasportatoreService
@@ -86,5 +87,11 @@ def registrazioneIngresso():
 def AutotrasportatoreByIdQrCode():
     data = request.get_json()
     return AutotrasportatoreService.AutotrasportatoreByIdQrCode(data)
+
+@app.route('/getStorico', methods=['POST'])
+def trova_operazioni_per_filtri():
+    data = request.get_json()
+    return MonitoraggioController.trova_operazioni_per_filtri(data)
+
 
 app.run()

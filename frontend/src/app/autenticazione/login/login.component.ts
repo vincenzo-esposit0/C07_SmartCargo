@@ -48,11 +48,15 @@ export class LoginComponent {
                                 this.autenticazioneService.profile.username = this.username;
                                 this.autenticazioneService.profile.password = this.password;
                                 this.autenticazioneService.profile.operatore = value.operatore;
+                                this.autenticazioneService.profile.profilo=value.profilo
                                 this.router.navigate(['home']);
                             } else {
+                                this.autenticazioneService.profile = undefined;
                                 this.messageService.add({severity: 'error', summary: 'Login', detail: value.message});
                             }
                         }, error => {
+                            this.autenticazioneService.profile = undefined;
+
                             console.log(error);
                         });
 

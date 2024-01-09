@@ -14,15 +14,17 @@ export class StoricoOperazioniComponent {
     constructor(private router: Router,private service: MonitoraggioService) {}
 
     ngOnInit(){
-        this.service.getStorico().subscribe(dati => {
-            this.operazioni = dati;
-        },error => {
-            console.log(error);
-        });
+
     }
 
 
     cerca() {
-
+        console.log(this.filtro);
+        this.service.getStorico(this.filtro).subscribe(dati => {
+            this.operazioni = dati;
+            console.log(this.operazioni)
+        },error => {
+            console.log(error);
+        });
     }
 }

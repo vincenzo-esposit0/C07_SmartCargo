@@ -46,7 +46,15 @@ export class AppMenuComponent implements OnInit {
                 icon: 'pi pi-fw pi-image',
                 routerLink: ['monitoraggioCaricoScarico']
             };
+
+        let profiloedit=
+            {
+                label: 'Profilo',
+                icon: 'pi pi-fw pi-image',
+                routerLink: ['editProfilo']
+            };
         this.model=[];
+        this.model.push(profiloedit)
         if(this.autenticazioneService.profile){
             if(this.autenticazioneService.profile.operatore==='Autotrasportatore'){
                 this.model.push(profilo);
