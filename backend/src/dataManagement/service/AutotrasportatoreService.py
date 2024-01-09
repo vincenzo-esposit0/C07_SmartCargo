@@ -1,4 +1,4 @@
-from backend.src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
+from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 autotrasportatore_dao = AutotrasportatoreDAO()
 

@@ -1,5 +1,5 @@
-from backend.src.models.UtenteRegistrato import Autotrasportatore
-from backend.src.config.database import engine
+from src.models.UtenteRegistrato import Autotrasportatore
+from src.config.database import engine
 from sqlalchemy.orm import sessionmaker
 
 class AutotrasportatoreDAO:
