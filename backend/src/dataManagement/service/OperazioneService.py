@@ -148,6 +148,17 @@ def ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore_id):
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {}
 
+
+def ottieniOperazioniConDettagliPerOpMagazzino(operatore_magazzino_id):
+    try:
+        operazioni = operazione_dao.ottieni_operazioni_per_id_OpMagazzino(operatore_magazzino_id)
+        operazioniJson = ottieniTutteOperazioniConDettagli(operazioni)
+        return operazioniJson
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
+        return {}
+
 def ottieniOperazioniConDettagliPerIssue(issue_stato):
     try:
         operazioni = None
