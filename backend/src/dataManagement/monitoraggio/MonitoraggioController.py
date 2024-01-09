@@ -1,3 +1,4 @@
+from flask import jsonify
 from src.dataManagement.service import OperazioneService, AutotrasportatoreService, IncludeService, MerceService
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 from backend.src.models.OperazioneDAO import OperazioneDAO
@@ -59,4 +60,20 @@ def ottieni_tutte_Operazioni_e_Merci():
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
+        return {}
+
+def aggiorna_stato_operazione(operazioneJson):
+    try:
+        operazione_id = operazioneJson["id"]
+        operazione = operazione_dao.ottieni_operazione_per_id(operazione_id)
+
+        if operazione:
+            operazione.stato = operazioneJson["stato"]
+
+            operazione_dao.aggiorna_operazione(operazione)
+
+            return jsonify(operazione.__json__())
+
+    except Exception as e:
+        print(f"Errore durante l'aggiornamento dello stato dell'operazione: {str(e)}")
         return {}
