@@ -18,7 +18,7 @@ def trova_operazioni_per_filtri(filtri):
 
             #scomposizone dell'autotrasportatore
             autotrasportatoreJson = operazioneJson["autotrasportatore"]
-            autotrasportatoreNomeCognome = f"{autotrasportatoreJson["nome"]} {autotrasportatoreJson["cognome"]}"
+            autotrasportatoreNomeCognome = f"{autotrasportatoreJson['nome']} {autotrasportatoreJson['cognome']}"
             autotrasportatoreAzienda = autotrasportatoreJson["azienda"]
 
             #scomposizione del veicolo
