@@ -13,7 +13,7 @@ def trova_operazioni_per_filtri(filtri):
         operazioni_filtrate = []
 
         #va messo il metodo giusto una volta aggiunte operazioni chiuse nel db
-        operazioniJson = OperazioneService.ottieniTutteOperazioniConDettagli()
+        operazioniJson = OperazioneService.ottieniOperazioniPerStorico()
 
         for operazioneJson in operazioniJson:
             corrispondenza = True

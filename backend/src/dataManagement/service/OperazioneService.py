@@ -148,6 +148,17 @@ def ottieniOperazioniPerStorico():
         print(f"Errore durante l'ottenimento delle operazioni per lo storico: {str(e)}")
         return {}
 
+def ottieniOperazioniPerOpAttive():
+    try:
+        operazioni = operazione_dao.ottieni_operazioni_per_stato("In corso")
+
+        operazioniJson = ottieniAlcuneOperazioniConDettagli(operazioni)
+        return operazioniJson
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento delle operazioni per operazioni attive: {str(e)}")
+        return {}
+
 def ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore_id):
     try:
         operazioni = operazione_dao.ottieni_operazioni_per_idAutotrasportatore(autotrasportatore_id)
