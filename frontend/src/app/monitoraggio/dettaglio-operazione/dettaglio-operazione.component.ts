@@ -30,10 +30,12 @@ export class DettaglioOperazioneComponent {
     showNewIssue : boolean = true;
     noIssue: boolean = false;
     overlays: any[] = [];
+    showDialogAnomalia: boolean = false;
+    datiAnomalia: any = {}
 
 
 
-    constructor(private confirm: ConfirmationService,private issueService: IssueService,private datePipe: DatePipe,private router: Router,private messageService: MessageService, private cdr: ChangeDetectorRef) {
+    constructor(private confirm: ConfirmationService,private issueService: IssueService,private datePipe: DatePipe,private router: Router,public messageService: MessageService, private cdr: ChangeDetectorRef) {
         if (this.router.getCurrentNavigation()?.extras.state) {
             // @ts-ignore
             let routeState = this.router.getCurrentNavigation().extras.state;
@@ -70,7 +72,7 @@ export class DettaglioOperazioneComponent {
             zoom: 15,
         };
 
-        /*
+
         this.data.percorso.puntiLatitudineCorretti = "39.4542,39.45473,39.45532,39.45606,39.45433,39.45372,39.45352,39.45272,39.45185," +
             "39.45109,39.45095,39.45058,39.44984,39.44952,39.4486,39.44768,39.44675,39.44582,39.445," +
             "39.44459,39.44439,39.44418,39.44393,39.44329,39.4422,39.44083,39.43942,39.43757,39.43574," +
@@ -110,10 +112,10 @@ export class DettaglioOperazioneComponent {
                 "-0.32831,-0.32866,-0.32884,-0.329,-0.32846,-0.3287,-0.32877";
 
 
-         */
 
-        this.data.percorso.puntiLongitudineCorretti = this.data.percorso.puntiLongitudinePercorsi;
-        this.data.percorso.puntiLatitudineCorretti = this.data.percorso.puntiLatitudinePercorsi;
+
+        //this.data.percorso.puntiLongitudineCorretti = this.data.percorso.puntiLongitudinePercorsi;
+        //this.data.percorso.puntiLatitudineCorretti = this.data.percorso.puntiLatitudinePercorsi;
 
 
         this.aggiungiPuntoOgni2Secondi();
@@ -122,6 +124,7 @@ export class DettaglioOperazioneComponent {
 
 
     aggiungiPuntoOgni2Secondi() {
+        this.datiAnomalia = {};
         this.intervalId = setInterval(() => {
             const latPercorso = Number(this.data.percorso.puntiLatitudinePercorsi.split(',')[this.index]);
             const lngPercorso = Number(this.data.percorso.puntiLongitudinePercorsi.split(',')[this.index]);
@@ -137,6 +140,13 @@ export class DettaglioOperazioneComponent {
                 this.overlays.push(markerPercorso);
             }
             else {
+                this.showDialogAnomalia = true;
+                this.datiAnomalia = {
+                    lat : latPercorso,
+                    lng: lngPercorso
+                }
+                this.messageService.add({ key: 'confirm', sticky: true, severity: 'error', summary: 'Can you send me the report?' });
+
                 // Creazione marker per il percorso
                 const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (this.index + 1) + ' Percorso', corrispondenza ? 'blue' : 'red');
                 this.overlays.push(markerPercorso);
@@ -155,12 +165,12 @@ export class DettaglioOperazioneComponent {
                 clearInterval(this.intervalId); // Fermare il setInterval quando tutti i punti sono stati aggiunti
             }
 
-            if (this.overlays.length >= 5) {
+            if (this.overlays.length >= 3) {
                 this.creaPolilineaDaPuntiVerdi();
             }
 
             this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
-        }, 100);
+        }, 1000);
     }
 
     creaPolilineaDaPuntiVerdi(): void {
@@ -251,22 +261,6 @@ export class DettaglioOperazioneComponent {
         });
         return marker;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     newIssue() {

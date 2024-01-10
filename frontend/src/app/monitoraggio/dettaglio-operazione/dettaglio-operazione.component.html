@@ -1,4 +1,33 @@
 <p-confirmDialog></p-confirmDialog>
+
+<p-toast key="confirm" position="top-right" key="confirm"  [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column align-items-start" style="flex: 1">
+            <div class="flex align-items-center gap-2">
+                <span class="font-bold text-900">Anomalia Percorso</span>
+            </div>
+            <div class="font-medium text-lg my-3 text-900">
+                <p>Attenzione! Il veicolo con targa : <b>{{data.veicolo.targa}}</b> ha intrapreso un percorso anomalo!</p>
+
+                <br>
+
+                <p>
+                    <b>
+                        Coordinate anomalia: </b> <br>
+                    Latitudine: {{this.datiAnomalia.lat}}<br>
+                    Longitudine: {{this.datiAnomalia.lng}}
+
+                </p>
+            </div>
+
+                <button pButton pRipple class="p-button-primary w-15rem" icon="pi pi-check" label="Ok" (click)=" this.messageService.clear('confirm');showDialogAnomalia = false"></button>
+
+        </div>
+    </ng-template>
+</p-toast>
+
+
+
 <div class="grid surface-card grid-nogutter p-6 border-1 surface-border" style="column-gap: 2rem; row-gap: 2rem; border-radius: 6px;">
     <div class="col-12">
         <p class="text-900 font-bold">Dettaglio Operazione Attiva</p>
