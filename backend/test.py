@@ -1,6 +1,9 @@
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 
+#from sqlalchemy.orm import sessionmaker
+#from src.config.database import engine
+
 from src.dataManagement.account import AccountAutotrasportatoreController
 from src.dataManagement.autenticazione import LoginController
 from src.dataManagement.issue import IssueController
@@ -18,6 +21,10 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 CORS(app)
 
+"""
+Session = sessionmaker(bind=engine)
+session = Session()
+"""
 
 @app.route('/registrazione', methods=['POST'])
 def registrazione():
@@ -59,6 +66,13 @@ def login():
     data = request.get_json()
     return LoginController.login(data["username"], data["password"])
 
+"""
+@app.route('/logout', methods=['POST'])
+def logout():
+    # Invalida la sessione
+    session.clear()
+    return jsonify({"stato": 200, "message": "Sessione invalidata"})
+"""
 
 @app.route('/operazioni/getAll/', methods=['GET'])
 def ottieniOperazioni():

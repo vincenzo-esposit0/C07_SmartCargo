@@ -48,4 +48,7 @@ def login(email, password):
         return jsonify(result)
 
     except NoResultFound:
+        pass
+
+    except NoResultFound:
         return jsonify({"stato": 401, "message": "Credenziali errate! Utente non trovato", "profilo": None})

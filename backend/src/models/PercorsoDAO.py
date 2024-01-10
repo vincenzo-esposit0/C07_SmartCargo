@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
-from src.config.database import engine, Session
-from src.models.Percorso import Percorso
+from backend.src.config.database import engine, Session
+from backend.src.models.Percorso import Percorso
 
 class PercorsoDAO:
     def __init__(self):
