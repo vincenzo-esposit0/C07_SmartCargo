@@ -77,6 +77,7 @@ def logout():
 @app.route('/operazioni/getAll/', methods=['GET'])
 def ottieniOperazioni():
     result = OperazioneService.ottieniOperazioniPerOpAttive()
+    result = OperazioneService.ottieniTutteOperazioniConDettagli()
     return jsonify(result)
 
 

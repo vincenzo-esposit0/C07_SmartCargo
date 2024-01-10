@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {MonitoraggioService} from "../monitoraggio.service";
 
@@ -13,18 +13,23 @@ export class StoricoOperazioniComponent {
     filtroSelected:boolean=true;
     constructor(private router: Router,private service: MonitoraggioService) {}
 
-    ngOnInit(){
+    @ViewChild('dt1', { static: false }) dt1: any;
 
+    ngOnInit(){
+        this.cerca();
     }
 
 
     cerca() {
-        console.log(this.filtro);
         this.service.getStorico(this.filtro).subscribe(dati => {
             this.operazioni = dati;
             console.log(this.operazioni)
         },error => {
             console.log(error);
         });
+    }
+
+    applyFilterGlobal($event: Event) {
+        this.dt1.filterGlobal(($event.target as HTMLInputElement).value, 'contains');
     }
 }

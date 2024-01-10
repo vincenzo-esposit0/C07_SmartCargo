@@ -48,9 +48,9 @@ export class MonitoraggioOperazioniCaricoScaricoComponent {
     segnalaEsito(esito: boolean) {
         //esito positivo
         if(esito){
-            this.selectedOperazione.stato = "Terminata";
+            this.selectedOperazione.stato = "Chiuso";
             this.service.segnalaEsito(this.selectedOperazione).subscribe(dati => {
-                console.log(dati);
+
                 this.selectedOperazione = {};
             },error => {
                 console.log(error);
@@ -62,7 +62,6 @@ export class MonitoraggioOperazioniCaricoScaricoComponent {
         else {
             this.selectedOperazione.stato = "Anomalia Carico/Scarico";
             this.service.segnalaEsito(this.selectedOperazione).subscribe(dati => {
-                console.log(dati);
                 this.selectedOperazione = {};
             },error => {
                 console.log(error);

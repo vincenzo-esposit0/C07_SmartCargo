@@ -18,10 +18,9 @@ export class MonitoraggioOperazioniAttiveComponent {
 
         this.service.getAllOperazioni().subscribe(dati => {
             this.operazioni = dati;
-            console.log(this.operazioni)
-            // Filtra le operazioni escludendo quelle con stato "Terminata"
+            // Filtra le operazioni escludendo quelle con stato "Chiuso"
             this.operazioni = this.operazioni.filter(
-                (operazione) => operazione.operazione.stato !== "Terminata"
+                (operazione) => operazione.operazione.stato !== "Chiuso"
             );
 
 

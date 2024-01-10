@@ -95,8 +95,8 @@
 
                         <td> {{data.veicolo.targa}} </td>
 
-                        <td *ngIf="data.issue?.stato == 'Chiusa'"> {{data.issue?.stato}} </td>
-                        <td *ngIf="data.issue?.stato != 'Chiusa'" style="color: red"><b> {{data.issue?.stato}} </b> </td>
+                        <td *ngIf="data.issue?.stato == 'Chiuso'"> {{data.issue?.stato}} </td>
+                        <td *ngIf="data.issue?.stato != 'Chiuso'" style="color: red"><b> {{data.issue?.stato}} </b> </td>
 
                         <td> {{data.operatore_sala != null ? data.operatore_sala?.nome + ' '+ data.operatore_sala?.cognome : ''}}</td>
 
