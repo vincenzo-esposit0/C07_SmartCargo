@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from flask import jsonify
 from src.dataManagement.service import OperazioneService, AutotrasportatoreService, IncludeService, MerceService
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
@@ -25,8 +27,12 @@ def trova_operazioni_per_filtri(filtri):
             veicoloJson = operazioneJson["veicolo"]
             veicoloTarga = veicoloJson["targa"]
 
+            #scomposizione del intervallo
+            opJson = operazioneJson["operazione"]
+            dataOp = opJson["dataOperazione"]
+
             for chiave, valore in filtri.items():
-                if valore == "":
+                if valore == "" or valore == None:
                     continue
                 if chiave == "autotrasportatore" and autotrasportatoreNomeCognome != valore:
                     corrispondenza = False
@@ -37,6 +43,17 @@ def trova_operazioni_per_filtri(filtri):
                 elif chiave == "targa" and veicoloTarga != valore:
                     corrispondenza = False
                     break
+                elif chiave == "dataDa":
+                    dataDa = datetime.strptime(valore, "%Y-%m-%dT%H:%M:%S.%fZ").date() + timedelta(days=1)
+                    if dataOp < dataDa:
+                        corrispondenza = False
+                        break
+                elif chiave == "dataA":
+                    dataA = datetime.strptime(valore, "%Y-%m-%dT%H:%M:%S.%fZ").date() + timedelta(days=1)
+                    if dataOp > dataA:
+                        corrispondenza = False
+                        break
+
 
             if corrispondenza:
                 operazioni_filtrate.append(operazioneJson)
