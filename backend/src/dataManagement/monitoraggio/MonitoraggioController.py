@@ -10,6 +10,7 @@ def trova_operazioni_per_filtri(filtri):
     try:
         operazioni_filtrate = []
 
+        #va messo il metodo giusto una volta aggiunte operazioni chiuse nel db
         operazioniJson = OperazioneService.ottieniTutteOperazioniConDettagli()
 
         for operazioneJson in operazioniJson:
@@ -17,7 +18,7 @@ def trova_operazioni_per_filtri(filtri):
 
             #scomposizone dell'autotrasportatore
             autotrasportatoreJson = operazioneJson["autotrasportatore"]
-            autotrasportatoreNomeCognome = f"{autotrasportatoreJson['nome']} {autotrasportatoreJson['cognome']}"
+            autotrasportatoreNomeCognome = f"{autotrasportatoreJson["nome"]} {autotrasportatoreJson["cognome"]}"
             autotrasportatoreAzienda = autotrasportatoreJson["azienda"]
 
             #scomposizione del veicolo
@@ -25,15 +26,15 @@ def trova_operazioni_per_filtri(filtri):
             veicoloTarga = veicoloJson["targa"]
 
             for chiave, valore in filtri.items():
-                if valore == None:
+                if valore == "":
                     continue
-                if chiave == 'autotrasportatore' and autotrasportatoreNomeCognome != valore:
+                if chiave == "autotrasportatore" and autotrasportatoreNomeCognome != valore:
                     corrispondenza = False
                     break
-                elif chiave == 'azienda' and autotrasportatoreAzienda != valore:
+                elif chiave == "azienda" and autotrasportatoreAzienda != valore:
                     corrispondenza = False
                     break
-                elif chiave == 'targa' and veicoloTarga != valore:
+                elif chiave == "targa" and veicoloTarga != valore:
                     corrispondenza = False
                     break
 
@@ -44,28 +45,6 @@ def trova_operazioni_per_filtri(filtri):
 
     except Exception as e:
         print(f"Errore durante il recupero delle operazioni per lo storico: {str(e)}")
-        return {}
-
-def storicoOperazioniPerAutotrasportatore(storicoJson):
-    try:
-        autotrasportatotoreJson = storicoJson["autotrasportatore"]
-        autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_nomeCognome(autotrasportatotoreJson["nome"],
-                                                                                            autotrasportatotoreJson["cognome"])
-
-        operazioniJson = OperazioneService.ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore.id)
-        return operazioniJson
-
-    except Exception as e:
-        print(f"Errore durante il recupero delle operazioni: {str(e)}")
-        return {}
-
-def storicoOperazioniPerIssue(storicoJson):
-    try:
-        operazioniJson = OperazioneService.ottieniOperazioniConDettagliPerIssue(storicoJson["issueAperte"])
-        return operazioniJson
-
-    except Exception as e:
-        print(f"Errore durante il recupero delle operazioni: {str(e)}")
         return {}
 
 
@@ -101,6 +80,7 @@ def ottieni_tutte_Operazioni_e_Merci():
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {}
+
 
 def aggiorna_stato_operazione(operazioneJson):
     try:

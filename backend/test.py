@@ -91,7 +91,8 @@ def AutotrasportatoreByIdQrCode():
 @app.route('/getStorico', methods=['POST'])
 def trova_operazioni_per_filtri():
     data = request.get_json()
-    return MonitoraggioController.trova_operazioni_per_filtri(data)
+    result = MonitoraggioController.trova_operazioni_per_filtri(data)
+    return jsonify(result)
 
 
 app.run()
