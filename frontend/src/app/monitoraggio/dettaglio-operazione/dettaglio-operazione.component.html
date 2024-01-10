@@ -1,4 +1,4 @@
-
+<p-confirmDialog></p-confirmDialog>
 <div class="grid surface-card grid-nogutter p-6 border-1 surface-border" style="column-gap: 2rem; row-gap: 2rem; border-radius: 6px;">
     <div class="col-12">
         <p class="text-900 font-bold">Dettaglio Operazione Attiva</p>
@@ -7,6 +7,7 @@
         <div class="p-toolbar-group-start">
             <button [disabled]="!showNewIssue || noIssue" pButton icon="pi pi-plus" class="mr-2" (click)="newIssue()"> &nbsp; Nuova Issue</button>
             <button [disabled]="showNewIssue || noIssue" pButton icon="pi pi-upload" class="mr-2" (click)="aggiornaIssue()"> &nbsp;Aggiorna Issue</button>
+            <button [disabled]="showNewIssue || noIssue" pButton icon="pi pi-upload" class="mr-2" (click)="chiudiIssue()"> &nbsp;Chiudi Issue</button>
         </div>
     </p-toolbar>
     <div class="col-12 mt-3 h-20rem border-1 surface-border p-0 w-full bg-cover border-round" *ngIf="true">

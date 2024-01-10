@@ -34,6 +34,10 @@ import {ToolbarModule} from "primeng/toolbar";
 import { StoricoOperazioniComponent } from './monitoraggio/storico-operazioni/storico-operazioni.component';
 import {QRCodeModule} from "angularx-qrcode";
 import {AgmCoreModule} from "@agm/core";
+import {MenuModule} from "primeng/menu";
+import {ChartModule} from "primeng/chart";
+import { MonitoraggioOperazioniCaricoScaricoComponent } from './monitoraggio/monitoraggio-operazioni-carico-scarico/monitoraggio-operazioni-carico-scarico.component';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component";
 @NgModule({
   declarations: [
@@ -45,6 +49,8 @@ import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component
     SignUpComponent,
     MonitoraggioOperazioniAttiveComponent,
     DettaglioOperazioneComponent,
+    StoricoOperazioniComponent,
+    MonitoraggioOperazioniCaricoScaricoComponent,
     StoricoOperazioniComponent,
     EditProfiloComponent
   ],
@@ -73,8 +79,11 @@ import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyC8RUeomWkI3pS7yRcVvIpM4DM7GpRpiqo',
         }),
+        MenuModule,
+        ChartModule,
         ToolbarModule,
-        QRCodeModule
+        QRCodeModule,
+        ConfirmDialogModule
     ],
   providers: [MessageService, DatePipe],
   bootstrap: [AppComponent]

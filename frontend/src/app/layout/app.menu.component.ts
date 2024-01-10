@@ -26,6 +26,13 @@ export class AppMenuComponent implements OnInit {
             routerLink: ['monitoraggioOpAttive']
         };
 
+        let monitaggioCaricoScarico=
+        {
+            label: 'Monitoraggio Operazioni Carico Scarico',
+            icon: 'pi pi-fw pi-image',
+            routerLink: ['monitoraggioOpCarScar']
+        };
+
         let profilo=
             {
                 label: 'Profilo',
@@ -40,11 +47,11 @@ export class AppMenuComponent implements OnInit {
                 routerLink: ['storico']
             };
 
-        let monitaggioCaricoScarico=
+        let home=
             {
-                label: 'Storico',
-                icon: 'pi pi-fw pi-image',
-                routerLink: ['monitoraggioCaricoScarico']
+                label: 'Home',
+                icon: 'pi pi-fw pi-home',
+                routerLink: ['dashboard']
             };
 
         let profiloedit=
@@ -53,15 +60,17 @@ export class AppMenuComponent implements OnInit {
                 icon: 'pi pi-fw pi-image',
                 routerLink: ['editProfilo']
             };
+
         this.model=[];
-        this.model.push(profiloedit)
+
         if(this.autenticazioneService.profile){
+            console.log(this.autenticazioneService.profile);
+            this.model.push(home);
+            this.model.push(profiloedit);
             if(this.autenticazioneService.profile.operatore==='Autotrasportatore'){
-                this.model.push(profilo);
-                this.model.push(monitoraggio);
             }else{
                 if(this.autenticazioneService.profile.operatore==='Operatore Ingresso'){
-                    this.model.push(registrazioneIngresso)
+                    this.model.push(registrazioneIngresso);
                 }else{
                     if(this.autenticazioneService.profile.operatore==='Operatore Sala'){
                         this.model.push(monitoraggio);

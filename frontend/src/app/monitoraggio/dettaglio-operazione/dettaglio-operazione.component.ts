@@ -1,12 +1,14 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {MessageService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
+import {DatePipe} from "@angular/common";
+import {IssueService} from "../../issue/issue.service";
 
 @Component({
   selector: 'app-dettaglio-operazione',
   templateUrl: './dettaglio-operazione.component.html',
   styleUrls: ['./dettaglio-operazione.component.scss'],
-    providers: [MessageService]
+    providers: [MessageService, ConfirmationService]
 })
 export class DettaglioOperazioneComponent {
 
@@ -31,7 +33,7 @@ export class DettaglioOperazioneComponent {
 
 
 
-    constructor(private router: Router,private messageService: MessageService, private cdr: ChangeDetectorRef) {
+    constructor(private confirm: ConfirmationService,private issueService: IssueService,private datePipe: DatePipe,private router: Router,private messageService: MessageService, private cdr: ChangeDetectorRef) {
         if (this.router.getCurrentNavigation()?.extras.state) {
             // @ts-ignore
             let routeState = this.router.getCurrentNavigation().extras.state;
@@ -68,6 +70,7 @@ export class DettaglioOperazioneComponent {
             zoom: 15,
         };
 
+        /*
         this.data.percorso.puntiLatitudineCorretti = "39.4542,39.45473,39.45532,39.45606,39.45433,39.45372,39.45352,39.45272,39.45185," +
             "39.45109,39.45095,39.45058,39.44984,39.44952,39.4486,39.44768,39.44675,39.44582,39.445," +
             "39.44459,39.44439,39.44418,39.44393,39.44329,39.4422,39.44083,39.43942,39.43757,39.43574," +
@@ -107,12 +110,18 @@ export class DettaglioOperazioneComponent {
                 "-0.32831,-0.32866,-0.32884,-0.329,-0.32846,-0.3287,-0.32877";
 
 
-        this.aggiungiPuntoOgni10Secondi();
+         */
+
+        this.data.percorso.puntiLongitudineCorretti = this.data.percorso.puntiLongitudinePercorsi;
+        this.data.percorso.puntiLatitudineCorretti = this.data.percorso.puntiLatitudinePercorsi;
+
+
+        this.aggiungiPuntoOgni2Secondi();
     }
 
 
 
-    aggiungiPuntoOgni10Secondi() {
+    aggiungiPuntoOgni2Secondi() {
         this.intervalId = setInterval(() => {
             const latPercorso = Number(this.data.percorso.puntiLatitudinePercorsi.split(',')[this.index]);
             const lngPercorso = Number(this.data.percorso.puntiLongitudinePercorsi.split(',')[this.index]);
@@ -124,12 +133,12 @@ export class DettaglioOperazioneComponent {
 
             if(corrispondenza){
                 // Creazione marker per il percorso
-                const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (this.index + 1) + ' Percorso', corrispondenza ? 'green' : 'red');
+                const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (this.index + 1) + ' Percorso', corrispondenza ? 'blue' : 'red');
                 this.overlays.push(markerPercorso);
             }
             else {
                 // Creazione marker per il percorso
-                const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (this.index + 1) + ' Percorso', corrispondenza ? 'green' : 'red');
+                const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (this.index + 1) + ' Percorso', corrispondenza ? 'blue' : 'red');
                 this.overlays.push(markerPercorso);
 
                 // Creazione marker per il punto corretto
@@ -151,7 +160,7 @@ export class DettaglioOperazioneComponent {
             }
 
             this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
-        }, 2000);
+        }, 100);
     }
 
     creaPolilineaDaPuntiVerdi(): void {
@@ -168,9 +177,42 @@ export class DettaglioOperazioneComponent {
             let mk2 = this.overlays[i + 1];
 
             if (mk1 && mk2 && mk1.icon && mk2.icon) {
-                if (mk1.icon.fillColor === 'green' && mk2.icon.fillColor === 'green') {
-                    nuovePolilinee.push(this.creaPolyline([mk1.getPosition(), mk2.getPosition()]));
+                //da blue a blue linea blu
+                if (mk1.icon.fillColor === 'blue' && mk2.icon.fillColor === 'blue') {
+                    nuovePolilinee.push(this.creaPolyline([mk1.getPosition(), mk2.getPosition()], 'blue'));
                 }
+                else{
+                    //da blue a rosso linea rossa
+                    if (mk1.icon.fillColor === 'blue' && mk2.icon.fillColor === 'red') {
+                        nuovePolilinee.push(this.creaPolyline([mk1.getPosition(), mk2.getPosition()], 'red'));
+                    }
+                    else {
+                        //da rosso a blue linea rossa
+                        if (mk1.icon.fillColor === 'red' && mk2.icon.fillColor === 'blue') {
+                            nuovePolilinee.push(this.creaPolyline([mk1.getPosition(), mk2.getPosition()], 'red'));
+                        }
+                        else {
+                            //da verde a blue linea verde
+                            if (mk1.icon.fillColor === 'green' && mk2.icon.fillColor === 'blue') {
+                                nuovePolilinee.push(this.creaPolyline([mk1.getPosition(), mk2.getPosition()], 'green'));
+                            }
+                            else {
+                                if (mk1.icon.fillColor === 'blue' && mk2.icon.fillColor === 'green') {
+                                    nuovePolilinee.push(this.creaPolyline([mk1.getPosition(), mk2.getPosition()], 'green'));
+                                }
+                                else{
+                                    if (mk1.icon.fillColor === 'red' && mk2.icon.fillColor === 'blue') {
+                                        nuovePolilinee.push(this.creaPolyline([mk1.getPosition(), mk2.getPosition()], 'red'));
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+
+
             }
         }
 
@@ -182,11 +224,11 @@ export class DettaglioOperazioneComponent {
     }
 
 
-    creaPolyline(path: google.maps.LatLngLiteral[]) {
+    creaPolyline(path: google.maps.LatLngLiteral[], color: string) {
         const polyline = new google.maps.Polyline({
             path: path,
             geodesic: true,
-            strokeColor: 'blue',
+            strokeColor: color,
             strokeOpacity: 0.5,
             strokeWeight: 2
         });
@@ -235,6 +277,35 @@ export class DettaglioOperazioneComponent {
         this.showDialog = true;
     }
 
+
+    chiudiIssue() {
+        this.confirm.confirm({
+            message: 'Sei sicuro di voler chiudere l\' issue?',
+            header: 'Attenzione',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'Si',
+            accept: () => {
+                this.data.issue.stato = "Chiusa";
+                console.log(this.data.issue.timestampApertura);
+                this.data.issue.timestampApertura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
+                this.data.issue.timestampChiusura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
+                this.data.issue.tipologiaProblema = this.data.issue.tipologiaProblema.nome
+                this.issueService.aggiornaIssue(this.data.issue).subscribe(dati => {
+                    this.messageService.add({ severity: 'success', summary: 'Attenzione', detail: 'Operazione avvenuta con successo!' });
+
+                },error => {
+                    this.messageService.add({ severity: 'error', summary: 'Attenzione', detail: 'Errore durante la chiusura dell\'issue' });
+
+                });
+            },
+            reject: () => {
+
+            }
+        });
+
+
+    }
+
     handleOverlayClick(event : any) {
         let isMarker = event.overlay.getTitle != undefined;
 
@@ -250,6 +321,5 @@ export class DettaglioOperazioneComponent {
             this.messageService.add({severity:'info', summary:'Shape Selected', detail: ''});
         }
     }
-
 
 }

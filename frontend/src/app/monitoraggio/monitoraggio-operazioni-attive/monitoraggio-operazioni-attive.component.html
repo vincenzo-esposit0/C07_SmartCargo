@@ -5,7 +5,7 @@
             <p-table #dt1 [value]="operazioni" dataKey="id" [rows]="10" [loading]="false" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['']" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 3rem">
+                        <th style="min-width: 2rem">
                             <div class="flex justify-content-between align-items-center">
                                 ID
                             </div>
@@ -17,7 +17,7 @@
                             </div>
                         </th>
 
-                        <th style="min-width: 12rem">
+                        <th style="min-width: 8rem">
                             <div class="flex justify-content-between align-items-center">
                                 Punto di Destinazione
                             </div>
@@ -29,13 +29,13 @@
                             </div>
                         </th>
 
-                        <th style="min-width: 12rem">
+                        <th style="min-width: 10rem">
                             <div class="flex justify-content-between align-items-center">
                                 Autotrasportatore
                             </div>
                         </th>
 
-                        <th style="min-width: 8rem">
+                        <th style="min-width: 7rem">
                             <div class="flex justify-content-between align-items-center">
                                 Targa Veicolo
                             </div>
@@ -50,7 +50,13 @@
 
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Operatore Assegnato
+                                Aperta da (Operatore di Sala)
+                            </div>
+                        </th>
+
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Operatore Mobile Assegnato
                             </div>
                         </th>
 
@@ -77,14 +83,23 @@
                             <span class="image-text ml-2">{{data.operazione.puntoDestinazione}}</span>
                         </td>
 
-                        <td>{{data.operazione.stato}}</td>
+                        <td *ngIf="data?.operazione?.stato.includes('Anomalia')">
+                            <p style="color: red;"><b>{{ data.operazione.stato }}</b></p>
+                        </td>
+
+
+                        <td style="font-color: red" *ngIf="!data?.operazione?.stato.includes('Anomalia')">{{data.operazione.stato}}</td>
+
 
                         <td> {{data.autotrasportatore.nome+ ' '+data.autotrasportatore.cognome }}</td>
 
                         <td> {{data.veicolo.targa}} </td>
 
-                        <td *ngIf="data.issue?.stato == 'Chiuso'"> {{data.issue?.stato}} </td>
-                        <td *ngIf="data.issue?.stato != 'Chiuso'" style="text-color: red"> {{data.issue?.stato}} </td>
+                        <td *ngIf="data.issue?.stato == 'Chiusa'"> {{data.issue?.stato}} </td>
+                        <td *ngIf="data.issue?.stato != 'Chiusa'" style="color: red"><b> {{data.issue?.stato}} </b> </td>
+
+                        <td> {{data.operatore_sala != null ? data.operatore_sala?.nome + ' '+ data.operatore_sala?.cognome : ''}}</td>
+
 
                         <td> {{data.operatore_mobile != null ? data.operatore_mobile?.nome + ' '+ data.operatore_mobile?.cognome : ''}}</td>
 

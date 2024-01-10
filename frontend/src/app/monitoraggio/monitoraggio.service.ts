@@ -15,10 +15,25 @@ export class MonitoraggioService {
         return issues;
     }
 
+    getOpCarScar(data: any): Observable<any>{
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+        return this.httpClient.post<any>('http://127.0.0.1:5000/monitoraggio/getOpCarScar', JSON.stringify(data), { headers: headers });
+    }
+
     getStorico(data: any): Observable<any>{
             const headers = new HttpHeaders({
                 'Content-Type': 'application/json'
             });
             return this.httpClient.post<any>('http://127.0.0.1:5000/getStorico', JSON.stringify(data), { headers: headers });
+    }
+
+
+    segnalaEsito(data: any): Observable<any>{
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+        return this.httpClient.post<any>('http://127.0.0.1:5000/monitoraggio/esitoOp', JSON.stringify(data), { headers: headers });
     }
 }

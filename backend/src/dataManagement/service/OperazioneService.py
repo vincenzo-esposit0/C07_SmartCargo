@@ -6,6 +6,7 @@ from src.dataManagement.service import VeicoloService
 from src.dataManagement.service import IncludeService
 from src.dataManagement.service import IssueService
 from src.dataManagement.service import OperatoreMobileService
+from src.dataManagement.service import OperatoreSalaService
 from src.dataManagement.service import PercorsoService
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
@@ -56,8 +57,12 @@ def ottieniTutteOperazioniConDettagli():
                 #Ottieni le informazioni sul percorso usando l'id
                 percorso = PercorsoService.ottieniPercorsoPerId(operazione.percorso_id)
 
+                operatore_mobile = None
+                operatore_sala = None
+
                 if issue is not None and issue != {}:
                     operatore_mobile = OperatoreMobileService.ottieniOperatoreMobilePerId(issue["operatoreMobile_id"])
+                    operatore_sala = OperatoreSalaService.ottieniOperatoreSalaPerId(issue["operatoreSala_id"])
 
 
                 operazioneJson = {
@@ -66,6 +71,7 @@ def ottieniTutteOperazioniConDettagli():
                     "veicolo": veicolo,
                     "include":  include,
                     "operatore_mobile": operatore_mobile if operatore_mobile else None,
+                    "operatore_sala": operatore_sala if operatore_sala else None,
                     "issue": issue if issue else None,
                     "merce": merce,
                     "percorso": percorso
@@ -110,8 +116,10 @@ def ottieniAlcuneOperazioniConDettagli(operazioni):
                 #Ottieni le informazioni sul percorso usando l'id
                 percorso = PercorsoService.ottieniPercorsoPerId(operazione.percorso_id)
 
+
                 if issue is not None and issue != {}:
                     operatore_mobile = OperatoreMobileService.ottieniOperatoreMobilePerId(issue["operatoreMobile_id"])
+                    operatore_sala = OperatoreSalaService.ottieniOperatoreSalaPerId(issue["operatoreSala_id"])
 
 
                 operazioneJson = {
@@ -120,6 +128,7 @@ def ottieniAlcuneOperazioniConDettagli(operazioni):
                     "veicolo": veicolo if veicolo else None,
                     "include":  include,
                     "operatore_mobile": operatore_mobile if operatore_mobile else None,
+                    "operatore_sala": operatore_sala if operatore_sala else None,
                     "issue": issue if issue else None,
                     "merce": merce,
                     "percorso": percorso

@@ -1,7 +1,7 @@
 from flask import jsonify
 
-from backend.src.models.Percorso import Percorso
-from backend.src.models.PercorsoDAO import PercorsoDAO
+from src.models.Percorso import Percorso
+from src.models.PercorsoDAO import PercorsoDAO
 
 # Creazione di un'istanza di PercorsoDAO
 percorso_dao = PercorsoDAO()

@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Specifica i dettagli di connessione al database MySQL
 username = 'root'
-password = 'Sorre2811!'
+password = 'localhost'
 host = 'localhost'
 port = '3306'
 # La porta di default per MySQL è 3306

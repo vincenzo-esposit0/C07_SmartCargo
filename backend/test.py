@@ -109,4 +109,15 @@ def trova_operazioni_per_filtri():
     return jsonify(result)
 
 
+@app.route('/monitoraggio/esitoOp', methods=['POST'])
+def segnalaEsito():
+    data = request.get_json()
+    return MonitoraggioController.aggiorna_stato_operazione(data)
+
+@app.route('/monitoraggio/getOpCarScar', methods=['POST'])
+def getOpCarScar():
+    data = request.get_json()
+    return OperazioneService.ottieniOperazioniConDettagliPerOpMagazzino(data["id"])
+
+
 app.run()

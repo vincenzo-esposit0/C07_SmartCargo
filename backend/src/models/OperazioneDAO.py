@@ -47,9 +47,9 @@ class OperazioneDAO:
 
     def ottieni_operazioni_per_id_OpMagazzino(self, operatore_magazzino_id):
         session = self.Session()
-        operazione = session.query(Operazione).filter_by(operatore_magazzino_id=operatore_magazzino_id).all()
+        operazioni = session.query(Operazione).filter_by(operatoreMagazzino_id=operatore_magazzino_id).all()
         session.close()
-        return operazione
+        return operazioni
 
     def ottieni_operazioni_per_stato(self, stato):
         session = self.Session()

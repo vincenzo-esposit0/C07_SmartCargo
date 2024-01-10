@@ -3,6 +3,7 @@ import {DatePipe} from "@angular/common";
 import {IssueService} from "../issue.service";
 import {UtenteService} from "../../utente/utente.service";
 import {MessageService} from "primeng/api";
+import {AutenticazioneService} from "../../autenticazione/autenticazione.service";
 
 @Component({
   selector: 'app-gestisci-issue',
@@ -22,14 +23,11 @@ export class GestisciIssueComponent {
 
     @Output() disableDialog = new EventEmitter<any>();
 
-    constructor(private messageService: MessageService,private service: IssueService, private datePipe: DatePipe, private utenteService : UtenteService) {}
+    constructor(private auth: AutenticazioneService,private messageService: MessageService,private service: IssueService, private datePipe: DatePipe, private utenteService : UtenteService) {}
 
     ngOnInit(){
-
         console.log(this.data);
-        /*
 
-         */
         if(this.data){
             if(this.data.issue){
                 if(this.data.issue?.stato == 'Aperta' || this.data.issue?.stato == 'Aperto')
@@ -56,18 +54,15 @@ export class GestisciIssueComponent {
         if(!this.checkFormValidity()) return;
 
         this.data.issue.stato = "Aperta";
-        this.data.issue.operatoreSala_id = 1; //dovrei prenderlo dal profilo corrente
+        this.data.issue.operatoreSala_id = this.auth.profile.profilo.id;
         this.data.issue.operazione_id = this.data.operazione.id;
-
         this.data.issue.timestampApertura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
         this.data.issue.timestampChiusura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
 
         this.data.issue.operatoreMobile_id = this.selectedOpMobile.id;
 
-        console.log(this.data.issue);
         this.data.issue.tipologiaProblema = this.data.issue.tipologiaProblema.nome
         this.service.inviaIssue(this.data.issue).subscribe(dati => {
-           console.log(dati);
             this.disableDialog.emit(false);
             this.showDialog = false;
         },error => {
@@ -81,9 +76,6 @@ export class GestisciIssueComponent {
     aggiorna() {
 
         if(!this.checkFormValidity()) return;
-        this.data.issue.stato = "Chiusa";
-        this.data.issue.operatoreSala_id = 1; //dovrei prenderlo dal profilo corrente
-        this.data.issue.operazione_id = this.data.operazione.id;
 
         this.data.issue.timestampApertura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
         this.data.issue.timestampChiusura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
@@ -92,7 +84,6 @@ export class GestisciIssueComponent {
         this.data.issue.operatoreMobile_id = this.selectedOpMobile.id;
         this.data.issue.tipologiaProblema = this.data.issue.tipologiaProblema.nome
         this.service.aggiornaIssue(this.data.issue).subscribe(dati => {
-            console.log(dati);
             this.showDialog = false;
             this.disableDialog.emit(false);
         },error => {
