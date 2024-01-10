@@ -39,4 +39,7 @@ export class AppTopbarComponent {
         this.router.navigate(['login']);
     }
 
+    profilo() {
+        this.router.navigate(['home/editProfilo']);
+    }
 }

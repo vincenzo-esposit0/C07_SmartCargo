@@ -66,7 +66,6 @@ export class AppMenuComponent implements OnInit {
         if(this.autenticazioneService.profile){
             console.log(this.autenticazioneService.profile);
             this.model.push(home);
-            this.model.push(profiloedit);
             if(this.autenticazioneService.profile.operatore==='Autotrasportatore'){
             }else{
                 if(this.autenticazioneService.profile.operatore==='Operatore Ingresso'){

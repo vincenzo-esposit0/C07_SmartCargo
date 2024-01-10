@@ -10,7 +10,6 @@
                     <label for="nome" class="font-medium text-900" >Nome</label>
                     <input id="nome" type="text"  disabled [(ngModel)]=" this.profilo.nome" pInputText>
                 </div>
-
                 <div class="field mb-4 col-12 md:col-6">
                     <label for="cognome" class="font-medium text-900">Cognome</label>
                     <input id="cognome" type="text"  disabled [(ngModel)]=" this.profilo.cognome"  pInputText>
@@ -21,11 +20,7 @@
                     <input id="codicef" type="text"   disabled [(ngModel)]=" this.profilo.codiceFiscale"  pInputText>
                 </div>
 
-                <div class="field mb-4 col-12 md:col-6">
-                    <label class="font-medium text-900">Data Nascita</label>
-                    <p-calendar [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" [(ngModel)]="this.profilo.dataNascita" placeholder="Data Di Nascita" dateFormat="dd/mm/yy" ></p-calendar>
-                </div>
-                <div class="field mb-4 col-12">
+                <div class="field mb-4 col-12 md:col-6 ">
                     <label for="indirizzo" class="font-medium text-900">Indirizzo</label>
                     <input id="indirizzo" type="text"  [(ngModel)]=" this.profilo.indirizzo"  pInputText>
                 </div>
@@ -40,7 +35,7 @@
                     <p-password id="password" [toggleMask]="true"  [(ngModel)]=" this.profilo.password" ></p-password>
                 </div>
                 <div class="col-12">
-                    <button pButton pRipple label="Modifica" class="w-auto mt-3"></button>
+                    <button pButton pRipple label="Modifica" class="w-auto mt-3" (click)="modifica()"></button>
                 </div>
             </div>
         </div>

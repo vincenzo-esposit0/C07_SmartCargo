@@ -12,9 +12,35 @@ export class EditProfiloComponent {
     profilo:any;
     ngOnInit() {
         this.profilo=this.autenticazioneService.profile.profilo;
+        this.profilo.id=this.autenticazioneService.profile.profilo.id;
+        this.profilo.dataNascita='1989-06-21';
+        if(this.autenticazioneService.profile.operatore==='Operatore Sala'){
 
-      console.log(this.autenticazioneService.profile.profilo);
+                this.profilo.tipo='OpSala';
+            }else {
+                if (this.autenticazioneService.profile.operatore == 'Autotrasportatore') {
+                } else {
+                    if (this.autenticazioneService.profile.operatore === 'Operatore Magazzino') {
+                        this.profilo.tipo = 'OpMagazzino';
+                    } else {
+                        if (this.autenticazioneService.profile.operatore === 'Operatore Mobile') {
+                            this.profilo.tipo = 'OpMobile';
+
+                        }
+                    }
+                }
+            }
+
+}
+
+
+    modifica() {
+        console.log(JSON.stringify(this.profilo));
+        this.autenticazioneService.modifica(this.profilo).subscribe(dati => {
+            let value = dati;
+        }, error => {
+            console.log(error);
+        });
+
     }
-
-
 }

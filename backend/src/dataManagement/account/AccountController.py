@@ -70,7 +70,7 @@ def modificaAccount(accountJson):
 
             opDaModificare.nome = accountJson["nome"]
             opDaModificare.cognome = accountJson["cognome"]
-            opDaModificare.dataNascita = datetime.strptime(accountJson["dataNascita"], "%Y-%m-%dT%H:%M:%S")
+            opDaModificare.dataNascita = datetime.strptime(accountJson["dataNascita"], "%Y-%m-%d")
             opDaModificare.codiceFiscale = accountJson["codiceFiscale"]
             opDaModificare.email = accountJson["email"]
             opDaModificare.password = accountJson["password"]

@@ -9,6 +9,8 @@ from src.dataManagement.autenticazione import LoginController
 from src.dataManagement.issue import IssueController
 from src.dataManagement.ingresso import IngressoController
 from src.dataManagement.monitoraggio import MonitoraggioController
+from src.dataManagement.account import AccountController
+
 
 from src.dataManagement.service import OperazioneService
 from src.dataManagement.service import AutotrasportatoreService
@@ -119,6 +121,12 @@ def segnalaEsito():
 def getOpCarScar():
     data = request.get_json()
     return OperazioneService.ottieniOperazioniConDettagliPerOpMagazzino(data["id"])
+
+@app.route('/modificaOperatore', methods=['POST'])
+def modificaAccount():
+    data = request.get_json()
+    return AccountController.modificaAccount(data)
+
 
 
 app.run()

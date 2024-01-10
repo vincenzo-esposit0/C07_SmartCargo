@@ -77,7 +77,6 @@ export class SignUpComponent {
                 let value = dati;
                 console.log(JSON.stringify(value));
                 //Todo controlla se lo stato è corretto
-                debugger;
                 if (this.autotrasportatore.email) {
                     if (this.autotrasportatore.password) {
                         if (!this.autenticazioneService.profile) {

@@ -23,4 +23,11 @@ export class AutenticazioneService {
         return this.httpClient.post<any>('http://127.0.0.1:5000/registrazione', JSON.stringify(data), { headers: headers });
     }
 
+    modifica(data: any): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+        return this.httpClient.post<any>('http://127.0.0.1:5000/modificaOperatore', JSON.stringify(data), { headers: headers });
+    }
+
 }

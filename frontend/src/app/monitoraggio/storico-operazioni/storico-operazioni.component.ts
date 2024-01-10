@@ -24,6 +24,7 @@ export class StoricoOperazioniComponent {
         this.service.getStorico(this.filtro).subscribe(dati => {
             this.operazioni = dati;
             console.log(this.operazioni)
+            console.log(dati);
         },error => {
             console.log(error);
         });
