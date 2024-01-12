@@ -49,7 +49,7 @@ def detection(df, soglia): #la soglia rappresenta la distanza massima consentita
     plt.show()
 
     #prova
-    return ok_path_df
+    return no_path_df
 
 # Costruisco il DataFrame tramite il DataSet di Training
 df = pd.read_excel('training/22July_porto.xlsx')
@@ -122,16 +122,11 @@ df_test_1 = pd.read_excel('test/22JulyDOS.xlsx')
 df_test_1.to_csv('test_1.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
-ok_path_df = detection(df_test_1, 100)
-
-"""
-print("Coordinate del percorso corretto:")
-print(ok_path_df)
-"""
+no_path_df = detection(df_test_1, 100)
 
 # Dividi i punti di ok_path_df in array separati per latitudine e longitudine
-latitudini = ok_path_df['latitude'].to_numpy()
-longitudini = ok_path_df['longitude'].to_numpy()
+latitudini = no_path_df['latitude'].to_numpy()
+longitudini = no_path_df['longitude'].to_numpy()
 
 # Concatena i punti di ok_path_df in una stringa per latitudini e longitudini
 latitudini_string = ','.join(map(str, latitudini))
@@ -154,11 +149,11 @@ df_test_2 = pd.read_excel('test/23JulyDOS.xlsx')
 df_test_2.to_csv('test_2.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
-ok_path_df2 = detection(df_test_2, 100)
+no_path_df2 = detection(df_test_2, 100)
 
 # Dividi i punti di ok_path_df in array separati per latitudine e longitudine
-latitudini = ok_path_df2['latitude'].to_numpy()
-longitudini = ok_path_df2['longitude'].to_numpy()
+latitudini = no_path_df2['latitude'].to_numpy()
+longitudini = no_path_df2['longitude'].to_numpy()
 
 # Concatena i punti di ok_path_df in una stringa per latitudini e longitudini
 latitudini_string = ','.join(map(str, latitudini))
@@ -172,11 +167,11 @@ df_test_3 = pd.read_excel('test/29JulyDOS.xlsx')
 df_test_3.to_csv('test_3.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
-ok_path_df3 = detection(df_test_3, 100)
+no_path_df3 = detection(df_test_3, 100)
 
 # Dividi i punti di ok_path_df in array separati per latitudine e longitudine
-latitudini = ok_path_df3['latitude'].to_numpy()
-longitudini = ok_path_df3['longitude'].to_numpy()
+latitudini = no_path_df3['latitude'].to_numpy()
+longitudini = no_path_df3['longitude'].to_numpy()
 
 # Concatena i punti di ok_path_df in una stringa per latitudini e longitudini
 latitudini_string = ','.join(map(str, latitudini))

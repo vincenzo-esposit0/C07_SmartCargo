@@ -9,20 +9,20 @@ class Percorso(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     puntiLatitudinePercorsi = Column(String(3000), nullable=False)
     puntiLongitudinePercorsi = Column(String(3000), nullable=False)
-    puntiLatitudineCorretti = Column(String(3000))
-    puntiLongitudineCorretti = Column(String(3000))
+    puntiLatitudineErrati = Column(String(3000))
+    puntiLongitudineErrati = Column(String(3000))
 
-    def __init__(self, puntiLatitudinePercorsi, puntiLongitudinePercorsi, puntiLatitudineCorretti=None, puntiLongitudineCorretti=None):
+    def __init__(self, puntiLatitudinePercorsi, puntiLongitudinePercorsi, puntiLatitudineErrati=None, puntiLongitudineErrati=None):
         self.puntiLatitudinePercorsi = puntiLatitudinePercorsi
         self.puntiLongitudinePercorsi = puntiLongitudinePercorsi
-        self.puntiLatitudineCorretti = puntiLatitudineCorretti
-        self.puntiLongitudineCorretti = puntiLongitudineCorretti
+        self.puntiLatitudineErrati = puntiLatitudineErrati
+        self.puntiLongitudineErrati = puntiLongitudineErrati
 
     def __json__(self):
         return {
             'id': self.id,
-            'puntiLatitudineCorretti': self.puntiLatitudineCorretti,
-            'puntiLongitudineCorretti': self.puntiLongitudineCorretti,
+            'puntiLatitudineErrati': self.puntiLatitudineErrati,
+            'puntiLongitudineErrati': self.puntiLongitudineErrati,
             'puntiLatitudinePercorsi': self.puntiLatitudinePercorsi,
             'puntiLongitudinePercorsi': self.puntiLongitudinePercorsi
         }

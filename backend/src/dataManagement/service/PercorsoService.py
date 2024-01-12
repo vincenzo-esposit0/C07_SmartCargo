@@ -11,8 +11,8 @@ def nuovoPercorso(percorsoJson):
         percorso = Percorso(
             puntiLatitudinePercorsi=percorsoJson["puntiLatitudinePercorsi"],
             puntiLongitudinePercorsi=percorsoJson["puntiLongitudinePercorsi"],
-            puntiLatitudineCorretti=percorsoJson.get("puntiLatitudineCorretti"),
-            puntiLongitudineCorretti=percorsoJson.get("puntiLongitudineCorretti")
+            puntiLatitudineErrati=percorsoJson.get("puntiLatitudineErrati"),
+            puntiLongitudineErrati=percorsoJson.get("puntiLongitudineErrati")
         )
 
         percorsoCreato = percorso_dao.aggiungi_percorso(percorso)
@@ -70,8 +70,8 @@ def aggiorna_percorso(percorso_id, nuovi_dati):
         if percorso_da_aggiornare:
             percorso_da_aggiornare.puntiLatitudinePercorsi = nuovi_dati["puntiLatitudinePercorsi"]
             percorso_da_aggiornare.puntiLongitudinePercorsi = nuovi_dati["puntiLongitudinePercorsi"]
-            percorso_da_aggiornare.puntiLatitudineCorretti = nuovi_dati.get("puntiLatitudineCorretti")
-            percorso_da_aggiornare.puntiLongitudineCorretti = nuovi_dati.get("puntiLongitudineCorretti")
+            percorso_da_aggiornare.puntiLatitudineErrati = nuovi_dati.get("puntiLatitudineErrati")
+            percorso_da_aggiornare.puntiLongitudineErrati = nuovi_dati.get("puntiLongitudineErrati")
 
             percorso_aggiornato = percorso_dao.aggiorna_percorso(percorso_da_aggiornare)
 
@@ -89,8 +89,8 @@ def aggiornaPercorsoByAlgoritmo(percorsoId, latString, lonString):
         percorsoDaAggiornare = percorso_dao.ottieni_percorso_per_id(percorsoId)
 
         if percorsoDaAggiornare:
-            percorsoDaAggiornare.puntiLatitudineCorretti = latString
-            percorsoDaAggiornare.puntiLongitudineCorretti = lonString
+            percorsoDaAggiornare.puntiLatitudineErrati = latString
+            percorsoDaAggiornare.puntiLongitudineErrati = lonString
 
             percorsoAggiornato = percorso_dao.aggiorna_percorso(percorsoDaAggiornare)
 
