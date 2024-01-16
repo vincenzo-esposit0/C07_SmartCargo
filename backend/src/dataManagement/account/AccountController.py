@@ -47,8 +47,8 @@ def registrazioneAccount(accountJson):
         return jsonify(opRegistrato.__json__())
 
     except Exception as e:
-        print(f"Errore durante la registrazione di un autotrasportatore: {str(e)}")
-        return {}
+        print(f"Errore durante la registrazione di un operatore: {str(e)}")
+        return {"message": "Errore durante la registrazione di un operatore"}
 
 def modificaAccount(accountJson):
     try:
@@ -88,5 +88,5 @@ def modificaAccount(accountJson):
         return jsonify(result.__json__())
 
     except Exception as e:
-        print(f"Errore durante la registrazione di un autotrasportatore: {str(e)}")
-        return {}
+        print(f"Errore durante la modifica account di un operatore: {str(e)}")
+        return {"message": "Errore durante la modifica account di un operatore"}

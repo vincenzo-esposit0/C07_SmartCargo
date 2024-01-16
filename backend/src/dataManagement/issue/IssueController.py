@@ -52,8 +52,8 @@ def nuovaIssue(issueJson):
         return jsonify(result.__json__())
 
     except Exception as e:
-        print(f"Errore durante l'aggiunta dell'issue: {str(e)}")
-        return {}
+        print(f"Errore durante la creazione dell'issue: {str(e)}")
+        return {"message": "Errore durante la creazione dell'issue"}
 
 def aggiornaIssue(issueJson):
     try:
@@ -96,4 +96,4 @@ def aggiornaIssue(issueJson):
     ##aggiornare stato issue (da discutere)
     except Exception as e:
         print(f"Errore durante l'aggiornamento dell'issue: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'aggiornamento dell'issue"}

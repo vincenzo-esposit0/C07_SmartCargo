@@ -28,7 +28,7 @@ def ottieniTutteOperazioni():
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento delle operazioni"}
 
 def ottieniTutteOperazioniConDettagli():
     try:
@@ -37,8 +37,6 @@ def ottieniTutteOperazioniConDettagli():
         if operazioni:
             operazioniJson = []
             for operazione in operazioni:
-                operatore_mobile = None
-
                 # Ottieni le informazioni dell'autotrasportatore usando l'ID
                 autotrasportatore = AutotrasportatoreService.ottieniAutotrasportatorePerId(operazione.autotrasportatore_id)
 
@@ -144,7 +142,7 @@ def ottieniAlcuneOperazioniConDettagli(operazioni):
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento delle operazioni"}
 
 def ottieniOperazioniPerStorico():
     try:
@@ -155,7 +153,7 @@ def ottieniOperazioniPerStorico():
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni per lo storico: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento delle operazioni per lo storico"}
 
 def ottieniOperazioniPerOpAttive():
     try:
@@ -166,7 +164,7 @@ def ottieniOperazioniPerOpAttive():
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni per operazioni attive: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento delle operazioni attive"}
 
 def ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore_id):
     try:
@@ -177,7 +175,7 @@ def ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore_id):
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento delle operazioni"}
 
 
 def ottieniOperazioniConDettagliPerOpMagazzino(operatore_magazzino_id):
@@ -188,7 +186,7 @@ def ottieniOperazioniConDettagliPerOpMagazzino(operatore_magazzino_id):
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento delle operazioni"}
 
 def ottieniOperazioniConDettagliPerIssue(issue_stato):
     try:
@@ -203,7 +201,7 @@ def ottieniOperazioniConDettagliPerIssue(issue_stato):
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento delle operazioni"}
 
 def ottieniOperazionePerId(operazione_id):
     try:
@@ -217,4 +215,37 @@ def ottieniOperazionePerId(operazione_id):
 
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'operazione: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento delle operazione"}
+
+def ottieni_tutte_Operazioni_e_Merci():
+    try:
+        operazioni = operazione_dao.ottieni_operazioni_per_stato("In corso / Regolare")
+
+        if operazioni:
+            operazioniJson = []
+            for operazione in operazioni:
+
+                # Ottieni le informazioni dell'autotrasportatore usando l'ID
+                autotrasportatore = AutotrasportatoreService.ottieniAutotrasportatorePerId(operazione.autotrasportatore_id)
+
+                include = IncludeService.ottieniIncludePerIdOperazione(operazione.id)
+
+                # Ottieni le informazioni della merce usando l'ID
+                merce = MerceService.ottieniMercePerId(include["merce_id"])
+
+                operazioneJson = {
+                    "operazione": operazione.__json__(),
+                    "autotrasportatore": autotrasportatore,
+                    "merce":  merce,
+                }
+
+                operazioniJson.append(operazioneJson)
+
+            # Restituisce la lista di JSON come risultato
+            return operazioniJson
+        else:
+            return {"message": "Operazioni non trovate"}
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
+        return {"message": "Errore durante l'ottenimento delle operazioni"}

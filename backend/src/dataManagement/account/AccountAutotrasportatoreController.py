@@ -42,7 +42,7 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
 
     except Exception as e:
         print(f"Errore durante la registrazione di un autotrasportatore: {str(e)}")
-        return {}
+        return {"message": "Errore durante la registrazione di un autotrasportatore"}
 
 def modificaAutotrasportatore(autotrasportatoreJson):
     try:
@@ -65,5 +65,5 @@ def modificaAutotrasportatore(autotrasportatoreJson):
         return jsonify(result.__json__())
 
     except Exception as e:
-        print(f"Errore durante la registrazione di un autotrasportatore: {str(e)}")
-        return {}
+        print(f"Errore durante la modifica account di un autotrasportatore: {str(e)}")
+        return {"message": "Errore durante la modifica dell'account di un autotrasportatore"}

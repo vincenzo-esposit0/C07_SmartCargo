@@ -3,7 +3,7 @@ from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 from src.models.QrCodeDAO import QrCodeDAO
 
 
-class QrCodeFacade:
+class InterfaceFacade:
     def __init__(self):
         self.operazione_dao = OperazioneDAO()
         self.autotrasportatore_dao = AutotrasportatoreDAO()

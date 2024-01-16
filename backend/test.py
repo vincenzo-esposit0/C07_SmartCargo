@@ -10,6 +10,7 @@ from src.dataManagement.issue import IssueController
 from src.dataManagement.ingresso import IngressoController
 from src.dataManagement.monitoraggio import MonitoraggioController
 from src.dataManagement.account import AccountController
+from src.dataManagement.operazioni import OperazioniController
 
 
 from src.dataManagement.service import OperazioneService
@@ -115,7 +116,7 @@ def trova_operazioni_per_filtri():
 @app.route('/monitoraggio/esitoOp', methods=['POST'])
 def segnalaEsito():
     data = request.get_json()
-    return MonitoraggioController.aggiorna_stato_operazione(data)
+    return OperazioniController.aggiorna_stato_operazione(data)
 
 @app.route('/monitoraggio/getOpCarScar', methods=['POST'])
 def getOpCarScar():
