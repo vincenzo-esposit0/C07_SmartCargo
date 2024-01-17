@@ -2,13 +2,13 @@ from datetime import datetime
 
 from flask import jsonify
 from src.models.Issue import Issue
-from src.dataManagement.QrCodeFacade import QrCodeFacade
+from src.dataManagement.InterfaceFacade import InterfaceFacade
 from src.models.QrCodeDAO import QrCodeDAO
 from src.models.OperazioneDAO import OperazioneDAO
 from src.models.IssueDAO import IssueDAO
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
-qrcode_facade = QrCodeFacade()
+qrcode_facade = InterfaceFacade()
 qrcode_dao = QrCodeDAO()
 operazione_dao = OperazioneDAO()
 issue_dao = IssueDAO()

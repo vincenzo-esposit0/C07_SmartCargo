@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from flask import jsonify
-from src.dataManagement.service import OperazioneService, AutotrasportatoreService, IncludeService, MerceService
+from src.dataManagement.services import OperazioneService, AutotrasportatoreService, IncludeService, MerceService
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 from src.models.OperazioneDAO import OperazioneDAO
 

@@ -1,13 +1,13 @@
 from src.models.OperazioneDAO import OperazioneDAO
 
-from src.dataManagement.service import MerceService
-from src.dataManagement.service import AutotrasportatoreService
-from src.dataManagement.service import VeicoloService
-from src.dataManagement.service import IncludeService
-from src.dataManagement.service import IssueService
-from src.dataManagement.service import OperatoreMobileService
-from src.dataManagement.service import OperatoreSalaService
-from src.dataManagement.service import PercorsoService
+from src.dataManagement.services import MerceService
+from src.dataManagement.services import AutotrasportatoreService
+from src.dataManagement.services import VeicoloService
+from src.dataManagement.services import IncludeService
+from src.dataManagement.services import IssueService
+from src.dataManagement.services import OperatoreMobileService
+from src.dataManagement.services import OperatoreSalaService
+from src.dataManagement.services import PercorsoService
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 operazione_dao = OperazioneDAO()
