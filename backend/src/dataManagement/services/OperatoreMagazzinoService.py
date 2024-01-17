@@ -1,3 +1,4 @@
+from flask import jsonify
 from src.models.OperatoreMagazzinoDAO import OperatoreMagazzinoDAO
 
 operatore_magazzino_dao = OperatoreMagazzinoDAO()
@@ -32,3 +33,18 @@ def ottieniOperatoreMagazzinoPerId(operatore_magazzino_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'operatore Magazzino: {str(e)}")
         return {}
+
+def eliminaOperatoreMagazzino(operatore_magazzino_id):
+    try:
+        operatore_magazzino = operatore_magazzino_dao.ottieni_operatore_magazzino_per_id(operatore_magazzino_id)
+
+        if operatore_magazzino:
+            operatore_magazzino_dao.elimina_operatore_magazzino(operatore_magazzino)
+            return jsonify({"messaggio": f"Operatore magazzino con ID {operatore_magazzino_id} eliminato con successo"})
+        else:
+            return jsonify({"errore": f"Nessun operatore magazzino trovato con ID {operatore_magazzino_id}"})
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dell'operatore magazzino: {str(e)}")
+        return {}
+

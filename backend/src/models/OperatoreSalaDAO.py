@@ -41,7 +41,6 @@ class OperatoreSalaDAO:
         session.close()
 
     def is_opSala_registrato(self, email):
-
         session = self.Session()
         opSala = session.query(OperatoreSala).filter_by(email=email).first()
         session.close()

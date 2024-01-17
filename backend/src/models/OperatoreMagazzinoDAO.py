@@ -42,7 +42,6 @@ class OperatoreMagazzinoDAO:
 
 
     def is_opMagazzino_registrato(self, email):
-
         session = self.Session()
         opMagazzino = session.query(OperatoreMagazzino).filter_by(email=email).first()
         session.close()

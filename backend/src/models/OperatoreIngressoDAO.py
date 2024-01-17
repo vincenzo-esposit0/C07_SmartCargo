@@ -41,7 +41,6 @@ class OperatoreIngressoDAO:
         session.close()
 
     def is_opIngresso_registrato(self, email):
-
         session = self.Session()
         opIngresso = session.query(OperatoreIngresso).filter_by(email=email).first()
         session.close()

@@ -1,3 +1,4 @@
+from flask import jsonify
 from src.models.OperatoreIngressoDAO import OperatoreIngressoDAO
 
 operatore_ingresso_dao = OperatoreIngressoDAO()
@@ -31,4 +32,19 @@ def ottieniOperatoreIngressoPerId(operatore_ingresso_id):
 
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'operatore Ingresso: {str(e)}")
+        return {}
+
+
+def eliminaOperatoreIngresso(operatore_ingresso_id):
+    try:
+        operatore_ingresso = operatore_ingresso_dao.ottieni_operatore_ingresso_per_id(operatore_ingresso_id)
+
+        if operatore_ingresso:
+            operatore_ingresso_dao.elimina_operatore_ingresso(operatore_ingresso)
+            return jsonify({"messaggio": f"Operatore di ingresso con ID {operatore_ingresso_id} eliminato con successo"})
+        else:
+            return jsonify({"errore": f"Nessun operatore di ingresso trovato con ID {operatore_ingresso_id}"})
+
+    except Exception as e:
+        print(f"Errore durante l'ottenimento dell'operatore di ingresso: {str(e)}")
         return {}

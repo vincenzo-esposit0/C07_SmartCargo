@@ -33,7 +33,7 @@ class OperatoreMobileDAO:
         session.close()
         return operatore_mobile
 
-    def elimina_operatore_sala(self, operatore_mobile_id):
+    def elimina_operatore_mobile(self, operatore_mobile_id):
         session = self.Session()
         operatore_sala = session.query(OperatoreMobile).filter_by(id=operatore_mobile_id).first()
         session.delete(operatore_sala)
@@ -41,7 +41,6 @@ class OperatoreMobileDAO:
         session.close()
 
     def is_opMobile_registrato(self, email):
-
         session = self.Session()
         opMobile = session.query(OperatoreMobile).filter_by(email=email).first()
         session.close()
