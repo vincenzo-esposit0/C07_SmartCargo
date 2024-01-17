@@ -33,4 +33,13 @@ export class StoricoOperazioniComponent {
     applyFilterGlobal($event: Event) {
         this.dt1.filterGlobal(($event.target as HTMLInputElement).value, 'contains');
     }
+
+    openDettagliOp(data: any) {
+        data.fromStorico = true;
+        this.router.navigate(['home/dettaglioOp'], {
+            state: {
+                dataJson: data
+            }
+        });
+    }
 }

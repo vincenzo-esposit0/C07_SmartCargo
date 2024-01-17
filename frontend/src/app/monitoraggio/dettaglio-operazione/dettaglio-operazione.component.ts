@@ -73,14 +73,16 @@ export class DettaglioOperazioneComponent {
 
         this.options = {
             center: {lat: latitude, lng: longitude},
-            zoom: 10,
+            zoom: 13,
         };
 
         this.puntiLatErrati = this.data.percorso.puntiLatitudineErrati.split(',');
         this.puntiLngErrati = this.data.percorso.puntiLongitudineErrati.split(',');
 
 
-        this.aggiungiPuntoOgni2Secondi();
+        if(!this.data.fromStorico && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore')
+            this.aggiungiPuntoOgni2Secondi();
+        else this.creaTuttoPercorso();
     }
 
 
@@ -115,7 +117,6 @@ export class DettaglioOperazioneComponent {
                             lat : latPercorso,
                             lng: lngPercorso
                         }
-                        this.messageService.add({ key: 'confirm', sticky: true, severity: 'error', summary: 'Can you send me the report?' });
                     }
 
                     // Creazione marker per il punto errato
@@ -249,7 +250,6 @@ export class DettaglioOperazioneComponent {
             }
         });
 
-
     }
 
     handleOverlayClick(event : any) {
@@ -268,4 +268,76 @@ export class DettaglioOperazioneComponent {
         }
     }
 
+    creaTuttoPercorso() {
+        this.datiAnomalia = {};
+
+        const latitudini = this.data.percorso.puntiLatitudinePercorsi.split(',');
+        const longitudini = this.data.percorso.puntiLongitudinePercorsi.split(',');
+
+        for (let i = 0; i < latitudini.length; i++) {
+            const latPercorso = Number(latitudini[i]);
+            const lngPercorso = Number(longitudini[i]);
+
+            let corretto = true;
+
+            for (let lat of this.puntiLatErrati) {
+                if (Number(lat) === latPercorso) {
+                    corretto = false;
+                }
+            }
+
+            for (let lng of this.puntiLngErrati) {
+                if (Number(lng) === lngPercorso) {
+                    corretto = false;
+                }
+            }
+
+            if (this.autenticazioneService?.profile?.operatore !== 'Autotrasportatore') {
+                if (corretto) {
+                    // Creazione marker per il percorso
+                    const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (i + 1) + ' Percorso', 'green');
+                    this.overlays.push(markerPercorso);
+                } else {
+                    if (!this.showDialogAnomalia && false) {
+                        this.showDialogAnomalia = true;
+                        this.datiAnomalia = {
+                            lat: latPercorso,
+                            lng: lngPercorso
+                        };
+                    }
+
+                    // Creazione marker per il punto errato
+                    const markerCorretto = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (i + 1) + ' Anomalo', 'red');
+                    this.overlays.push(markerCorretto);
+                }
+            } else {
+                const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (i + 1) + ' Percorso', 'blue');
+                this.overlays.push(markerPercorso);
+            }
+        }
+
+        // Creazione polilinea
+        this.creaPolilineaDaPuntiVerdi();
+
+        this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
+    }
+
+    chiamaAutorita() {
+        this.confirm.confirm({
+            message: 'Sei sicuro di voler chiamare le autorità competenti?',
+            header: 'Attenzione',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'Si',
+            accept: () => {
+
+                this.messageService.add({ severity: 'warn', summary: 'Attenzione!', detail: 'Segnalazione inviata alle autorità competenti!' });
+            },
+            reject: () => {
+
+            }
+        });
+
+
+
+    }
 }
