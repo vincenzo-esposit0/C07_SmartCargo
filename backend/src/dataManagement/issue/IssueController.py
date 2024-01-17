@@ -38,6 +38,7 @@ def nuovaIssue(issueJson):
         autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
         qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
         """
+        #utilizzo dell'interfaccia Facade per accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
         qrcode, operazione = qrcode_facade.ottieniQrcodeValidazione(issueJson["operazione_id"])
 
         #invalidazione qrcode
@@ -76,10 +77,15 @@ def aggiornaIssue(issueJson):
             issue.operatoreMobile_id = issueJson["operatoreMobile_id"]
             issue.operazione_id = issueJson["operazione_id"]
 
+            """
             #ricerca qrcode attraverso l'id dell'operazione
             operazione = operazione_dao.ottieni_operazione_per_id(issueJson["operazione_id"])
             autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
             qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
+            """
+
+            #utilizzo dell'interfaccia Facade per accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
+            qrcode, operazione = qrcode_facade.ottieniQrcodeValidazione(issueJson["operazione_id"])
 
             if issue.stato == "Chiusa":
                 #validazione qrcode
