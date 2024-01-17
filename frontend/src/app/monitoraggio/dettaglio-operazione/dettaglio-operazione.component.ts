@@ -117,6 +117,7 @@ export class DettaglioOperazioneComponent {
                             lat : latPercorso,
                             lng: lngPercorso
                         }
+                        this.messageService.add({ key: 'confirm', sticky: true, severity: 'error', summary: 'Can you send me the report?' });
                     }
 
                     // Creazione marker per il punto errato
