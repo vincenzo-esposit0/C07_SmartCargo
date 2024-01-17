@@ -1,4 +1,4 @@
-<div class="layout-dashboard">
+<div class="layout-dashboard" *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'">
     <div class="grid">
         <div class="col-12 md:col-6 xl:col-3" *ngFor="let metric of metrics">
             <div class="card shadow-1 flex flex-column" [style.borderColor]="metric.color_light" [style]="{'border-color': metric.color_light, 'border-left': '4px solid'}">
@@ -51,45 +51,6 @@
         </div>
 
 
-        <!--
-        <div class="col-12 lg:col-4">
-            <div class="card">
-                <h4>Tasks</h4>
-                <p>Overview of your pending tasks.</p>
-                <div class="mt-4">
-                    <span class="block mb-2"><span class="font-semibold">12 Orders</span> to fulfill</span>
-                    <div class="w-full border-round" style="height: 7px; background-color: var(--surface-d)">
-                        <div class="w-7 h-full border-round" style="background-color: #64B5F6"></div>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <span class="block mb-2"><span class="font-semibold">40+ Payments</span> to withdraw</span>
-                    <div class="w-full border-round" style="height: 7px; background-color: var(--surface-d)">
-                        <div class="w-5 h-full border-round" style="background-color: #A5D6A7"></div>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <span class="block mb-2"><span class="font-semibold">4 Repors</span> to revise</span>
-                    <div class="w-full border-round" style="height: 7px; background-color: var(--surface-d)">
-                        <div class="w-8 h-full border-round" style="background-color: #7986CB"></div>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <span class="block mb-2"><span class="font-semibold">6 Questions</span> to respond</span>
-                    <div class="w-full border-round" style="height: 7px; background-color: var(--surface-d)">
-                        <div class="w-4 h-full border-round" style="background-color: #9575CD"></div>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <span class="block mb-2"><span class="font-semibold">2 Chargebacks</span> to review</span>
-                    <div class="w-full border-round" style="height: 7px; background-color: var(--surface-d)">
-                        <div class="w-6 h-full border-round" style="background-color: #4DB6AC"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
-
         <div class="col-12 xl:col-6">
             <div class="card" style="height: 100% !important;">
                 <h4>Rapporto Gate/Operazioni</h4>
@@ -102,3 +63,6 @@
     </div>
 
 </div>
+
+
+<app-monitoraggio-operazioni-attive *ngIf="this.autenticazioneService?.profile?.operatore==='Autotrasportatore'" [isAutotrasportatore]="this.autenticazioneService?.profile?.operatore==='Autotrasportatore'"></app-monitoraggio-operazioni-attive>

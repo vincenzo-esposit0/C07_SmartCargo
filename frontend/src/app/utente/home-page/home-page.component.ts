@@ -3,6 +3,7 @@ import {AppConfig} from "../../layout/service/app.layout.service";
 import {Table} from "primeng/table";
 import {Subscription} from "rxjs";
 import {MenuItem} from "primeng/api";
+import {AutenticazioneService} from "../../autenticazione/autenticazione.service";
 
 @Component({
   selector: 'app-home-page',
@@ -36,7 +37,7 @@ export class HomePageComponent {
     selectedOrderWeek!: any;
 
 
-    constructor() {}
+    constructor(public autenticazioneService : AutenticazioneService) {}
 
 
     ngOnInit() {

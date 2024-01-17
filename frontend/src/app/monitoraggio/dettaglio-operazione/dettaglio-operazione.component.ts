@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {DatePipe} from "@angular/common";
 import {IssueService} from "../../issue/issue.service";
+import {AutenticazioneService} from "../../autenticazione/autenticazione.service";
 
 @Component({
   selector: 'app-dettaglio-operazione',
@@ -35,7 +36,7 @@ export class DettaglioOperazioneComponent {
 
 
 
-    constructor(private confirm: ConfirmationService,private issueService: IssueService,private datePipe: DatePipe,private router: Router,public messageService: MessageService, private cdr: ChangeDetectorRef) {
+    constructor(public autenticazioneService : AutenticazioneService,private confirm: ConfirmationService,private issueService: IssueService,private datePipe: DatePipe,private router: Router,public messageService: MessageService, private cdr: ChangeDetectorRef) {
         if (this.router.getCurrentNavigation()?.extras.state) {
             // @ts-ignore
             let routeState = this.router.getCurrentNavigation().extras.state;
