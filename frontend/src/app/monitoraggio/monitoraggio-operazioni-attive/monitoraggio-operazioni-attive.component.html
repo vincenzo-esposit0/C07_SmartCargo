@@ -5,8 +5,8 @@
             <p-table #dt1 [value]="operazioni" dataKey="id" [rows]="10" [loading]="false" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['']" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 2rem">
-                            <div class="flex justify-content-between align-items-center">
+                        <th style="min-width: 2rem" *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'">
+                            <div  class="flex justify-content-between align-items-center" >
                                 ID
                             </div>
                         </th>
@@ -23,7 +23,7 @@
                             </div>
                         </th>
 
-                        <th style="min-width: 8rem">
+                        <th  *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'" style="min-width: 8rem">
                             <div class="flex justify-content-between align-items-center">
                                 Stato Operazione
                             </div>
@@ -41,14 +41,14 @@
                             </div>
                         </th>
 
-                        <th style="min-width: 10rem">
+                        <th  *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'" style="min-width: 10rem">
                             <div class="flex justify-content-between align-items-center">
                                 Issue
                             </div>
                         </th>
 
 
-                        <th style="min-width: 12rem">
+                        <th  *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'" style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
                                 Aperta da (Operatore di Sala)
                             </div>
@@ -70,7 +70,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-data>
                     <tr>
-                        <td>
+                        <td  *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'">
                             {{data.operazione.id}}
                         </td>
                         <td>
@@ -83,22 +83,22 @@
                             <span class="image-text ml-2">{{data.operazione.puntoDestinazione}}</span>
                         </td>
 
-                        <td *ngIf="data?.operazione?.stato.includes('Anomalia')">
+                        <td *ngIf="data?.operazione?.stato.includes('Anomalia') && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'">
                             <p style="color: red;"><b>{{ data.operazione.stato }}</b></p>
                         </td>
 
 
-                        <td style="font-color: red" *ngIf="!data?.operazione?.stato.includes('Anomalia')">{{data.operazione.stato}}</td>
+                        <td style="font-color: red" *ngIf="!data?.operazione?.stato.includes('Anomalia') && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'">{{data.operazione.stato}}</td>
 
 
                         <td> {{data.autotrasportatore.nome+ ' '+data.autotrasportatore.cognome }}</td>
 
                         <td> {{data.veicolo.targa}} </td>
 
-                        <td *ngIf="data.issue?.stato == 'Chiuso'"> {{data.issue?.stato}} </td>
-                        <td *ngIf="data.issue?.stato != 'Chiuso'" style="color: red"><b> {{data.issue?.stato}} </b> </td>
+                        <td *ngIf="data.issue?.stato == 'Chiuso' && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'"> {{data.issue?.stato}} </td>
+                        <td *ngIf="data.issue?.stato != 'Chiuso' && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'" style="color: red"><b> {{data.issue?.stato}} </b> </td>
 
-                        <td> {{data.operatore_sala != null ? data.operatore_sala?.nome + ' '+ data.operatore_sala?.cognome : ''}}</td>
+                        <td *ngIf=" this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'"> {{data.operatore_sala != null ? data.operatore_sala?.nome + ' '+ data.operatore_sala?.cognome : ''}}</td>
 
 
                         <td> {{data.operatore_mobile != null ? data.operatore_mobile?.nome + ' '+ data.operatore_mobile?.cognome : ''}}</td>

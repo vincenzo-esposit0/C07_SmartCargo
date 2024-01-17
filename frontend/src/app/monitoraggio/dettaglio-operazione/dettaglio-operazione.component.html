@@ -1,6 +1,6 @@
 <p-confirmDialog></p-confirmDialog>
 
-<p-toast key="confirm" position="top-right" key="confirm"  [baseZIndex]="5000">
+<p-toast *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'" key="confirm" position="top-right" key="confirm"  [baseZIndex]="5000">
     <ng-template let-message pTemplate="message">
         <div class="flex flex-column align-items-start" style="flex: 1">
             <div class="flex align-items-center gap-2">
