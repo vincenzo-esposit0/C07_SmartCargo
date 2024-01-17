@@ -13,11 +13,11 @@ from src.dataManagement.account import AccountController
 from src.dataManagement.operazioni import OperazioniController
 
 
-from src.dataManagement.service import OperazioneService
-from src.dataManagement.service import AutotrasportatoreService
-from src.dataManagement.service import IssueService
-from src.dataManagement.service import MerceService
-from src.dataManagement.service import VeicoloService
+from src.dataManagement.services import OperazioneService
+from src.dataManagement.services import AutotrasportatoreService
+from src.dataManagement.services import IssueService
+from src.dataManagement.services import MerceService
+from src.dataManagement.services import VeicoloService
 
 from src.models import QrCodeDAO
 app = Flask(__name__)

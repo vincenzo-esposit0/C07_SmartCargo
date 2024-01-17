@@ -2,6 +2,8 @@ from flask import jsonify
 from src.models.OperazioneDAO import OperazioneDAO
 
 operazione_dao = OperazioneDAO()
+
+#metodo utilizzato dall'operatore di magazzino per l'aggiornamento dello stato dell operazione
 def aggiorna_stato_operazione(operazioneJson):
 
     try:

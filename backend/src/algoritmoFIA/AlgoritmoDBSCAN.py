@@ -8,7 +8,7 @@ from sklearn import metrics
 from geopy.distance import great_circle
 from shapely.geometry import MultiPoint
 from haversine import haversine, Unit
-from backend.src.dataManagement.service import PercorsoService
+from backend.src.dataManagement.services import PercorsoService
 
 #costante che rappresenta il numero di chilometri in radianti
 kms_per_radian = 6371.0088
