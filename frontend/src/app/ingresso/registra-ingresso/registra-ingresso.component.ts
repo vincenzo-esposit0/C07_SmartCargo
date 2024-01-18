@@ -46,7 +46,11 @@ export class RegistraIngressoComponent {
         if(!this.checkFormValidity()) return;
         this.ingresso.operatoreIngresso_id=1;
         this.service.registrazioneIngresso(this.ingresso).subscribe(dati => {
-            console.log(dati);
+            if(dati){
+                this.messageService.add({ severity: 'success', summary: 'Ok', detail: 'Registrazione avvenuta con successo' });
+                this.ingresso={autotrasportatore: {},veicolo:{},merci:{},operazione:{},destinazione:'',operatoreIngresso_id:0};
+                this.ngOnInit();
+            }
         },error => {
             console.log(error);
         });

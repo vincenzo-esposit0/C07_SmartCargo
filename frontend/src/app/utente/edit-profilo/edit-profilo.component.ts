@@ -19,7 +19,6 @@ export class EditProfiloComponent {
         this.profilo.dataNascita='1989-06-21';
         this.qrCode='AUTOTRASPORTATORE'+'_'+this.profilo.id;
         if(this.autenticazioneService.profile.operatore==='Operatore Sala'){
-
                 this.profilo.tipo='OpSala';
             }else {
                 if (this.autenticazioneService.profile.operatore == 'Autotrasportatore') {
@@ -39,11 +38,9 @@ export class EditProfiloComponent {
 
 
     modifica() {
-        console.log(JSON.stringify(this.profilo));
         this.autenticazioneService.modifica(this.profilo).subscribe(dati => {
             let value = dati;
         }, error => {
-            console.log(error);
         });
 
     }
