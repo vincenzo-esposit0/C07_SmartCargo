@@ -8,7 +8,7 @@ from sklearn import metrics
 from geopy.distance import great_circle
 from shapely.geometry import MultiPoint
 from haversine import haversine, Unit
-from backend.src.dataManagement.services import PercorsoService
+from src.dataManagement.services import PercorsoService
 
 #costante che rappresenta il numero di chilometri in radianti
 kms_per_radian = 6371.0088
@@ -52,7 +52,7 @@ def detection(df, soglia): #la soglia rappresenta la distanza massima consentita
     return no_path_df
 
 # Costruisco il DataFrame tramite il DataSet di Training
-df = pd.read_excel('training/22July_porto.xlsx')
+df = pd.read_excel('training/Dataset_PV-TRAINING_23July_porto.xlsx.xlsx')
 df.to_csv('training.csv', index=None, header=True)
 
 #prendo le prime istanze per vedere se effettivamente sto costruendo bene il DataFrame
@@ -118,7 +118,7 @@ ax.legend([df_scatter, rs_scatter], ['Full set', 'Reduced set'], loc='upper left
 plt.show()
 
 # Percorso di test 1
-df_test_1 = pd.read_excel('test/22JulyDOS.xlsx')
+df_test_1 = pd.read_excel('test/Dataset_PV-TEST1_23JulyDOS.xlsx.xlsx')
 df_test_1.to_csv('test_1.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
@@ -145,7 +145,7 @@ messaggio = PercorsoService.aggiornaPercorsoByAlgoritmo(1, latitudini_string, lo
 print(messaggio)
 
 # Percorso di test 2
-df_test_2 = pd.read_excel('test/23JulyDOS.xlsx')
+df_test_2 = pd.read_excel('test/Dataset_PV-TEST2_23July_porto.xlsx.csv.xlsx')
 df_test_2.to_csv('test_2.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
@@ -163,7 +163,7 @@ messaggio = PercorsoService.aggiornaPercorsoByAlgoritmo(2, latitudini_string, lo
 print(messaggio)
 
 # Percorso di test 3
-df_test_3 = pd.read_excel('test/29JulyDOS.xlsx')
+df_test_3 = pd.read_excel('test/Dataset_PV-TEST3_23July_porto.xlsx.csv.xlsx')
 df_test_3.to_csv('test_3.csv', index=None, header=True)
 
 # Prende il percorso e la soglia
