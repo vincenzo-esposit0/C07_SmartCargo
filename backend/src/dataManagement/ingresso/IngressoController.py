@@ -11,7 +11,7 @@ from src.models.OperazioneDAO import OperazioneDAO
 from src.models.Include import Include
 from src.models.IncludeDAO import IncludeDAO
 
-from backend.src.models.Veicolo import Veicolo
+from src.models.Veicolo import Veicolo
 
 autotrasportatore_dao = AutotrasportatoreDAO()
 veicolo_dao = VeicoloDAO()

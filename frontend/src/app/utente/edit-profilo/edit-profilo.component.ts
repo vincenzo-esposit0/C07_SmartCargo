@@ -38,10 +38,36 @@ export class EditProfiloComponent {
 
 
     modifica() {
-        this.autenticazioneService.modifica(this.profilo).subscribe(dati => {
-            let value = dati;
-        }, error => {
-        });
-
+        if(this.checkFormValidity()) {
+            this.autenticazioneService.modifica(this.profilo).subscribe(dati => {
+                let value = dati;
+            }, error => {
+            });
+        }
     }
+
+    checkFormValidity(): boolean {
+        const emailRegex = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,10}$/;
+        const passwordRegex = /^.{8,}$/;
+        const indirizzoRegex = /^([a-zA-Zà-úÀ-Ú0-9\s.'-]+),\s*(\d+),\s*([a-zA-Zà-úÀ-Ú\s.'-]+),\s*([0-9]{5})$/;
+
+
+        if (!indirizzoRegex.test(this.profilo.indirizzo)) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Indirizzo non valido' });
+            return false;
+
+        }
+
+
+        if (!emailRegex.test(this.profilo.email)) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Email non valida' });
+            return false;
+        }
+        if (!passwordRegex.test(this.profilo.password)) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Password non valida' });
+            return false;
+        }
+        return true;
+    }
+
 }

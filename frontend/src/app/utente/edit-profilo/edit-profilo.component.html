@@ -24,17 +24,17 @@
 
                 <div class="field mb-4 col-12 md:col-6 ">
                     <label for="indirizzo" class="font-medium text-900">Indirizzo</label>
-                    <input id="indirizzo" type="text"  [(ngModel)]=" this.profilo.indirizzo"  pInputText>
+                    <input id="indirizzo" type="text"  [(ngModel)]=" this.profilo.indirizzo"  pInputText pattern="^([a-zA-Zà-úÀ-Ú0-9\s.'-]+),\s*(\d+),\s*([a-zA-Zà-úÀ-Ú\s.'-]+),\s*([0-9]{5})$">
                 </div>
 
                 <div class="field mb-4 col-12 md:col-6">
                     <label for="email" class="font-medium text-900">Email</label>
-                    <input id="email" type="text"  [(ngModel)]=" this.profilo.email"  pInputText>
+                    <input id="email" type="text"  [(ngModel)]=" this.profilo.email"  pInputText pattern="^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,10}$">
                 </div>
 
                 <div class="field mb-4 col-12 md:col-6">
                     <label for="password" class="font-medium text-900">Password</label>
-                    <p-password id="password" [toggleMask]="true"  [(ngModel)]=" this.profilo.password" ></p-password>
+                    <p-password id="password" [toggleMask]="true"  [(ngModel)]=" this.profilo.password" pattern="^.{8,}$"></p-password>
                 </div>
                 <div class="col-12">
                     <button pButton pRipple label="Modifica" class="w-auto mt-3" (click)="modifica()"></button>
