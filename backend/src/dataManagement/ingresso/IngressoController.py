@@ -1,4 +1,6 @@
 import random
+from datetime import date
+
 from flask import jsonify
 
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
@@ -60,6 +62,7 @@ def registrazioneIngresso(ingressoJson):
         operatoreMagazzinoScelto = random.choice(operatoriMagazzino_disponibili)
 
         operazione = Operazione(
+            dataOperazione=date.today(),
             tipo=tipoOperazioneJson["nome"],
             puntoDestinazione=destinazioneOperazioneJson["nome"],
             stato="In Corso",
