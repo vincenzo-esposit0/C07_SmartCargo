@@ -75,7 +75,6 @@ export class SignUpComponent {
             this.autotrasportatore.dataNascita = this.datePipe.transform(this.autotrasportatore.dataNascita, 'yyyy-MM-ddTHH:mm:ss');
             this.autenticazioneService.registrazione(this.autotrasportatore).subscribe(dati => {
                 let value = dati;
-                console.log(JSON.stringify(value));
                 //Todo controlla se lo stato è corretto
                 if (this.autotrasportatore.email) {
                     if (this.autotrasportatore.password) {

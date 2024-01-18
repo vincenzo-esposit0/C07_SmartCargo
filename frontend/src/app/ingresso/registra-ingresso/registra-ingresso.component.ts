@@ -3,6 +3,7 @@ import {IssueService} from "../../issue/issue.service";
 import {DatePipe} from "@angular/common";
 import {IngressoService} from "../ingresso.service";
 import {MessageService} from "primeng/api";
+import {AutenticazioneService} from "../../autenticazione/autenticazione.service";
 
 @Component({
   selector: 'app-registra-ingresso',
@@ -22,7 +23,7 @@ export class RegistraIngressoComponent {
     visibile:boolean=true;
     visibileQr:boolean=false;
     qrCode:any;
-    constructor(private messageService: MessageService,private service: IngressoService, private datePipe: DatePipe) {}
+    constructor(private autenticazioneService : AutenticazioneService,private messageService: MessageService,private service: IngressoService, private datePipe: DatePipe) {}
 
     ngOnInit(){
         this.ingresso.operazione.descrizione = "";
@@ -44,7 +45,8 @@ export class RegistraIngressoComponent {
 
     salvaIngresso() {
         if(!this.checkFormValidity()) return;
-        this.ingresso.operatoreIngresso_id=1;
+        this.ingresso.operatoreIngresso_id= this.autenticazioneService.profile.profilo.id;
+        console.log(this.ingresso);
         this.service.registrazioneIngresso(this.ingresso).subscribe(dati => {
             if(dati){
                 this.messageService.add({ severity: 'success', summary: 'Ok', detail: 'Registrazione avvenuta con successo' });
@@ -61,6 +63,7 @@ export class RegistraIngressoComponent {
         const nomeRegex = /^[a-zA-Z\s.'-]{2,30}$/;
         const cognomeRegex = /^[a-zA-Z\s.'-]{2,30}$/;
         const aziendaRegex = /^[a-zA-Z0-9\s.'-]{3,30}$/;
+        const targaRegex = /^[A-Z0-9]{2}\s?[0-9]{2}\s?[A-Z0-9]{1,6}$/;
 
         if (!nomeRegex.test(this.ingresso.autotrasportatore.nome) || this.ingresso.autotrasportatore.nome.trim().length <= 0) {
             this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Nome non valido' });
@@ -84,6 +87,13 @@ export class RegistraIngressoComponent {
             this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Quantità non valida' });
             return false;
         }
+
+
+        if (!targaRegex.test(this.ingresso.veicolo.targa)) {
+            this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Targa non valida' });
+            return false;
+        }
+
 
         const maxLength250Regex = /^.{1,254}$/;
 
@@ -111,4 +121,6 @@ export class RegistraIngressoComponent {
         this.visibileQr=true;
 
     }
+
+
 }

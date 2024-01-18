@@ -32,15 +32,15 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Nome</label>
-                <input type="text" placeholder="Nome" pInputText [(ngModel)]="ingresso.autotrasportatore.nome" />
+                <input type="text" placeholder="Nome" disabled pInputText [(ngModel)]="ingresso.autotrasportatore.nome" pattern="^[a-zA-Z\s.'-]{2,30}$"/>
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Cognome</label>
-                <input type="text" placeholder="Cognome" pInputText [(ngModel)]="ingresso.autotrasportatore.cognome" />
+                <input type="text" placeholder="Cognome"  disabled pInputText [(ngModel)]="ingresso.autotrasportatore.cognome" pattern="^[a-zA-Z\s.'-]{2,30}$"/>
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Azienda</label>
-                <input type="text" placeholder="Azienda" pInputText [(ngModel)]="ingresso.autotrasportatore.azienda" />
+                <input type="text" placeholder="Azienda" disabled pInputText [(ngModel)]="ingresso.autotrasportatore.azienda" pattern="^[a-zA-Z0-9\s.'-]{3,30}$"/>
             </div>
             <p-divider class="col-12 field"></p-divider>
         </div>
@@ -54,7 +54,7 @@
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Quantità</label>
-                <input type="number" placeholder="Quantità" pInputText [(ngModel)]="ingresso.merci.quantita" />
+                <input type="number" placeholder="Quantità" pInputText [(ngModel)]="ingresso.merci.quantita" pattern="^[1-9]\d*$"/>
             </div>
             <!--<div class="col-12 field">
                 <label class="text-900 font-semibold">Descrizione</label>
@@ -70,11 +70,11 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Modello</label>
-                <p-dropdown [options]="tipiModello" [(ngModel)]="ingresso.veicolo.modello" optionLabel="descrizione" ></p-dropdown>
+                <p-dropdown [options]="tipiModello" [(ngModel)]="ingresso.veicolo.modello" optionLabel="descrizione"  ></p-dropdown>
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Targa</label>
-                <input type="text" placeholder="Targa" pInputText [(ngModel)]="ingresso.veicolo.targa" />
+                <input type="text" placeholder="Targa" pInputText [(ngModel)]="ingresso.veicolo.targa" pattern="^[A-Z0-9]{2}\s?[0-9]{2}\s?[A-Z0-9]{1,6}$" />
             </div>
             <p-divider class="col-12 field"></p-divider>
         </div>
@@ -89,7 +89,7 @@
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Descrizione</label>
-                <textarea type="number" placeholder="Descrizione Operazione" pInputText [(ngModel)]="ingresso.operazione.descrizione"></textarea>
+                <textarea type="number" placeholder="Descrizione Operazione" pInputText [(ngModel)]="ingresso.operazione.descrizione" pattern="^.{1,254}$"></textarea>
             </div>
             <p-divider class="col-12 field"></p-divider>
         </div>
