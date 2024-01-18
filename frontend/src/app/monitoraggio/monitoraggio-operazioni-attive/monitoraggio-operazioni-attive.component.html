@@ -87,8 +87,9 @@
                             <p style="color: red;"><b>{{ data.operazione.stato }}</b></p>
                         </td>
 
+                        <td style="color: red" *ngIf="data?.operazione?.stato.includes('Aperta') && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'"><b>{{ data.operazione.stato }}</b></td>
 
-                        <td style="font-color: red" *ngIf="!data?.operazione?.stato.includes('Anomalia') && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'">{{data.operazione.stato}}</td>
+                        <td style="color: green" *ngIf="!data?.operazione?.stato.includes('Aperta') && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'"><b>{{ data.operazione.stato }}</b></td>
 
 
                         <td> {{data.autotrasportatore.nome+ ' '+data.autotrasportatore.cognome }}</td>

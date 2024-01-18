@@ -34,10 +34,10 @@
     </div>
     <p-toolbar *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore' && !data.fromStorico ">
         <div class="p-toolbar-group-start">
-            <button [disabled]="!showNewIssue || noIssue" pButton icon="pi pi-plus" class="mr-2" (click)="newIssue()" > &nbsp; Nuova Issue</button>
-            <button [disabled]="showNewIssue || noIssue" pButton icon="pi pi-upload" class="mr-2" (click)="aggiornaIssue()"> &nbsp;Aggiorna Issue</button>
-            <button [disabled]="showNewIssue || noIssue" pButton icon="pi pi-ban" class="mr-2" (click)="chiudiIssue()"> &nbsp;Chiudi Issue</button>
-            <button [disabled]="showNewIssue || noIssue" pButton icon="pi pi-phone" class="mr-2 p-button-danger" (click)="chiamaAutorita()"> &nbsp;Chiama Autorità</button>
+            <button [disabled]="!showNewIssue || noIssue || disableAll" pButton icon="pi pi-plus" class="mr-2" (click)="newIssue()" > &nbsp; Nuova Issue</button>
+            <button [disabled]="showNewIssue || noIssue || disableAll" pButton icon="pi pi-upload" class="mr-2" (click)="aggiornaIssue()"> &nbsp;Aggiorna Issue</button>
+            <button [disabled]="showNewIssue || noIssue || disableAll" pButton icon="pi pi-ban" class="mr-2" (click)="chiudiIssue()"> &nbsp;Chiudi Issue</button>
+            <button [disabled]="showNewIssue || noIssue || disableAll" pButton icon="pi pi-phone" class="mr-2 p-button-danger" (click)="chiamaAutorita()"> &nbsp;Chiama Autorità</button>
         </div>
     </p-toolbar>
     <div class="col-12 mt-3 h-20rem border-1 surface-border p-0 w-full bg-cover border-round" *ngIf="true">

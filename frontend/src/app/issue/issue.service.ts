@@ -28,6 +28,11 @@ export class IssueService {
         return obj;
     }
 
+    getOperatoriMobili(): Observable<any>{
+        const obj = this.httpClient.get<any>('http://127.0.0.1:5000/issue/getOpMob');
+        return obj;
+    }
+
     aggiornaIssue(data: any): Observable<any> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json'

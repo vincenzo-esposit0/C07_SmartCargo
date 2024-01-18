@@ -36,6 +36,7 @@ export class DettaglioOperazioneComponent {
 
     puntiLatErrati: number[] = [];
     puntiLngErrati: number[] = [];
+    disableAll: boolean = false;
 
 
 
@@ -52,7 +53,6 @@ export class DettaglioOperazioneComponent {
 
 
     ngOnInit(){
-
         this.infoWindow = new google.maps.InfoWindow();
 
         let latitude = 39.4542;
@@ -80,8 +80,9 @@ export class DettaglioOperazioneComponent {
         this.puntiLngErrati = this.data.percorso.puntiLongitudineErrati.split(',');
 
 
-        if(!this.data.fromStorico && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore')
+        if(!this.data.fromStorico && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore') //this.creaTuttoPercorso()
             this.aggiungiPuntoOgni2Secondi();
+
         else this.creaTuttoPercorso();
     }
 
@@ -139,11 +140,11 @@ export class DettaglioOperazioneComponent {
             }
 
             if (this.overlays.length >= 3) {
-                this.creaPolilineaDaPuntiVerdi();
+                //this.creaPolilineaDaPuntiVerdi();
             }
 
             this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
-        }, 200);
+        }, 100);
     }
 
     creaPolilineaDaPuntiVerdi(): void {
@@ -239,11 +240,11 @@ export class DettaglioOperazioneComponent {
                 this.data.issue.timestampChiusura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
                 this.data.issue.tipologiaProblema = this.data.issue.tipologiaProblema.nome
                 this.issueService.aggiornaIssue(this.data.issue).subscribe(dati => {
+                    this.disableAll = true;
                     this.messageService.add({ severity: 'success', summary: 'Attenzione', detail: 'Operazione avvenuta con successo!' });
 
                 },error => {
-                    this.messageService.add({ severity: 'error', summary: 'Attenzione', detail: 'Errore durante la chiusura dell\'issue' });
-
+                    this.disableAll = true;
                 });
             },
             reject: () => {
@@ -279,6 +280,10 @@ export class DettaglioOperazioneComponent {
             const latPercorso = Number(latitudini[i]);
             const lngPercorso = Number(longitudini[i]);
 
+            const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (i + 1) + ' Percorso', 'green');
+            this.overlays.push(markerPercorso);
+
+            /*
             let corretto = true;
 
             for (let lat of this.puntiLatErrati) {
@@ -292,6 +297,7 @@ export class DettaglioOperazioneComponent {
                     corretto = false;
                 }
             }
+
 
             if (this.autenticazioneService?.profile?.operatore !== 'Autotrasportatore') {
                 if (corretto) {
@@ -315,6 +321,8 @@ export class DettaglioOperazioneComponent {
                 const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (i + 1) + ' Percorso', 'blue');
                 this.overlays.push(markerPercorso);
             }
+
+             */
         }
 
         // Creazione polilinea
