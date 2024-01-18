@@ -34,6 +34,7 @@ def registrazioneIngresso(ingressoJson):
 
         #scomposizione Json per il veicolo
         veicoloJson = ingressoJson["veicolo"]
+        modelloJson = veicoloJson["modello"]
 
         #scomposizione Json per l'autotrasportatore
         autotrasportatoreJson = ingressoJson["autotrasportatore"]
@@ -60,7 +61,7 @@ def registrazioneIngresso(ingressoJson):
         veicolo = Veicolo(
             targa=veicoloJson["targa"],
             descrizione="Camion",
-            modello=veicoloJson["modello"]
+            modello=modelloJson["modello"]
         )
         veicolo_dao.aggiungi_veicolo(veicolo)
 
