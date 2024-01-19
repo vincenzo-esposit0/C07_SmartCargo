@@ -1,6 +1,15 @@
 from sqlalchemy.orm import sessionmaker
-from src.models.UtenteRegistrato import OperatoreSala
-from src.config.database import engine, Session
+
+try:
+    from src.models.UtenteRegistrato import OperatoreSala
+    from src.config.database import engine, Session
+except ImportError:
+    from models.UtenteRegistrato import OperatoreSala
+    from config.database import engine, Session
+
+
+
+
 
 class OperatoreSalaDAO:
     def __init__(self):

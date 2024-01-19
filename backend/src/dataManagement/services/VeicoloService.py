@@ -1,4 +1,6 @@
-from backend.src.models.VeicoloDAO import VeicoloDAO
+#from backend.src.models.VeicoloDAO import VeicoloDAO
+
+from src.models.VeicoloDAO import VeicoloDAO
 
 veicolo_dao = VeicoloDAO()
 
