@@ -97,7 +97,7 @@ export class RegistraIngressoComponent {
 
         const maxLength250Regex = /^.{1,254}$/;
 
-        if (!maxLength250Regex.test(this.ingresso.operazione.descrizione) || this.ingresso.operazione.descrizione.trim().length <= 0) {
+        if ( this.ingresso.operazione.descrizione.trim().length >0 && !maxLength250Regex.test(this.ingresso.operazione.descrizione)) {
             this.messageService.add({ severity: 'error', summary: 'Errore', detail: 'Descrizione non valida!' });
             return false;
         }
