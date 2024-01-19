@@ -23,14 +23,18 @@ def ottieniTuttiVeicoli():
 
 def ottieniVeicoloPerId(veicolo_id):
     try:
-        veicolo = veicolo_dao.ottieni_veicolo_per_id(veicolo_id)
+        if veicolo_id is not None and veicolo_id > 0:
+            veicolo = veicolo_dao.ottieni_veicolo_per_id(veicolo_id)
 
-        if veicolo:
-            # Restituisce i dettagli del veicolo come JSON
-            return veicolo.__json__()
-        else:
-            return {"message": "Veicolo non trovato"}
+            if veicolo:
+                # Restituisce i dettagli del veicolo come JSON
+                return veicolo.__json__()
+            else:
+                return {"message": "Veicolo non trovato"}
+
+        elif veicolo_id == None or veicolo_id < 0:
+            return {"message": "Errore: ID Veicolo non valido"}
 
     except Exception as e:
         print(f"Errore durante l'ottenimento del veicolo: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento del veicolo"}

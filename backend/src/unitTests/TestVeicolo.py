@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import  MagicMock
+from unittest.mock import MagicMock
 from backend.src.dataManagement.services import VeicoloService
 
 class TestVeicoloService(unittest.TestCase):
@@ -30,22 +30,41 @@ class TestVeicoloService(unittest.TestCase):
     # Verifico se la funzione restituisce un messaggio corretto quando il veicolo non è presente nel DB
     def testOttieniVeicoloNonPresente(self):
         # Configuro il mock per restituire None, silando che il veicolo non è stato trovato
-        self.veicolo_dao_mock.ottieniVeicoloPerId.return_value = None
+        self.veicolo_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Veicolo non trovato"}
 
         risultato = VeicoloService.ottieniVeicoloPerId(23)
 
-        self.assertEqual(risultato, {"message": "Veicolo non trovato"})
+        self.assertEqual(risultato, self.veicolo_dao_mock.ottieniVeicoloPerId.return_value)
 
     # Verifico se la funzione gestisce correttamente le eccezioni e restituisce un risultato vuoto in caso di errore durante il recupero del veicolo
-    """
+
+    # Caso id non valido: nullo
+    def testOttieniOperazioneIdNullo(self):
+        #Configuro il mock per restituire il messaggio di ID non valido
+        self.veicolo_dao_mock.ottieniOperazionePerId.return_value = {"message": "Errore: ID Veicolo non valido"}
+
+        risultato = VeicoloService.ottieniVeicoloPerId(None)
+
+        self.assertEqual(risultato, self.veicolo_dao_mock.ottieniOperazionePerId.return_value)
+
+    # Caso id non valido: id negativo
+    def testOttieniOperazioneIdNegativo(self):
+        #Configuro il mock per restituire il messaggio di ID non valido
+        self.veicolo_dao_mock.ottieniOperazionePerId.return_value = {"message": "Errore: ID Veicolo non valido"}
+
+        risultato = VeicoloService.ottieniVeicoloPerId(-1)
+
+        self.assertEqual(risultato, self.veicolo_dao_mock.ottieniOperazionePerId.return_value)
+
+    # Caso id non valido: Eccezione
     def testOttieniVeicoloCasoEccezione(self):
         # Configuro il mock per sollevare un'eccezione, simulando un errore durante il recupero dei dati del veicolo
-        self.veicolo_dao_mock.ottieniVeicoloPerId.side_effect = Exception("Errore simulato")
+        self.veicolo_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Errore durante l'ottenimento del veicolo"}
 
-        risultato = VeicoloService.ottieniVeicoloPerId(1)
+        risultato = VeicoloService.ottieniVeicoloPerId({})
 
-        self.assertEqual(risultato, {})
-    """
+        self.assertEqual(risultato, self.veicolo_dao_mock.ottieniVeicoloPerId.return_value)
+
 
 if __name__ == '__main__':
     unittest.main()
