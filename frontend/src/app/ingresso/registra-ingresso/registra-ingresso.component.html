@@ -54,7 +54,7 @@
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Quantità</label>
-                <input type="number" placeholder="Quantità" pInputText [(ngModel)]="ingresso.merci.quantita" pattern="^[1-9]\d*$"/>
+                <input type="number" placeholder="Quantità" name="quantita" pInputText [(ngModel)]="ingresso.merci.quantita" pattern="^[1-9]\d*$"/>
             </div>
             <!--<div class="col-12 field">
                 <label class="text-900 font-semibold">Descrizione</label>
@@ -74,7 +74,7 @@
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Targa</label>
-                <input type="text" placeholder="Targa" pInputText [(ngModel)]="ingresso.veicolo.targa" pattern="^[A-Z0-9]{2}\s?[0-9]{2}\s?[A-Z0-9]{1,6}$" />
+                <input type="text" placeholder="Targa" pInputText name="targa" [(ngModel)]="ingresso.veicolo.targa" pattern="^[A-Z0-9]{2}\s?[0-9]{2}\s?[A-Z0-9]{1,6}$" />
             </div>
             <p-divider class="col-12 field"></p-divider>
         </div>
@@ -89,7 +89,7 @@
             </div>
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Descrizione</label>
-                <textarea type="number" placeholder="Descrizione Operazione" pInputText [(ngModel)]="ingresso.operazione.descrizione" pattern="^.{1,254}$"></textarea>
+                <textarea type="number" placeholder="Descrizione Operazione" name="descrizioneOperazione" pInputText [(ngModel)]="ingresso.operazione.descrizione" pattern="^.{1,254}$"></textarea>
             </div>
             <p-divider class="col-12 field"></p-divider>
         </div>

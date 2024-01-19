@@ -23,7 +23,6 @@ export class MonitoraggioOperazioniAttiveComponent {
             this.operazioni = this.operazioni.filter(
                 (operazione) => operazione.operazione.stato !== "Chiuso"
             );
-            debugger;
             if(this.isAutotrasportatore){
                 this.operazioni = this.operazioni.filter(
                     (operazione) => operazione.autotrasportatore.id === this.autenticazioneService.profile.profilo.id

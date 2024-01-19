@@ -1,5 +1,13 @@
 from flask import jsonify
-from src.models.OperatoreSalaDAO import OperatoreSalaDAO
+
+
+try:
+    # Prova ad importare con 'src.'
+    from src.models.OperatoreSalaDAO import OperatoreSalaDAO
+except ImportError:
+    # Se fallisce, prova senza 'src.'
+    from models.OperatoreSalaDAO import OperatoreSalaDAO
+
 
 operatore_sala_dao = OperatoreSalaDAO()
 
