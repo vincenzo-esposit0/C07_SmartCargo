@@ -37,41 +37,41 @@ class TestOttieniOperazionePerId(unittest.TestCase):
     #Caso id valido ma non presente nel DB
     def testOttieniOperazioneNonPresente(self):
         #Configuro il mock per restituire il messaggio di operazione non trovata nel DB
-        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Operazione non trovata"}
+        self.operazione_dao_mock.ottieniOperazionePerId.return_value = {"message": "Operazione non trovata"}
 
         risultato = OperazioneService.ottieniOperazionePerId(30)
 
-        self.assertEqual(risultato, self.operazione_dao_mock.ottieniVeicoloPerId.return_value)
+        self.assertEqual(risultato, self.operazione_dao_mock.ottieniOperazionePerId.return_value)
 
 
     #Caso id non valido: nullo
     def testOttieniOperazioneIdNullo(self):
         #Configuro il mock per restituire il messaggio di ID non valido
-        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Errore: ID Operazione non valido"}
+        self.operazione_dao_mock.ottieniOperazionePerId.return_value = {"message": "Errore: ID Operazione non valido"}
 
         risultato = OperazioneService.ottieniOperazionePerId(None)
 
-        self.assertEqual(risultato, self.operazione_dao_mock.ottieniVeicoloPerId.return_value)
+        self.assertEqual(risultato, self.operazione_dao_mock.ottieniOperazionePerId.return_value)
 
 
     #Caso id non valido: id negativo
     def testOttieniOperazioneIdNegativo(self):
         #Configuro il mock per restituire il messaggio di ID non valido
-        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Errore: ID Operazione non valido"}
+        self.operazione_dao_mock.ottieniOperazionePerId.return_value = {"message": "Errore: ID Operazione non valido"}
 
         risultato = OperazioneService.ottieniOperazionePerId(-1)
 
-        self.assertEqual(risultato, self.operazione_dao_mock.ottieniVeicoloPerId.return_value)
+        self.assertEqual(risultato, self.operazione_dao_mock.ottieniOperazionePerId.return_value)
 
 
     #Caso id non valido: eccezione
     def testOttieniOperazioneIdEccezione(self):
         #Configuro il mock per restituire il messaggio scaturito da un'eccezione
-        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Errore durante l'ottenimento delle operazione"}
+        self.operazione_dao_mock.ottieniOperazionePerId.return_value = {"message": "Errore durante l'ottenimento delle operazione"}
 
         risultato = OperazioneService.ottieniOperazionePerId({})
 
-        self.assertEqual(risultato, self.operazione_dao_mock.ottieniVeicoloPerId.return_value)
+        self.assertEqual(risultato, self.operazione_dao_mock.ottieniOperazionePerId.return_value)
 
 
 if __name__ == '__main__':
