@@ -32,7 +32,7 @@ def nuovaIssue(issueJson):
             operatoreMobile_id=issueJson["operatoreMobile_id"],
             operazione_id=issueJson["operazione_id"]
         )
-        #utilizzo dell'interfaccia Facade per accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
+        #utilizzo dell'interfaccia Facade pcd er accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
         qrcode, operazione = qrcode_facade.ottieniQrcodeValidazione(issueJson["operazione_id"])
 
         #invalidazione qrcode
