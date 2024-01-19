@@ -3,13 +3,14 @@ from datetime import datetime
 from unittest.mock import MagicMock
 from backend.src.dataManagement.services import OperazioneService
 
-class TestOperazioneService(unittest.TestCase):
+class TestOttieniOperazionePerId(unittest.TestCase):
     def setUp(self):
         # Creo un mock per l'OperazioneDAO; questo mock verrà usato al posto dell'istanza reale di 'OperazioneDAO' per simularne il comportamento
         self.operazione_dao_mock = MagicMock()
 
-    def testOttieniOperazionePerId(self):
-        # Configuro il mock per restituire un'operazione
+    #Caso id valido e presente nel DB
+    def testOttieniOperazionePresente(self):
+        # Configuro il mock per restituire un'operazione valida nel DB
 
         # Configuro il comportamento del mock dicendogli che quando il metodo __json__ viene chiamato, dovrebbe restituire un determinato valore
         self.operazione_dao_mock.__json__ = MagicMock(return_value={
@@ -18,7 +19,7 @@ class TestOperazioneService(unittest.TestCase):
             "tipo": "Consegna",
             "descrizione": "Consegna merci elettroniche",
             "puntoDestinazione": "Magazzino Centrale",
-            "stato": "In corso / Issue aperta",
+            "stato": "In corso",
             "autotrasportatore_id": 1,
             "operatoreIngresso_id": 11,
             "operatoreMagazzino_id": 7,
@@ -26,22 +27,52 @@ class TestOperazioneService(unittest.TestCase):
             "veicolo_id": 1
         })
 
-        # Configuro il mock del 'OperazioneDAO' in modo che quando viene chiamato il metodo, restituisca l'oggetto 'operazione_mock', simulando il comportamento della classe 'OperazioneDAO' durante il test
-        self.operazione_dao_mock.ottieniOperazionePerId.return_value = self.operazione_dao_mock
-
-        # Chiama il metodo da testare
+        #Chiama il metodo da testare
         risultato = OperazioneService.ottieniOperazionePerId(1)
 
         # Verifica che il risultato sia quello atteso
         self.assertEqual(risultato, self.operazione_dao_mock.__json__.return_value)
 
+
+    #Caso id valido ma non presente nel DB
     def testOttieniOperazioneNonPresente(self):
-        #Configuro il mock per restituire None, silando che l'operazione non è stato trovato
-        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = None
+        #Configuro il mock per restituire il messaggio di operazione non trovata nel DB
+        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Operazione non trovata"}
 
-        risultato = OperazioneService.ottieniOperazionePerId(23)
+        risultato = OperazioneService.ottieniOperazionePerId(30)
 
-        self.assertEqual(risultato, {"message": "Operazione non trovata"})
+        self.assertEqual(risultato, self.operazione_dao_mock.ottieniVeicoloPerId.return_value)
+
+
+    #Caso id non valido: nullo
+    def testOttieniOperazioneIdNullo(self):
+        #Configuro il mock per restituire il messaggio di ID non valido
+        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Errore: ID Operazione non valido"}
+
+        risultato = OperazioneService.ottieniOperazionePerId(None)
+
+        self.assertEqual(risultato, self.operazione_dao_mock.ottieniVeicoloPerId.return_value)
+
+
+    #Caso id non valido: id negativo
+    def testOttieniOperazioneIdNegativo(self):
+        #Configuro il mock per restituire il messaggio di ID non valido
+        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Errore: ID Operazione non valido"}
+
+        risultato = OperazioneService.ottieniOperazionePerId(-1)
+
+        self.assertEqual(risultato, self.operazione_dao_mock.ottieniVeicoloPerId.return_value)
+
+
+    #Caso id non valido: eccezione
+    def testOttieniOperazioneIdEccezione(self):
+        #Configuro il mock per restituire il messaggio scaturito da un'eccezione
+        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = {"message": "Errore durante l'ottenimento delle operazione"}
+
+        risultato = OperazioneService.ottieniOperazionePerId({})
+
+        self.assertEqual(risultato, self.operazione_dao_mock.ottieniVeicoloPerId.return_value)
+
 
 if __name__ == '__main__':
     unittest.main()

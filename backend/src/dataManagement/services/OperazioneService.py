@@ -133,13 +133,17 @@ def ottieniOperazioniConDettagliPerIssue(issue_stato):
 
 def ottieniOperazionePerId(operazione_id):
     try:
-        operazione = operazione_dao.ottieni_operazione_per_id(operazione_id)
+        if operazione_id is not None and operazione_id > 0:
+            operazione = operazione_dao.ottieni_operazione_per_id(operazione_id)
 
-        if operazione:
-            # Restituisci i dettagli dell'operazione come JSON
-            return operazione.__json__()
-        else:
-            return {"message": "Operazione non trovata"}
+            if operazione:
+                # Restituisci i dettagli dell'operazione come JSON
+                return operazione.__json__()
+            else:
+                return {"message": "Operazione non trovata"}
+
+        elif operazione_id == None or operazione_id < 0:
+            return {"message": "Errore: ID Operazione non valido"}
 
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'operazione: {str(e)}")
