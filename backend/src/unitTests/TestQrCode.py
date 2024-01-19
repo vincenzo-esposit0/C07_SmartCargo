@@ -17,13 +17,13 @@ class TestQrCode(unittest.TestCase):
             risultato = QrCodeService.ottieniQRCodePerId(1)
 
             self.assertEqual(risultato, self.qrcode_dao_mock.__json__.return_value)
-    def testOttieniVeicoloNonPresente(self):
+    def testOttieniQrCodeNonPresente(self):
 
             self.qrcode_dao_mock.ottieni_qrCode_per_id.return_value = None
 
             risultato = QrCodeService.ottieniQRCodePerId(59)
 
-            self.assertEqual(risultato, {"message": "QrCode non trovato"})
+            self.assertEqual(risultato, {"message": "QRCode non trovato"})
 
 if __name__ == '__main__':
     unittest.main()
