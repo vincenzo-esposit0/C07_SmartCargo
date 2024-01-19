@@ -10,23 +10,42 @@ class TestVeicoloService(unittest.TestCase):
         # Inizializzo il VeicoloService con il mock
         #self.veicolo_service = VeicoloService(self.veicolo_dao_mock)
 
+    # Verifico se la funzione restituisce correttamente i dettagli del veicolo rispetto al risultato atteso
     def testOttieniVeicoloPerId(self):
         # Configuro il mock per restituire un veicolo
 
-        #Creo l'oggetto mock che siuli il comportamento
-        veicolo_mock = MagicMock()
         # Configuro il comportamento del mock dicendogli che quando il metodo __json__ viene chiamato, dovrebbe restituire un determinato valore
         #veicolo_mock.__json__.return_value = {"id": 1, "targa": "AB123CD", "descrizione": "Auto blu", "modello": "Modello X"}
-        veicolo_mock.__json__ = MagicMock(return_value={"id": 1, "targa": "AB123CD", "descrizione": "Auto blu", "modello": "Modello X"})
+        self.veicolo_dao_mock.__json__ = MagicMock(return_value={"id": 1, "targa": "AB123CD", "descrizione": "Auto blu", "modello": "Modello X"})
 
         # Configuro il mock del 'VeicoloDAO' in modo che quando viene chiamato il metodo, restituisca l'oggetto 'veicolo_mock', simulando il comportamento della classe 'VeicoloDAO' durante il test
-        self.veicolo_dao_mock.ottieniVeicoloPerId.return_value = veicolo_mock
+        self.veicolo_dao_mock.ottieniVeicoloPerId.return_value = self.veicolo_dao_mock
 
         # Chiama il metodo da testare
         risultato = VeicoloService.ottieniVeicoloPerId(1)
 
         # Verifica che il risultato sia quello atteso
-        self.assertEqual(risultato, veicolo_mock.__json__.return_value)
+        self.assertEqual(risultato, self.veicolo_dao_mock.__json__.return_value)
+
+    # Verifico se la funzione restituisce un messaggio corretto quando il veicolo non è presente nel DB
+    def testOttieniVeicoloNonPresente(self):
+        # Configuro il mock per restituire None, silando che il veicolo non è stato trovato
+        self.veicolo_dao_mock.ottieniVeicoloPerId.return_value = None
+
+        risultato = VeicoloService.ottieniVeicoloPerId(23)
+
+        self.assertEqual(risultato, {"message": "Veicolo non trovato"})
+
+    # Verifico se la funzione gestisce correttamente le eccezioni e restituisce un risultato vuoto in caso di errore durante il recupero del veicolo
+    """
+    def testOttieniVeicoloCasoEccezione(self):
+        # Configuro il mock per sollevare un'eccezione, simulando un errore durante il recupero dei dati del veicolo
+        self.veicolo_dao_mock.ottieniVeicoloPerId.side_effect = Exception("Errore simulato")
+
+        risultato = VeicoloService.ottieniVeicoloPerId(1)
+
+        self.assertEqual(risultato, {})
+    """
 
 if __name__ == '__main__':
     unittest.main()
