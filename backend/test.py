@@ -14,6 +14,8 @@ from src.dataManagement.operazioni import OperazioniController
 
 
 from src.dataManagement.services import OperazioneService
+from src.dataManagement.services import OperatoreMobileService
+
 from src.dataManagement.services import AutotrasportatoreService
 from src.dataManagement.services import IssueService
 from src.dataManagement.services import MerceService
@@ -127,6 +129,11 @@ def getOpCarScar():
 def modificaAccount():
     data = request.get_json()
     return AccountController.modificaAccount(data)
+
+@app.route('/issue/getOpMob', methods=['GET'])
+def ottieniTuttiOpMobili():
+    result = OperatoreMobileService.ottieniTuttiOperatoriMobile()
+    return jsonify(result)
 
 
 

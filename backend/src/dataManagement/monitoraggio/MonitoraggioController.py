@@ -12,7 +12,7 @@ def trova_operazioni_per_filtri(filtri):
     try:
         operazioni_filtrate = []
 
-        #va messo il metodo giusto una volta aggiunte operazioni chiuse nel db
+        #ricerca solo delle operazioni il cui stato è chiuso
         operazioniJson = OperazioneService.ottieniOperazioniPerStorico()
 
         for operazioneJson in operazioniJson:

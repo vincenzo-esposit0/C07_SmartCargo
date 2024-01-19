@@ -5,7 +5,7 @@ operatore_mobile_dao = OperatoreMobileDAO()
 
 def ottieniTuttiOperatoriMobile():
     try:
-        operatori_mobile = operatore_mobile_dao.ottieni_tutti_operatori_mobile()
+        operatori_mobile = operatore_mobile_dao.ottieni_tutti_operatori_mobili()
 
         if operatori_mobile:
             # Utilizza una lista per ottenere una lista di JSON

@@ -19,11 +19,11 @@ def nuovaIssue(issueJson):
         timestamp_chiusura = None
 
         if issueJson["timestampChiusura"]:
-            timestamp_chiusura = datetime.strptime(issueJson["timestampChiusura"], "%Y-%m-%dT%H:%M:%S")
+            timestamp_chiusura = datetime.now()
 
         issue = Issue(
             descrizione=issueJson["descrizione"],
-            timestampApertura=datetime.strptime(issueJson["timestampApertura"], "%Y-%m-%dT%H:%M:%S"),
+            timestampApertura=datetime.now(),
             timestampChiusura=timestamp_chiusura,
             stato=issueJson["stato"],
             tipologiaProblema=issueJson["tipologiaProblema"],
@@ -32,12 +32,6 @@ def nuovaIssue(issueJson):
             operatoreMobile_id=issueJson["operatoreMobile_id"],
             operazione_id=issueJson["operazione_id"]
         )
-        """"
-        #ricerca qrcode attraverso l'id dell'operazione
-        operazione = operazione_dao.ottieni_operazione_per_id(issueJson["operazione_id"])
-        autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
-        qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
-        """
         #utilizzo dell'interfaccia Facade per accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
         qrcode, operazione = qrcode_facade.ottieniQrcodeValidazione(issueJson["operazione_id"])
 
@@ -65,10 +59,9 @@ def aggiornaIssue(issueJson):
             timestamp_chiusura = None
 
             if issueJson["timestampChiusura"]:
-                timestamp_chiusura = datetime.strptime(issueJson["timestampChiusura"], "%Y-%m-%dT%H:%M:%S")
+                timestamp_chiusura = datetime.now()
 
             issue.descrizione = issueJson["descrizione"]
-            issue.timestampApertura = datetime.strptime(issueJson["timestampApertura"], "%Y-%m-%dT%H:%M:%S")
             issue.timestampChiusura = timestamp_chiusura
             issue.stato = issueJson["stato"]
             issue.tipologiaProblema = issueJson["tipologiaProblema"]
@@ -76,13 +69,6 @@ def aggiornaIssue(issueJson):
             issue.operatoreSala_id = issueJson["operatoreSala_id"]
             issue.operatoreMobile_id = issueJson["operatoreMobile_id"]
             issue.operazione_id = issueJson["operazione_id"]
-
-            """
-            #ricerca qrcode attraverso l'id dell'operazione
-            operazione = operazione_dao.ottieni_operazione_per_id(issueJson["operazione_id"])
-            autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
-            qrcode = qrcode_dao.ottieni_qrCode_per_id(autotrasportatore.qrCode_id)
-            """
 
             #utilizzo dell'interfaccia Facade per accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
             qrcode, operazione = qrcode_facade.ottieniQrcodeValidazione(issueJson["operazione_id"])
@@ -92,6 +78,9 @@ def aggiornaIssue(issueJson):
                 qrcode.isValido = True
                 qrcode_dao.aggiorna_qrCode(qrcode)
 
+                #salvataggio della data di chiusura dell'issue
+                issue.timestampChiusura = datetime.now()
+
                 #set stato operazione in regolare
                 operazione.stato = "In corso / Regolare"
                 operazione_dao.aggiorna_operazione(operazione)
@@ -99,7 +88,6 @@ def aggiornaIssue(issueJson):
             result = issue_dao.aggiorna_issue(issue)
             return jsonify(result.__json__())
 
-    ##aggiornare stato issue (da discutere)
     except Exception as e:
         print(f"Errore durante l'aggiornamento dell'issue: {str(e)}")
         return {"message": "Errore durante l'aggiornamento dell'issue"}

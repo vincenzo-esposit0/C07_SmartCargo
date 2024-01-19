@@ -15,7 +15,7 @@ export class GestisciIssueComponent {
     showDialog: boolean = true;
     issue: any = {};
     tipiProblema: any[] = [{nome: "Anomalia Percorso"}, {nome: "Anomalia Carico/Scarico Merce"}];
-    operatoriMob: any = [{id: 1, nome: "Paolo"},{id: 2, nome: "Amedeo"}];
+    operatoriMob: any = [];
     selectedOpMobile: any = {};
 
     @Input() data: any = {};
@@ -26,7 +26,6 @@ export class GestisciIssueComponent {
     constructor(private auth: AutenticazioneService,private messageService: MessageService,private service: IssueService, private datePipe: DatePipe, private utenteService : UtenteService) {}
 
     ngOnInit(){
-        console.log(this.data);
 
         if(this.data){
             if(this.data.issue){
@@ -40,6 +39,16 @@ export class GestisciIssueComponent {
                 }
             }
         }
+
+        this.service.getOperatoriMobili().subscribe(dati => {
+            console.log(dati);
+           this.operatoriMob = dati;
+           for(let op of this.operatoriMob){
+               op.label = op.nome + ' ' + op.cognome;
+           }
+        },error => {
+            console.log(error);
+        });
 
     }
 

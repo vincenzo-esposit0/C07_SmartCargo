@@ -40,7 +40,7 @@
                 <label class="text-900 font-semibold">Descrizione</label>
                 <input type="text" placeholder="Descrizione" pInputText [(ngModel)]="data.issue.descrizione" />
             </div>
-            <div class="col-6 field mt-0" *ngIf="!modalitaEdit">
+            <div class="col-6 field mt-0" *ngIf="!modalitaEdit && false">
                 <label class="text-900 font-semibold">Date e Ora Inizio</label>
                 <p-calendar [(ngModel)]="data.issue.timestampApertura" [showTime]="true" [showSeconds]="true"></p-calendar>
             </div>
@@ -58,7 +58,8 @@
         <div class="grid p-fluid formgrid">
             <div class="col-6 field">
                 <label class="text-900 font-semibold">Operatore Mobile</label>
-                <p-dropdown [options]="operatoriMob" [(ngModel)]="selectedOpMobile" optionLabel="nome" ></p-dropdown>
+                <p-dropdown [options]="operatoriMob" [(ngModel)]="selectedOpMobile" optionLabel="label">
+                </p-dropdown>
             </div>
         </div>
 

@@ -10,7 +10,6 @@ from src.models.Operazione import Operazione
 from src.models.OperazioneDAO import OperazioneDAO
 from src.models.Include import Include
 from src.models.IncludeDAO import IncludeDAO
-
 from src.models.Veicolo import Veicolo
 
 autotrasportatore_dao = AutotrasportatoreDAO()
