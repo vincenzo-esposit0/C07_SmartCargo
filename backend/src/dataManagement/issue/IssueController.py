@@ -18,9 +18,6 @@ def nuovaIssue(issueJson):
     try:
         timestamp_chiusura = None
 
-        if issueJson["timestampChiusura"]:
-            timestamp_chiusura = datetime.now()
-
         issue = Issue(
             descrizione=issueJson["descrizione"],
             timestampApertura=datetime.now(),
@@ -57,9 +54,6 @@ def aggiornaIssue(issueJson):
 
         if issue:
             timestamp_chiusura = None
-
-            if issueJson["timestampChiusura"]:
-                timestamp_chiusura = datetime.now()
 
             issue.descrizione = issueJson["descrizione"]
             issue.timestampChiusura = timestamp_chiusura

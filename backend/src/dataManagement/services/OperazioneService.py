@@ -2,12 +2,7 @@ from src.models.OperazioneDAO import OperazioneDAO
 
 from src.dataManagement.services import MerceService
 from src.dataManagement.services import AutotrasportatoreService
-from src.dataManagement.services import VeicoloService
 from src.dataManagement.services import IncludeService
-from src.dataManagement.services import IssueService
-from src.dataManagement.services import OperatoreMobileService
-from src.dataManagement.services import OperatoreSalaService
-from src.dataManagement.services import PercorsoService
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 from src.dataManagement.InterfaceFacade import InterfaceFacade
