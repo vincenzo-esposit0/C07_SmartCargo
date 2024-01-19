@@ -35,5 +35,13 @@ class TestOperazioneService(unittest.TestCase):
         # Verifica che il risultato sia quello atteso
         self.assertEqual(risultato, self.operazione_dao_mock.__json__.return_value)
 
+    def testOttieniOperazioneNonPresente(self):
+        #Configuro il mock per restituire None, silando che l'operazione non è stato trovato
+        self.operazione_dao_mock.ottieniVeicoloPerId.return_value = None
+
+        risultato = OperazioneService.ottieniOperazionePerId(23)
+
+        self.assertEqual(risultato, {"message": "Operazione non trovata"})
+
 if __name__ == '__main__':
     unittest.main()
