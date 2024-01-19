@@ -69,19 +69,30 @@ class TestAccountAutotrasportatoreController(unittest.TestCase):
             expected_result = {"message": "Errore durante la modifica dell'account di un autotrasportatore"}
             self.assertEqual(result, expected_result)"""
 
-    """def test_modificaAutotrasportatore_not_found(self):
+    def test_modificaAutotrasportatore_not_found(self):
 
                 # Simula un'eccezione nel dao
-                self.mock_autotrasportatore_dao.ottieni_autotrasportatore_per_id.return_value = None
+                self.mock_autotrasportatore_dao.ottieniAutotrasportatorePerId.return_value = None
 
                 # Chiamata al metodo di modifica con eccezione attesa
                 result = AccountAutotrasportatoreController.modificaAutotrasportatore({})
 
                 # Verifica che il risultato contenga il messaggio di errore
-                expected_result = {"message": "Autotrasportatore non trovato"}
+                expected_result = {"message": "Errore durante la modifica dell'account di un autotrasportatore"}
                 self.assertEqual(result, expected_result)
-                
-    """
+
+    def test_modificaAutotrasportatore_exception(self):
+
+                # Simula un'eccezione nel dao
+                self.mock_autotrasportatore_dao.ottieniAutotrasportatorePerId.side_effect = Exception("Errore simulato")
+
+                # Chiamata al metodo di modifica con eccezione attesa
+                result = AccountAutotrasportatoreController.modificaAutotrasportatore({})
+
+                # Verifica che il risultato contenga il messaggio di errore
+                expected_result = {"message": "Errore durante la modifica dell'account di un autotrasportatore"}
+                self.assertEqual(result, expected_result)
+
 
 
 if __name__ == '__main__':
