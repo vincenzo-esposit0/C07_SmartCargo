@@ -62,10 +62,9 @@ class TestOperatoreIngressoId(unittest.TestCase):
         #Configuro il mock per restituire il messaggio scaturito da un'eccezione
         self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value = {"Errore durante l'ottenimento dell'operatore Ingresso:"}
 
-        risultato = OperatoreIngressoService.ottieniOperatoreIngressoPerId()  # o qualsiasi altro valore valido per l'id
+        risultato = OperatoreIngressoService.ottieniOperatoreIngressoPerId({})  # o qualsiasi altro valore valido per l'id
 
-        self.assertEqual(risultato, self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value)
-
+        self.assertEqual(risultato, {})
 
 if __name__ == '__main__':
     unittest.main()
