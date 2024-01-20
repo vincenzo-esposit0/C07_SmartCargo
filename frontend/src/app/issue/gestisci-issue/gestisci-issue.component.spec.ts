@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 import { GestisciIssueComponent } from './gestisci-issue.component';
+import {IssueService} from "../issue.service";
 
 describe('GestisciIssueComponent', () => {
   let component: GestisciIssueComponent;
@@ -8,7 +9,9 @@ describe('GestisciIssueComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GestisciIssueComponent ]
+      declarations: [ GestisciIssueComponent ],
+        imports: [HttpClientTestingModule],
+        providers: [IssueService]
     })
     .compileComponents();
 

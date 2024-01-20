@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { IngressoService } from './ingresso.service';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {AutenticazioneService} from "../autenticazione/autenticazione.service";
 
 describe('IngressoService', () => {
   let service: IngressoService;
@@ -10,7 +8,7 @@ describe('IngressoService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
-        providers: [AutenticazioneService]
+        providers: [IngressoService]
     });
     service = TestBed.inject(IngressoService);
   });
