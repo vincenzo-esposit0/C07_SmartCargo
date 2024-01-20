@@ -15,14 +15,14 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
         let registrazioneIngresso=  {
             label: 'Registrazione ingresso',
-            icon: 'pi pi-fw pi-image',
+            icon: 'pi pi-fw pi-file',
             routerLink: ['ingresso']
         };
 
         let monitoraggio=
         {
             label: 'Monitoraggio Operazioni Attive',
-            icon: 'pi pi-fw pi-image',
+            icon: 'pi pi-fw pi-truck',
             routerLink: ['monitoraggioOpAttive']
         };
 

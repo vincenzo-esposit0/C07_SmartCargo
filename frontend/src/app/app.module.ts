@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
 import {AppLayoutModule} from "./layout/app.layout.module";
@@ -42,24 +40,22 @@ import { MonitoraggioOperazioniCaricoScaricoComponent } from './monitoraggio/mon
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component";
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    LoginComponent,
-    GestisciIssueComponent,
-    RegistraIngressoComponent,
-    SignUpComponent,
-    MonitoraggioOperazioniAttiveComponent,
-    DettaglioOperazioneComponent,
-    StoricoOperazioniComponent,
-    MonitoraggioOperazioniCaricoScaricoComponent,
-    StoricoOperazioniComponent,
-    EditProfiloComponent
-  ],
+    declarations: [
+        AppComponent,
+        HomePageComponent,
+        LoginComponent,
+        GestisciIssueComponent,
+        RegistraIngressoComponent,
+        SignUpComponent,
+        MonitoraggioOperazioniAttiveComponent,
+        DettaglioOperazioneComponent,
+        StoricoOperazioniComponent,
+        MonitoraggioOperazioniCaricoScaricoComponent,
+        StoricoOperazioniComponent,
+        EditProfiloComponent
+    ],
     imports: [
-        HttpClientTestingModule,
         BrowserModule,
-        HttpClientModule,
         AppRoutingModule,
         AppLayoutModule,
         InputTextModule,
@@ -89,8 +85,7 @@ import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component
         QRCodeModule,
         ConfirmDialogModule
     ],
-    exports: [ToastModule],
-  providers: [MessageService, DatePipe, HttpClientModule],
-  bootstrap: [AppComponent]
+    providers: [MessageService, DatePipe],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
