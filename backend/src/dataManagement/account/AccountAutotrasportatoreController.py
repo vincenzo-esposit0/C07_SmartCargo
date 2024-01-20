@@ -1,10 +1,10 @@
 from datetime import date, datetime
 from flask import jsonify
 
-from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
-from src.models.QrCode import QrCode
-from src.models.QrCodeDAO import QrCodeDAO
-from src.models.UtenteRegistrato import Autotrasportatore
+from backend.src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
+from backend.src.models.QrCode import QrCode
+from backend.src.models.QrCodeDAO import QrCodeDAO
+from backend.src.models.UtenteRegistrato import Autotrasportatore
 
 autotrasportatore_dao = AutotrasportatoreDAO()
 qrcode_dao = QrCodeDAO()
@@ -46,6 +46,12 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
 
 def modificaAutotrasportatore(autotrasportatoreJson):
     try:
+        # Verifica campi obbligatori
+        required_fields = ["id", "nome", "cognome", "dataNascita", "codiceFiscale", "email", "password", "indirizzo", "azienda"]
+        for field in required_fields:
+            if field not in autotrasportatoreJson or not autotrasportatoreJson[field]:
+                return {"message": f"Campo obbligatorio mancante o vuoto: {field}"}
+
         opId = autotrasportatoreJson["id"]
 
         autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(opId)
@@ -54,7 +60,7 @@ def modificaAutotrasportatore(autotrasportatoreJson):
 
             autotrasportatore.nome = autotrasportatoreJson["nome"]
             autotrasportatore.cognome= autotrasportatoreJson["cognome"]
-            autotrasportatore.dataNascita=datetime.strptime(autotrasportatoreJson["dataNascita"], "%Y-%m-%dT%H:%M:%S")
+            autotrasportatore.dataNascita=datetime.strptime(autotrasportatoreJson["dataNascita"], "%Y-%m-%d").date()
             autotrasportatore.codiceFiscale= autotrasportatoreJson["codiceFiscale"]
             autotrasportatore.email= autotrasportatoreJson["email"]
             autotrasportatore.password= autotrasportatoreJson["password"]
@@ -62,7 +68,7 @@ def modificaAutotrasportatore(autotrasportatoreJson):
             autotrasportatore.azienda= autotrasportatoreJson["azienda"]
 
         result = autotrasportatore_dao.aggiorna_autotrasportatore(autotrasportatore)
-        return jsonify(result.__json__())
+        return result.__json__()
 
     except Exception as e:
         print(f"Errore durante la modifica account di un autotrasportatore: {str(e)}")
