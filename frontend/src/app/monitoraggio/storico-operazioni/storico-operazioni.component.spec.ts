@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StoricoOperazioniComponent } from './storico-operazioni.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {UtenteService} from "../../utente/utente.service";
+import {MonitoraggioService} from "../monitoraggio.service";
 
 describe('StoricoOperazioniComponent', () => {
   let component: StoricoOperazioniComponent;
@@ -8,7 +11,9 @@ describe('StoricoOperazioniComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StoricoOperazioniComponent ]
+      declarations: [ StoricoOperazioniComponent ],
+        imports: [HttpClientTestingModule],
+        providers: [MonitoraggioService]
     })
     .compileComponents();
 

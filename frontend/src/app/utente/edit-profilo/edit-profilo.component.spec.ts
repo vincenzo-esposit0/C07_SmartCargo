@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditProfiloComponent } from './edit-profilo.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {AutenticazioneService} from "../../autenticazione/autenticazione.service";
+import {UtenteService} from "../utente.service";
 
 describe('EditProfiloComponent', () => {
   let component: EditProfiloComponent;
@@ -8,7 +11,9 @@ describe('EditProfiloComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditProfiloComponent ]
+      declarations: [ EditProfiloComponent ],
+        imports: [HttpClientTestingModule],
+        providers: [UtenteService]
     })
     .compileComponents();
 

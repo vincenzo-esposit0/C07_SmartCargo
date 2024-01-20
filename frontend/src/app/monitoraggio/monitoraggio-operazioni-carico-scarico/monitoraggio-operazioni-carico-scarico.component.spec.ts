@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonitoraggioOperazioniCaricoScaricoComponent } from './monitoraggio-operazioni-carico-scarico.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {MonitoraggioService} from "../monitoraggio.service";
 
 describe('MonitoraggioOperazioniCaricoScaricoComponent', () => {
   let component: MonitoraggioOperazioniCaricoScaricoComponent;
@@ -8,7 +10,9 @@ describe('MonitoraggioOperazioniCaricoScaricoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MonitoraggioOperazioniCaricoScaricoComponent ]
+      declarations: [ MonitoraggioOperazioniCaricoScaricoComponent ],
+        imports: [HttpClientTestingModule],
+        providers: [MonitoraggioService]
     })
     .compileComponents();
 
