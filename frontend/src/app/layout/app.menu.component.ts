@@ -22,28 +22,21 @@ export class AppMenuComponent implements OnInit {
         let monitoraggio=
         {
             label: 'Monitoraggio Operazioni Attive',
-            icon: 'pi pi-fw pi-truck',
+            icon: 'pi pi-fw pi-desktop',
             routerLink: ['monitoraggioOpAttive']
         };
 
         let monitaggioCaricoScarico=
         {
             label: 'Monitoraggio Operazioni Carico Scarico',
-            icon: 'pi pi-fw pi-image',
+            icon: 'pi pi-fw pi-truck',
             routerLink: ['monitoraggioOpCarScar']
         };
-
-        let profilo=
-            {
-                label: 'Profilo',
-                icon: 'pi pi-fw pi-image',
-                routerLink: ['profilo']
-            };
 
         let storico=
             {
                 label: 'Storico',
-                icon: 'pi pi-fw pi-image',
+                icon: 'pi pi-fw pi-history',
                 routerLink: ['storico']
             };
 
@@ -54,17 +47,9 @@ export class AppMenuComponent implements OnInit {
                 routerLink: ['dashboard']
             };
 
-        let profiloedit=
-            {
-                label: 'Profilo',
-                icon: 'pi pi-fw pi-image',
-                routerLink: ['editProfilo']
-            };
-
         this.model=[];
 
         if(this.autenticazioneService.profile){
-            console.log(this.autenticazioneService.profile);
             this.model.push(home);
             if(this.autenticazioneService.profile.operatore==='Autotrasportatore'){
             }else{
