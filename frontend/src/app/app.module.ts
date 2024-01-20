@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
 import {AppLayoutModule} from "./layout/app.layout.module";
@@ -55,7 +57,9 @@ import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component
     EditProfiloComponent
   ],
     imports: [
+        HttpClientTestingModule,
         BrowserModule,
+        HttpClientModule,
         AppRoutingModule,
         AppLayoutModule,
         InputTextModule,
@@ -85,7 +89,8 @@ import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component
         QRCodeModule,
         ConfirmDialogModule
     ],
-  providers: [MessageService, DatePipe],
+    exports: [ToastModule],
+  providers: [MessageService, DatePipe, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+
 })
 export class AutenticazioneService {
     profile: any=null;
