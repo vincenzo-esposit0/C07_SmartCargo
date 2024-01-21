@@ -52,8 +52,8 @@ def detection(df, soglia): #la soglia rappresenta la distanza massima consentita
     return no_path_df
 
 # Costruisco il DataFrame tramite il DataSet di Training
-df = pd.read_excel('training/Dataset_PV-TRAINING_23July_porto.xlsx.xlsx')
-df.to_csv('training.csv', index=None, header=True)
+df = pd.read_excel('percorsoOttimale/Dataset_PV-TRAINING_23July_porto.xlsx.xlsx')
+df.to_csv('percorsoOttimale.csv', index=None, header=True)
 
 #prendo le prime istanze per vedere se effettivamente sto costruendo bene il DataFrame
 df.head()
