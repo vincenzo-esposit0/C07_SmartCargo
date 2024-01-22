@@ -46,7 +46,7 @@ def nuovaIssue():
 @app.route('/issue/updateIssue', methods=['POST'])
 def aggiornaIssue():
     data = request.get_json()
-    return IssueController.aggiornaIssue(data)
+    return IssueController.modificaIssue(data)
 
 
 @app.route('/issue/getIssue/<id>', methods=['GET'])
