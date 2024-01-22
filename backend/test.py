@@ -135,6 +135,12 @@ def ottieniTuttiOpMobili():
     result = OperatoreMobileService.ottieniTuttiOperatoriMobile()
     return jsonify(result)
 
+@app.route('/operazioniPerAuto/getAll/', methods=['POST'])
+def ottieniOperazioniPerAutotrasportatore():
+    data = request.get_json()
+    result = OperazioneService.ottieniOperazioniConDettagliPerAutotrasportatore(data)
+    return jsonify(result)
+
 
 
 app.run()
