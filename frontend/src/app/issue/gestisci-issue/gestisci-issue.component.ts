@@ -41,7 +41,6 @@ export class GestisciIssueComponent {
         }
 
         this.service.getOperatoriMobili().subscribe(dati => {
-            console.log(dati);
            this.operatoriMob = dati;
            for(let op of this.operatoriMob){
                op.label = op.nome + ' ' + op.cognome;
@@ -74,6 +73,8 @@ export class GestisciIssueComponent {
         this.service.inviaIssue(this.data.issue).subscribe(dati => {
             this.disableDialog.emit(false);
             this.showDialog = false;
+            this.messageService.add({ severity: 'success', summary: 'Nuova Issue', detail: 'Issue Creata con Successo' });
+
         },error => {
             this.showDialog = false;
             this.disableDialog.emit(false);
@@ -83,7 +84,6 @@ export class GestisciIssueComponent {
 
 
     aggiorna() {
-
         if(!this.checkFormValidity()) return;
 
         this.data.issue.timestampApertura = this.datePipe.transform(this.data.issue.timestampApertura, 'yyyy-MM-ddTHH:mm:ss');
@@ -95,14 +95,14 @@ export class GestisciIssueComponent {
         this.service.aggiornaIssue(this.data.issue).subscribe(dati => {
             this.showDialog = false;
             this.disableDialog.emit(false);
+            this.messageService.add({ severity: 'success', summary: 'Aggiorna Issue', detail: 'Issue Aggiornata con Successo' });
+
         },error => {
             this.showDialog = false;
             console.log(error);
             this.disableDialog.emit(false);
         });
     }
-
-
 
     checkFormValidity(): boolean {
         const posizoneRegex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*[,]\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
@@ -125,9 +125,5 @@ export class GestisciIssueComponent {
         return true;
 
     }
-
-
-
-
 
 }

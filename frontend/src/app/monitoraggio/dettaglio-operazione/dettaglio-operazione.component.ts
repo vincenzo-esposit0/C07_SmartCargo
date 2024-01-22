@@ -241,7 +241,7 @@ export class DettaglioOperazioneComponent {
                 this.data.issue.tipologiaProblema = this.data.issue.tipologiaProblema.nome
                 this.issueService.aggiornaIssue(this.data.issue).subscribe(dati => {
                     this.disableAll = true;
-                    this.messageService.add({ severity: 'success', summary: 'Attenzione', detail: 'Operazione avvenuta con successo!' });
+                    this.messageService.add({ severity: 'success', summary: 'Attenzione', detail: 'Issue chiusa con successo!' });
 
                 },error => {
                     this.disableAll = true;
