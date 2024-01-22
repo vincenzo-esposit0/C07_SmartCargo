@@ -47,7 +47,7 @@ def nuovaIssue(issueJson):
         print(f"Errore durante la creazione dell'issue: {str(e)}")
         return {"message": "Errore durante la creazione dell'issue"}
 
-def aggiornaIssue(issueJson):
+def modificaIssue(issueJson):
     try:
         issue_id = issueJson["id"]
         issue = issue_dao.ottieni_issue_per_id(issue_id)
