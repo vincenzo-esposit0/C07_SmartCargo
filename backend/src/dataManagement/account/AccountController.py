@@ -12,7 +12,7 @@ operatoreMagazzino_dao = OperatoreMagazzinoDAO()
 operatoreMobile_dao = OperatoreMobileDAO()
 operatoreSala_dao = OperatoreSalaDAO()
 
-def registrazioneAccount(accountJson):
+def creaAccount(accountJson):
     try:
         opRegistrato = None
 
