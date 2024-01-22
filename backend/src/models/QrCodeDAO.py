@@ -1,7 +1,10 @@
 from sqlalchemy.orm import sessionmaker
-from src.models import QrCode
-from src.config.database import engine, Session
-
+try:
+   from src.models import QrCode
+   from src.config.database import engine, Session
+except ImportError:
+   from models import QrCode
+   from config.database import engine, Session
 
 class QrCodeDAO:
 

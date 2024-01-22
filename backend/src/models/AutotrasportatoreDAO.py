@@ -10,6 +10,7 @@ class AutotrasportatoreDAO:
         session = self.Session()
         session.add(autotrasportatore)
         session.commit()
+        session.refresh(autotrasportatore)
         session.close()
         return autotrasportatore
 

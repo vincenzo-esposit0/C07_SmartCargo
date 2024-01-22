@@ -40,20 +40,20 @@ import { MonitoraggioOperazioniCaricoScaricoComponent } from './monitoraggio/mon
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component";
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    LoginComponent,
-    GestisciIssueComponent,
-    RegistraIngressoComponent,
-    SignUpComponent,
-    MonitoraggioOperazioniAttiveComponent,
-    DettaglioOperazioneComponent,
-    StoricoOperazioniComponent,
-    MonitoraggioOperazioniCaricoScaricoComponent,
-    StoricoOperazioniComponent,
-    EditProfiloComponent
-  ],
+    declarations: [
+        AppComponent,
+        HomePageComponent,
+        LoginComponent,
+        GestisciIssueComponent,
+        RegistraIngressoComponent,
+        SignUpComponent,
+        MonitoraggioOperazioniAttiveComponent,
+        DettaglioOperazioneComponent,
+        StoricoOperazioniComponent,
+        MonitoraggioOperazioniCaricoScaricoComponent,
+        StoricoOperazioniComponent,
+        EditProfiloComponent
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -85,7 +85,7 @@ import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component
         QRCodeModule,
         ConfirmDialogModule
     ],
-  providers: [MessageService, DatePipe],
-  bootstrap: [AppComponent]
+    providers: [MessageService, DatePipe],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

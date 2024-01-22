@@ -1,6 +1,20 @@
 import unittest
 from unittest.mock import MagicMock
-from backend.src.dataManagement.services import OperatoreSalaService
+
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")))
+
+try:
+    # Prova ad importare con 'src.'
+    from src.dataManagement.services import OperatoreSalaService
+except ImportError:
+    # Se fallisce, prova senza 'src.'
+    from dataManagement.services import OperatoreSalaService
+
+
+#from backend.src.dataManagement.services import OperatoreSalaService
 
 class TestOperatoreSalaId(unittest.TestCase):
     def setUp(self):
@@ -28,7 +42,7 @@ class TestOperatoreSalaId(unittest.TestCase):
     # Caso id valido ma non presente nel DB
     def testOttieniOperatoreSalaNonPresente(self):
         # Configuro il mock per restituire il messaggio di operazione non trovata nel DB
-        self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value = {"message": "Operatore Sala non trovato"}
+        self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value = {"message": "Operatore di Sala non trovato"}
 
         risultato = OperatoreSalaService.ottieniOperatoreSalaPerId(40)
 
@@ -37,7 +51,7 @@ class TestOperatoreSalaId(unittest.TestCase):
     # Caso id non valido: nullo
     def testOttieniOperatoreSalaIdNullo(self):
         # Configuro il mock per restituire il messaggio di ID non valido
-        self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value = {"message": "Operatore Sala non trovato"}
+        self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value = {"message": "Errore: ID Operatore di Sala non valido"}
         risultato = OperatoreSalaService.ottieniOperatoreSalaPerId(None)
 
         self.assertEqual(risultato, self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value)
@@ -45,7 +59,7 @@ class TestOperatoreSalaId(unittest.TestCase):
     # Caso id non valido: id negativo
     def testOttieniOperatoreSalaIdNegativo(self):
         # Configuro il mock per restituire il messaggio di ID non valido
-        self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value = {"message": "Operatore Sala non trovato"}
+        self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value = {"message": "Errore: ID Operatore di Sala non valido"}
 
         risultato = OperatoreSalaService.ottieniOperatoreSalaPerId(-2)
 
@@ -54,11 +68,11 @@ class TestOperatoreSalaId(unittest.TestCase):
     # Caso id non valido: eccezione
     def testOttieniOperazioneIdEccezione(self):
         # Configuro il mock per restituire il messaggio scaturito da un'eccezione
-        self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value = {"Errore durante l'ottenimento dell'operatore Sala:"}
+        self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value = {"message": "Errore durante l'ottenimento dell'operatore di Sala"}
 
-        risultato = OperatoreSalaService.ottieniOperatoreSalaPerId({})  # o qualsiasi altro valore valido per l'id
+        risultato = OperatoreSalaService.ottieniOperatoreSalaPerId({})
 
-        self.assertEqual(risultato, {})
+        self.assertEqual(risultato, self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value)
 
 if __name__ == '__main__':
     unittest.main()

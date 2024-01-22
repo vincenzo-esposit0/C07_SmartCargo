@@ -92,7 +92,7 @@ def ottieniOperazioniPerOpAttive():
 
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni per operazioni attive: {str(e)}")
-        return {"message": "Errore durante l'ottenimento delle operazioni attive"}
+        return {"message": "Errore durante l'ottenimento delle operazioni attive "}
 
 def ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore_id):
     try:
@@ -102,8 +102,8 @@ def ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore_id):
         return operazioniJson
 
     except Exception as e:
-        print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
-        return {"message": "Errore durante l'ottenimento delle operazioni"}
+        print(f"Errore durante l'ottenimento delle operazioni per l'autotrasportatore: {str(e)}")
+        return {"message": "Errore durante l'ottenimento delle operazioni per l'autotrasportatore"}
 
 
 def ottieniOperazioniConDettagliPerOpMagazzino(operatore_magazzino_id):

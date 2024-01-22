@@ -30,17 +30,18 @@ def ottieniTuttiOperatoriSala():
 
 def ottieniOperatoreSalaPerId(operatore_sala_id):
     try:
-        operatore_sala = operatore_sala_dao.ottieni_operatore_sala_per_id(operatore_sala_id)
+        if operatore_sala_id is not None and operatore_sala_id > 0:
+            operatore_sala = operatore_sala_dao.ottieni_operatore_sala_per_id(operatore_sala_id)
 
-        if operatore_sala:
-            # Restituisci i dettagli dell'operatore Sala come JSON
-            return operatore_sala.__json__()
-        else:
-            return {"message": "Operatore Sala non trovato"}
+            if operatore_sala:
+                return operatore_sala.__json__()
+            else:
+                return {"message": "Operatore di Sala non trovato"}
+        elif operatore_sala_id == None or operatore_sala_id < 0:
+            return {"message": "Errore: ID Operatore di Sala non valido"}
 
     except Exception as e:
-        print(f"Errore durante l'ottenimento dell'operatore Sala: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento dell'operatore di Sala"}
 
 
 def eliminaOperatoreSala(operatore_sala_id):

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,OnInit, OnDestroy  } from '@angular/core';
 import { Router } from "@angular/router";
 import { AutenticazioneService } from "../autenticazione.service";
 import { DatePipe } from "@angular/common";
 import { MessageService } from "primeng/api";
+
 
 @Component({
   selector: 'app-sign-up',
@@ -17,6 +18,7 @@ export class SignUpComponent {
     private router: Router,
     private autenticazioneService: AutenticazioneService
   ) {}
+    private interval: any; // Variabile per memorizzare l'intervallo di attesa
 
   autotrasportatore: any = {};
 
@@ -93,7 +95,16 @@ export class SignUpComponent {
       this.autotrasportatore.dataNascita = this.datePipe.transform(this.autotrasportatore.dataNascita, 'yyyy-MM-ddTHH:mm:ss');
       this.autenticazioneService.registrazione(this.autotrasportatore).subscribe(dati => {
         let value = dati;
-        // Todo: controlla se lo stato è corretto
+          if(value.success){
+              this.messageService.add({ severity: 'success', summary: 'Registrazione', detail: 'Registrazione Avvenuta con successo.Verrai reindirizzato alla login' });
+              this.interval = setInterval(() => {
+                  this.router.navigate(['login']);
+                  }, 1500); // I
+
+          }else{
+              this.messageService.add({ severity: 'error', summary: 'Registrazione', detail: value.message });
+          }
+       /* // Todo: controlla se lo stato è corretto
         if (this.autotrasportatore.email && this.autotrasportatore.password && !this.autenticazioneService.profile) {
           this.autenticazioneService.profile = {};
           let profilo = { username: "", password: "" };
@@ -102,10 +113,12 @@ export class SignUpComponent {
           this.autenticazioneService.login(profilo).subscribe(dati => {
             let value = dati;
             if (value.stato == 200) {
-              this.autenticazioneService.profile.username = this.autotrasportatore.email;
-              this.autenticazioneService.profile.password = this.autotrasportatore.password;
-              this.autenticazioneService.profile.operatore = value.operatore;
-              this.router.navigate(['home']);
+                this.messageService.add({ severity: 'success', summary: 'Login', detail:'Registrazione Avvenuta con successo' });
+
+                this.autenticazioneService.profile.username = this.autotrasportatore.email;
+                this.autenticazioneService.profile.password = this.autotrasportatore.password;
+                this.autenticazioneService.profile.operatore = value.operatore;
+              this.router.navigate(['login']);
             } else {
               this.messageService.add({ severity: 'error', summary: 'Login', detail: value.message });
             }
@@ -113,16 +126,15 @@ export class SignUpComponent {
             console.log(error);
           });
         }
-        /* if(value.stato==200){
 
-                     this.autenticazioneService.profile.operatore=value.operatore;
-                     this.router.navigate(['home']);
-                 }else{
-                     this.messageService.add({ severity: 'error', summary: 'Login', detail: value.message });
-                 }*/
+          */
       }, error => {
         console.log(error);
       });
     }
+  }
+
+  ngOnDestroy(){
+      clearInterval(this.interval); // Rimuovi l'interva
   }
 }

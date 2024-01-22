@@ -1,5 +1,13 @@
 from flask import jsonify
-from src.models.OperatoreIngressoDAO import OperatoreIngressoDAO
+#from src.models.OperatoreIngressoDAO import OperatoreIngressoDAO
+
+try:
+    # Prova ad importare con 'src.'
+    from src.models.OperatoreIngressoDAO import OperatoreIngressoDAO
+except ImportError:
+    # Se fallisce, prova senza 'src.'
+    from models.OperatoreIngressoDAO import OperatoreIngressoDAO
+
 
 operatore_ingresso_dao = OperatoreIngressoDAO()
 
@@ -22,17 +30,20 @@ def ottieniTuttiOperatoriIngresso():
 
 def ottieniOperatoreIngressoPerId(operatore_ingresso_id):
     try:
-        operatore_ingresso = operatore_ingresso_dao.ottieni_operatore_ingresso_per_id(operatore_ingresso_id)
+        if operatore_ingresso_id is not None and operatore_ingresso_id > 0:
+            operatore_ingresso = operatore_ingresso_dao.ottieni_operatore_ingresso_per_id(operatore_ingresso_id)
 
-        if operatore_ingresso:
-            # Restituisci i dettagli dell'operatore Ingresso come JSON
-            return operatore_ingresso.__json__()
-        else:
-            return {"message": "Operatore Ingresso non trovato"}
+            if operatore_ingresso:
+                # Restituisci i dettagli dell'operatore Ingresso come JSON
+                return operatore_ingresso.__json__()
+            else:
+                return {"message": "Operatore di Ingresso non trovato"}
+        elif operatore_ingresso_id == None or operatore_ingresso_id < 0:
+            return {"message": "Errore: ID Operatore di Ingresso non valido"}
+
 
     except Exception as e:
-        print(f"Errore durante l'ottenimento dell'operatore Ingresso: {str(e)}")
-        return {}
+        return {"message": "Errore durante l'ottenimento dell'operatore di Ingresso"}
 
 
 def eliminaOperatoreIngresso(operatore_ingresso_id):
