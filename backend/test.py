@@ -111,14 +111,14 @@ def AutotrasportatoreByIdQrCode():
 @app.route('/getStorico', methods=['POST'])
 def trova_operazioni_per_filtri():
     data = request.get_json()
-    result = MonitoraggioController.trova_operazioni_per_filtri(data)
+    result = MonitoraggioController.visualizzaStorico(data)
     return jsonify(result)
 
 
 @app.route('/monitoraggio/esitoOp', methods=['POST'])
 def segnalaEsito():
     data = request.get_json()
-    return OperazioniController.aggiorna_stato_operazione(data)
+    return OperazioniController.segnalazione_esito_operazione(data)
 
 @app.route('/monitoraggio/getOpCarScar', methods=['POST'])
 def getOpCarScar():
@@ -133,6 +133,12 @@ def modificaAccount():
 @app.route('/issue/getOpMob', methods=['GET'])
 def ottieniTuttiOpMobili():
     result = OperatoreMobileService.ottieniTuttiOperatoriMobile()
+    return jsonify(result)
+
+@app.route('/operazioniPerAuto/getAll/', methods=['POST'])
+def ottieniOperazioniPerAutotrasportatore():
+    data = request.get_json()
+    result = OperazioneService.ottieniOperazioniConDettagliPerAutotrasportatore(data)
     return jsonify(result)
 
 

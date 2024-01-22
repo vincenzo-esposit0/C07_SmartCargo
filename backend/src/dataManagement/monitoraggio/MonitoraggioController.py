@@ -8,7 +8,7 @@ from src.models.OperazioneDAO import OperazioneDAO
 autotrasportatore_dao = AutotrasportatoreDAO()
 operazione_dao = OperazioneDAO()
 
-def trova_operazioni_per_filtri(filtri):
+def visualizzaStorico(filtri):
     try:
         operazioni_filtrate = []
 
