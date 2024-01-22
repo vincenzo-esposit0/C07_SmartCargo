@@ -1,7 +1,9 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <h5>Monitoraggio Operazioni Attive</h5>
+            <h5 *ngIf=" this.autenticazioneService?.profile?.operatore!='Operatore Mobile' " >Monitoraggio Operazioni Da Revisionare</h5>
+            <h5 *ngIf=" this.autenticazioneService?.profile?.operatore=='Operatore Mobile' " > Operazioni Con Issue Assegnate</h5>
+
             <p-table #dt1 [value]="operazioni" dataKey="id" [rows]="10" [loading]="false" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['']" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>

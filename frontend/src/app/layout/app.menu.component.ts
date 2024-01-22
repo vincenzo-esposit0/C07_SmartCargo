@@ -26,6 +26,14 @@ export class AppMenuComponent implements OnInit {
             routerLink: ['monitoraggioOpAttive']
         };
 
+        let monitoraggioOpMob=
+            {
+                label: 'Operazioni Con Issue Assegnate',
+                icon: 'pi pi-fw pi-desktop',
+                routerLink: ['monitoraggioOpAttive']
+            };
+
+
         let monitaggioCaricoScarico=
         {
             label: 'Monitoraggio Operazioni Carico Scarico',
@@ -63,6 +71,9 @@ export class AppMenuComponent implements OnInit {
                         if(this.autenticazioneService.profile.operatore==='Operatore Magazzino'){
                             this.model.push(monitaggioCaricoScarico);
                         }else{
+                            if(this.autenticazioneService.profile.operatore==='Operatore Mobile'){
+                                this.model.push(monitoraggioOpMob);
+                            }
                             // TODO inserire operatore mobile
                         }
                     }

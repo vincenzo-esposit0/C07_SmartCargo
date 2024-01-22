@@ -28,8 +28,12 @@ export class MonitoraggioOperazioniAttiveComponent {
                     (operazione) => operazione.autotrasportatore.id === this.autenticazioneService.profile.profilo.id
                 );
             }
-
-
+            console.log(this.operazioni);
+            if(this.autenticazioneService?.profile?.operatore=='Operatore Mobile'){
+                this.operazioni = this.operazioni.filter(
+                    (operazione) => operazione.operatore_mobile && operazione.operatore_mobile.id && operazione.operazione.stato !== "Chiuso" && operazione.issue && operazione.issue.stato && operazione.issue.stato!='Chiuso' && operazione.operatore_mobile.id  === this.autenticazioneService.profile.profilo.id
+                );
+            }
         },error => {
             console.log(error);
         });
@@ -37,10 +41,13 @@ export class MonitoraggioOperazioniAttiveComponent {
 
 
     openDettagliOp(data: any) {
-
+        if(this.autenticazioneService?.profile?.operatore=='Operatore Mobile'){
+           data.fromStorico=true;
+        }
         this.router.navigate(['home/dettaglioOp'], {
             state: {
                 dataJson: data
+
             }
         });
 
