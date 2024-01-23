@@ -59,6 +59,10 @@ def modificaAccount(accountJson):
 
         opId = accountJson["id"]
 
+        if accountJson["tipo"] == "Autotrasportatore":
+            return AccountAutotrasportatoreController.modificaAutotrasportatore(accountJson)
+            #opDaModificare = autotrasportatore_dao.ottieni_autotrasportatore_per_id(opId)
+
         if accountJson["tipo"] == "OpIngresso":
             opDaModificare = operatoreIngresso_dao.ottieni_operatore_ingresso_per_id(opId)
         elif accountJson["tipo"] == "OpMagazzino":
@@ -67,8 +71,7 @@ def modificaAccount(accountJson):
             opDaModificare = operatoreMobile_dao.ottieni_operatore_mobile_per_id(opId)
         elif accountJson["tipo"] == "OpSala":
             opDaModificare = operatoreSala_dao.ottieni_operatore_sala_per_id(opId)
-        elif accountJson["tipo"] == "Autotrasportatore":
-            opDaModificare = autotrasportatore_dao.ottieni_autotrasportatore_per_id(opId)
+
 
         if opDaModificare:
             opDaModificare.nome = accountJson["nome"]
@@ -87,8 +90,6 @@ def modificaAccount(accountJson):
             result = operatoreMobile_dao.aggiorna_operatore_mobile(opDaModificare)
         elif accountJson["tipo"] == "OpSala":
             result = operatoreSala_dao.aggiorna_operatore_sala(opDaModificare)
-        elif accountJson["tipo"] == "Autotrasportatore":
-            result = AccountAutotrasportatoreController.modificaAutotrasportatore(opDaModificare)
 
         return jsonify(result.__json__())
 
