@@ -144,7 +144,7 @@ export class DettaglioOperazioneComponent {
             }
 
             this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
-        }, 100);
+        }, 500);
     }
 
     creaPolilineaDaPuntiVerdi(): void {
@@ -280,7 +280,7 @@ export class DettaglioOperazioneComponent {
             const latPercorso = Number(latitudini[i]);
             const lngPercorso = Number(longitudini[i]);
 
-            const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (i + 1) + ' Percorso', 'green');
+            const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (i + 1) + ' Percorso', 'blue');
             this.overlays.push(markerPercorso);
 
             /*
@@ -326,7 +326,7 @@ export class DettaglioOperazioneComponent {
         }
 
         // Creazione polilinea
-        this.creaPolilineaDaPuntiVerdi();
+        //this.creaPolilineaDaPuntiVerdi();
 
         this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
     }
