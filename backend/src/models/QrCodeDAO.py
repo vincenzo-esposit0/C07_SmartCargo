@@ -1,10 +1,10 @@
 from sqlalchemy.orm import sessionmaker
 try:
-   from src.models import QrCode
-   from src.config.database import engine, Session
+    from src.models import QrCode
+    from src.config.database import engine, Session
 except ImportError:
-   from models import QrCode
-   from config.database import engine, Session
+    from models import QrCode
+    from config.database import engine, Session
 
 
 class QrCodeDAO:
@@ -28,7 +28,7 @@ class QrCodeDAO:
 
     def ottieni_qrCode_per_id(self, qrCode_id):
         session = self.Session()
-        qrCode = session.query(QrCode.QrCode).filter_by(id = qrCode_id).first()
+        qrCode = session.query(QrCode.QrCode).filter_by(id=qrCode_id).first()
         session.close()
         return qrCode
 
@@ -40,7 +40,7 @@ class QrCodeDAO:
 
     def elimina_qrCode(self, qrCode_id):
         session = self.Session()
-        qrCode = session.query(QrCode.QrCode).filter_by(id = qrCode_id).first()
+        qrCode = session.query(QrCode.QrCode).filter_by(id=qrCode_id).first()
         session.delete(qrCode)
         session.commit()
         session.close()
