@@ -41,6 +41,8 @@ export class EditProfiloComponent {
     modifica() {
         if(this.checkFormValidity()) {
             this.autenticazioneService.modifica(this.profilo).subscribe(dati => {
+                this.messageService.add({ severity: 'success', summary: 'Modifica', detail: 'Account modificato con successo' });
+
                 let value = dati;
             }, error => {
             });
