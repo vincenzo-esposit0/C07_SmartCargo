@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from src.models.Include import Include
-from src.config.database import engine, Session
+from src.config.database import engine
+
 
 class IncludeDAO:
     def __init__(self):
@@ -25,24 +26,6 @@ class IncludeDAO:
         include = session.query(Include).filter_by(id=include_id).first()
         session.close()
         return include
-
-    """def aggiorna_include(self, include_id, operazione_id, merce_id, quantita):
-        session = self.Session()
-        include = session.query(Include).filter_by(id=include_id).first()
-        if include:
-            include.operazione_id = operazione_id
-            include.merce_id = merce_id
-            include.quantita = quantita
-            session.commit()
-            session.close()
-
-    def elimina_include(self, include_id):
-        session = self.Session()
-        include = session.query(Include).filter_by(id=include_id).first()
-        if include:
-            session.delete(include)
-            session.commit()
-            session.close()"""
 
     def aggiorna_include(self, include):
         session = self.Session()
