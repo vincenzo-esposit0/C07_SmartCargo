@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import os
 from sklearn.cluster import DBSCAN
 from sklearn import metrics
 from geopy.distance import great_circle
@@ -10,21 +9,23 @@ from shapely.geometry import MultiPoint
 from haversine import haversine, Unit
 from src.dataManagement.services import PercorsoService
 
-#costante che rappresenta il numero di chilometri in radianti
+# costante che rappresenta il numero di chilometri in radianti
 kms_per_radian = 6371.0088
 
 # Funzione per la detenzione di percorsi che non sono ammessi
-def detection(df, soglia): #la soglia rappresenta la distanza massima consentita
+
+
+def detection(df, soglia):  # la soglia rappresenta la distanza massima consentita
     no_path = []  # Percorsi non ammessi
     ok_path = []  # Percorsi ammessi
     index = 0
     clusters = rs[['latitude', 'longitude']].to_numpy()
     path = df[['latitude', 'longitude']].to_numpy()
-    #va a dimensionare i due array
+    # va a dimensionare i due array
     for p in path:
         min_dist = 100
         for i in clusters:
-            #è utilizzata per calcolare la distanza tra due punti sulla superficie della Terra, dati i loro valori di latitudine e longitudine
+            # è utilizzata per calcolare la distanza tra due punti sulla superficie della Terra, dati i loro valori di latitudine e longitudine
             distance = haversine(p, i, unit=Unit.METERS)
             if distance < min_dist:
                 min_dist = distance
@@ -48,14 +49,15 @@ def detection(df, soglia): #la soglia rappresenta la distanza massima consentita
     ax.legend([path_scatter, no_scatter, ok_scatter], ['Full path', 'Not on path', 'On path'], loc='upper left')
     plt.show()
 
-    #prova
+    # prova
     return no_path_df
+
 
 # Costruisco il DataFrame tramite il DataSet di Training
 df = pd.read_excel('percorsoOttimale/Dataset_PV-TRAINING_23July_porto.xlsx.xlsx')
 df.to_csv('percorsoOttimale.csv', index=None, header=True)
 
-#prendo le prime istanze per vedere se effettivamente sto costruendo bene il DataFrame
+# prendo le prime istanze per vedere se effettivamente sto costruendo bene il DataFrame
 df.head()
 
 # Estraggo le coordinate dal DataFrame e creo un array numpy
@@ -84,22 +86,24 @@ print('Silhouette coefficient: {:0.03f}'.format(metrics.silhouette_score(coords,
 # Trasforma i gruppi in una serie di pandas, dove ogni elemento è un gruppo di punti
 clusters = pd.Series([coords[cluster_labels == n] for n in range(num_clusters)])
 
+
 def get_centermost_point(cluster):
     centroid = (MultiPoint(cluster).centroid.x, MultiPoint(cluster).centroid.y)
     centermost_point = min(cluster, key=lambda point: great_circle(point, centroid).m)
     return tuple(centermost_point)
 
-#calcolo le coordinate dei punti più centrali di ciascun cluster
+
+# calcolo le coordinate dei punti più centrali di ciascun cluster
 centermost_points = clusters.map(get_centermost_point)
 
 # Decomprime l'elenco delle tuple dei punti più centrali (lat, lon) in elenchi separati di lat e lon
-#divide le coordinate in due array contenenti rispettivamente latitudine e longitudine
+# divide le coordinate in due array contenenti rispettivamente latitudine e longitudine
 lats, lons = zip(*centermost_points)
 
 # Dai dati di lats/lons crea un nuovo DataFrame di un punto rappresentativo per ogni cluster
-#questo array contiene le coordinate dei punti più centrali di ciascun cluster
+# questo array contiene le coordinate dei punti più centrali di ciascun cluster
 rep_points = pd.DataFrame({'lon': lons, 'lat': lats})
-#prendo le ultime righe del dataset, per verificare rapidamente i risultati ottenuti
+# prendo le ultime righe del dataset, per verificare rapidamente i risultati ottenuti
 rep_points.tail()
 
 # Estraggo la riga dal set di dati originali (per prendere le restanti informazioni su ciascuna coppia di coordinate) in cui lat/lon corrisponde alla lat/lon di ciascuna riga dei punti rappresentativi

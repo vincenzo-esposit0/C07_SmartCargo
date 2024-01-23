@@ -2,6 +2,7 @@ from src.models.UtenteRegistrato import Autotrasportatore
 from src.config.database import engine
 from sqlalchemy.orm import sessionmaker
 
+
 class AutotrasportatoreDAO:
     def __init__(self):
         self.Session = sessionmaker(bind=engine)
@@ -69,5 +70,3 @@ class AutotrasportatoreDAO:
         autotrasportatori = session.query(Autotrasportatore).filter_by(nome=nome, cognome=cognome).all()
         session.close()
         return autotrasportatori
-
-

@@ -2,6 +2,7 @@ from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 autotrasportatore_dao = AutotrasportatoreDAO()
 
+
 def ottieniTuttiAutotrasportatori():
     try:
         autotrasportatori = autotrasportatore_dao.ottieni_tutti_autotrasportatori()
@@ -19,6 +20,7 @@ def ottieniTuttiAutotrasportatori():
         print(f"Errore durante l'ottenimento degli autotrasportatori: {str(e)}")
         return {}
 
+
 def ottieniAutotrasportatorePerId(autotrasportatore_id):
     try:
         autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(autotrasportatore_id)
@@ -32,6 +34,7 @@ def ottieniAutotrasportatorePerId(autotrasportatore_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'autotrasportatore: {str(e)}")
         return {}
+
 
 def AutotrasportatoreByIdQrCode(qrCode_id):
     try:

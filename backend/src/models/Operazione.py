@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
+
 
 class Operazione(Base):
     __tablename__ = 'operazione'

@@ -15,28 +15,29 @@ except ImportError:
 autotrasportatore_dao = AutotrasportatoreDAO()
 qrcode_dao = QrCodeDAO()
 
+
 def registrazioneAutotrasportatore(autotrasportatoreJson):
     try:
         if autotrasportatore_dao.is_autotrasportatore_registrato(autotrasportatoreJson["email"]):
             return jsonify({'message': 'Autotrasportatore già registrato'}), 400
 
         qrCode = QrCode(
-            isValido = True,
-            dataCreazione = date.today()
+            isValido=True,
+            dataCreazione=date.today()
         )
 
         qrCode = qrcode_dao.aggiungi_qrCode(qrCode)
 
         autotrasportatore = Autotrasportatore(
-            nome = autotrasportatoreJson["nome"],
-            cognome= autotrasportatoreJson["cognome"],
+            nome=autotrasportatoreJson["nome"],
+            cognome=autotrasportatoreJson["cognome"],
             dataNascita=datetime.strptime(autotrasportatoreJson["dataNascita"], "%Y-%m-%dT%H:%M:%S"),
-            codiceFiscale= autotrasportatoreJson["codiceFiscale"],
-            email= autotrasportatoreJson["email"],
-            password= autotrasportatoreJson["password"],
-            indirizzo= autotrasportatoreJson["indirizzo"],
-            azienda= autotrasportatoreJson["azienda"],
-            qrCode_id= qrCode.id
+            codiceFiscale=autotrasportatoreJson["codiceFiscale"],
+            email=autotrasportatoreJson["email"],
+            password=autotrasportatoreJson["password"],
+            indirizzo=autotrasportatoreJson["indirizzo"],
+            azienda=autotrasportatoreJson["azienda"],
+            qrCode_id=qrCode.id
         )
 
         result = autotrasportatore_dao.aggiungi_autotrasportatore(autotrasportatore)
@@ -49,6 +50,7 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
     except Exception as e:
         print(f"Errore durante la registrazione di un autotrasportatore: {str(e)}")
         return {"message": "Errore durante la registrazione di un autotrasportatore"}
+
 
 def modificaAutotrasportatore(autotrasportatoreJson):
     try:
@@ -65,13 +67,13 @@ def modificaAutotrasportatore(autotrasportatoreJson):
         if autotrasportatore:
 
             autotrasportatore.nome = autotrasportatoreJson["nome"]
-            autotrasportatore.cognome= autotrasportatoreJson["cognome"]
-            autotrasportatore.dataNascita=datetime.strptime(autotrasportatoreJson["dataNascita"], "%Y-%m-%d").date()
-            autotrasportatore.codiceFiscale= autotrasportatoreJson["codiceFiscale"]
-            autotrasportatore.email= autotrasportatoreJson["email"]
-            autotrasportatore.password= autotrasportatoreJson["password"]
-            autotrasportatore.indirizzo= autotrasportatoreJson["indirizzo"]
-            autotrasportatore.azienda= autotrasportatoreJson["azienda"]
+            autotrasportatore.cognome = autotrasportatoreJson["cognome"]
+            autotrasportatore.dataNascita = datetime.strptime(autotrasportatoreJson["dataNascita"], "%Y-%m-%d").date()
+            autotrasportatore.codiceFiscale = autotrasportatoreJson["codiceFiscale"]
+            autotrasportatore.email = autotrasportatoreJson["email"]
+            autotrasportatore.password = autotrasportatoreJson["password"]
+            autotrasportatore.indirizzo = autotrasportatoreJson["indirizzo"]
+            autotrasportatore.azienda = autotrasportatoreJson["azienda"]
 
         result = autotrasportatore_dao.aggiorna_autotrasportatore(autotrasportatore)
         return result.__json__()

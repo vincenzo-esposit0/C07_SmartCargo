@@ -8,9 +8,6 @@ except ImportError:
     from config.database import engine, Session
 
 
-
-
-
 class OperatoreSalaDAO:
     def __init__(self):
         self.Session = sessionmaker(bind=engine)

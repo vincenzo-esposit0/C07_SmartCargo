@@ -3,6 +3,7 @@ from src.models.OperatoreMagazzinoDAO import OperatoreMagazzinoDAO
 
 operatore_magazzino_dao = OperatoreMagazzinoDAO()
 
+
 def ottieniTuttiOperatoriMagazzino():
     try:
         operatori_magazzino = operatore_magazzino_dao.ottieni_tutti_operatori_magazzino()
@@ -20,6 +21,7 @@ def ottieniTuttiOperatoriMagazzino():
         print(f"Errore durante l'ottenimento degli operatori Magazzino: {str(e)}")
         return {}
 
+
 def ottieniOperatoreMagazzinoPerId(operatore_magazzino_id):
     try:
         operatore_magazzino = operatore_magazzino_dao.ottieni_operatore_magazzino_per_id(operatore_magazzino_id)
@@ -33,6 +35,7 @@ def ottieniOperatoreMagazzinoPerId(operatore_magazzino_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'operatore Magazzino: {str(e)}")
         return {}
+
 
 def eliminaOperatoreMagazzino(operatore_magazzino_id):
     try:

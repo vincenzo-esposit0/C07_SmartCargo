@@ -24,7 +24,7 @@ class InterfaceFacade:
         self.operatoreMobile_dao = OperatoreMobileDAO()
         self.operatoreSala_dao = OperatoreSalaDAO()
 
-    #ricerca il qrCode e l'operazione da andare ad aggiornare quando viene aperta/chiusa un'issue
+    # ricerca il qrCode e l'operazione da andare ad aggiornare quando viene aperta/chiusa un'issue
     def ottieniQrcodeValidazione(self, operazione_id):
         operazione = self.operazione_dao.ottieni_operazione_per_id(operazione_id)
         autotrasportatore = self.autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
@@ -32,7 +32,7 @@ class InterfaceFacade:
 
         return qrcode, operazione
 
-    #ricerca di tutti gli elementi connessi ad un operazione
+    # ricerca di tutti gli elementi connessi ad un operazione
     def ottieniInfoOperazione(self, operazione):
         # Ottieni le informazioni dell'autotrasportatore usando l'ID in operazione
         autotrasportatore = self.autotrasportatore_dao.ottieni_autotrasportatore_per_id(operazione.autotrasportatore_id)
@@ -49,7 +49,7 @@ class InterfaceFacade:
         # Ottieni le informazioni dell'issue usando l'ID dell'operazione così da individuare l'operatore mobile
         issue = self.issue_dao.ottieni_issue_per_id_operazione(operazione.id)
 
-        #Ottieni le informazioni sul percorso usando l'id in operazione
+        # Ottieni le informazioni sul percorso usando l'id in operazione
         percorso = self.percorso_dao.ottieni_percorso_per_id(operazione.percorso_id)
 
         operatore_mobile = None

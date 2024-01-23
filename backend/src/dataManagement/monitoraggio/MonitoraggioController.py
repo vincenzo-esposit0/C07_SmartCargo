@@ -1,38 +1,37 @@
 from datetime import datetime, timedelta
-
-from flask import jsonify
-from src.dataManagement.services import OperazioneService, AutotrasportatoreService, IncludeService, MerceService
+from src.dataManagement.services import OperazioneService
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 from src.models.OperazioneDAO import OperazioneDAO
 
 autotrasportatore_dao = AutotrasportatoreDAO()
 operazione_dao = OperazioneDAO()
 
+
 def visualizzaStorico(filtri):
     try:
         operazioni_filtrate = []
 
-        #ricerca solo delle operazioni il cui stato è chiuso
+        # ricerca solo delle operazioni il cui stato è chiuso
         operazioniJson = OperazioneService.ottieniOperazioniPerStorico()
 
         for operazioneJson in operazioniJson:
             corrispondenza = True
 
-            #scomposizone dell'autotrasportatore
+            # scomposizone dell'autotrasportatore
             autotrasportatoreJson = operazioneJson["autotrasportatore"]
             autotrasportatoreNomeCognome = f"{autotrasportatoreJson['nome']} {autotrasportatoreJson['cognome']}"
             autotrasportatoreAzienda = autotrasportatoreJson["azienda"]
 
-            #scomposizione del veicolo
+            # scomposizione del veicolo
             veicoloJson = operazioneJson["veicolo"]
             veicoloTarga = veicoloJson["targa"]
 
-            #scomposizione del intervallo
+            # scomposizione del intervallo
             opJson = operazioneJson["operazione"]
             dataOp = opJson["dataOperazione"]
 
             for chiave, valore in filtri.items():
-                if valore == "" or valore == None:
+                if valore == "" or valore is None:
                     continue
                 if chiave == "autotrasportatore" and autotrasportatoreNomeCognome != valore:
                     corrispondenza = False

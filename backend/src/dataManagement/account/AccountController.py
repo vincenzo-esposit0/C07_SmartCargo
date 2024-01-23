@@ -1,18 +1,17 @@
 from flask import jsonify
-from datetime import date, datetime
+from datetime import datetime
 from src.models.OperatoreIngressoDAO import OperatoreIngressoDAO
 from src.models.OperatoreMagazzinoDAO import OperatoreMagazzinoDAO
 from src.models.OperatoreMobileDAO import OperatoreMobileDAO
 from src.models.OperatoreSalaDAO import OperatoreSalaDAO
-from src.dataManagement.account import AccountAutotrasportatoreController
+
 from src.models.UtenteRegistrato import UtenteRegistrato
-from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 operatoreIngresso_dao = OperatoreIngressoDAO()
 operatoreMagazzino_dao = OperatoreMagazzinoDAO()
 operatoreMobile_dao = OperatoreMobileDAO()
 operatoreSala_dao = OperatoreSalaDAO()
-autotrasportatore_dao = AutotrasportatoreDAO()
+
 
 def creaAccount(accountJson):
     try:
@@ -52,16 +51,13 @@ def creaAccount(accountJson):
         print(f"Errore durante la registrazione di un operatore: {str(e)}")
         return {"message": "Errore durante la registrazione di un operatore"}
 
+
 def modificaAccount(accountJson):
     try:
         opDaModificare = None
         result = None
 
         opId = accountJson["id"]
-
-        if accountJson["tipo"] == "Autotrasportatore":
-            return AccountAutotrasportatoreController.modificaAutotrasportatore(accountJson)
-            #opDaModificare = autotrasportatore_dao.ottieni_autotrasportatore_per_id(opId)
 
         if accountJson["tipo"] == "OpIngresso":
             opDaModificare = operatoreIngresso_dao.ottieni_operatore_ingresso_per_id(opId)
@@ -72,8 +68,8 @@ def modificaAccount(accountJson):
         elif accountJson["tipo"] == "OpSala":
             opDaModificare = operatoreSala_dao.ottieni_operatore_sala_per_id(opId)
 
-
         if opDaModificare:
+
             opDaModificare.nome = accountJson["nome"]
             opDaModificare.cognome = accountJson["cognome"]
             opDaModificare.dataNascita = datetime.strptime(accountJson["dataNascita"], "%Y-%m-%d")
@@ -82,7 +78,7 @@ def modificaAccount(accountJson):
             opDaModificare.password = accountJson["password"]
             opDaModificare.indirizzo = accountJson["indirizzo"]
 
-        if accountJson["tipo"] =="OpIngresso":
+        if accountJson["tipo"] == "OpIngresso":
             result = operatoreIngresso_dao.aggiorna_operatore_ingresso(opDaModificare)
         elif accountJson["tipo"] == "OpMagazzino":
             result = operatoreMagazzino_dao.aggiorna_operatore_magazzino(opDaModificare)

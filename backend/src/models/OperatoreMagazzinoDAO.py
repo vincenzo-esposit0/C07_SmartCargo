@@ -1,6 +1,7 @@
 from src.models.UtenteRegistrato import OperatoreMagazzino
-from src.config.database import engine, Session
+from src.config.database import engine
 from sqlalchemy.orm import sessionmaker
+
 
 class OperatoreMagazzinoDAO:
     def __init__(self):
@@ -39,7 +40,6 @@ class OperatoreMagazzinoDAO:
         session.delete(operatore_magazzino)
         session.commit()
         session.close()
-
 
     def is_opMagazzino_registrato(self, email):
         session = self.Session()

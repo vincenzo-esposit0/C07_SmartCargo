@@ -1,5 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from src.config.database import engine, Session
+from src.models.Issue import Issue
 from src.models.Operazione import Operazione
 
 class OperazioneDAO:
@@ -50,6 +51,7 @@ class OperazioneDAO:
         operazioni = session.query(Operazione).filter_by(operatoreMagazzino_id=operatore_magazzino_id).all()
         session.close()
         return operazioni
+
 
     def ottieni_operazioni_per_stato(self, stato):
         session = self.Session()

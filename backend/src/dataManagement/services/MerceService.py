@@ -6,6 +6,7 @@ from src.models.MerceDAO import MerceDAO
 # Creazione di un'istanza di MerceDAO
 merce_dao = MerceDAO()
 
+
 def nuovaMerce(merceJson):
     try:
         merce = Merce(
@@ -19,6 +20,7 @@ def nuovaMerce(merceJson):
     except Exception as e:
         print(f"Errore durante l'aggiunta della merce: {str(e)}")
         return {}
+
 
 def ottieniTutteMerci():
     try:
@@ -37,6 +39,7 @@ def ottieniTutteMerci():
         print(f"Errore durante l'ottenimento delle merci: {str(e)}")
         return {}
 
+
 def ottieniMercePerId(merce_id):
     try:
         merce = merce_dao.ottieni_merce_per_id(merce_id)
@@ -51,6 +54,7 @@ def ottieniMercePerId(merce_id):
         print(f"Errore durante l'ottenimento della merce: {str(e)}")
         return {}
 
+
 def eliminaMerce(merce_id):
     try:
         merce = merce_dao.ottieni_merce_per_id(merce_id)
@@ -64,6 +68,7 @@ def eliminaMerce(merce_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento della merce: {str(e)}")
         return {}
+
 
 def aggiorna_merce(merce_id, nuovi_dati):
     try:
@@ -82,7 +87,7 @@ def aggiorna_merce(merce_id, nuovi_dati):
         else:
             return jsonify({"errore": f"Nessuna merce trovata con ID {merce_id}"})
 
-
     except Exception as e:
         print(f"Errore durante l'aggiornamento della merce: {str(e)}")
         return jsonify({"errore": "Errore durante l'aggiornamento della merce"})
+

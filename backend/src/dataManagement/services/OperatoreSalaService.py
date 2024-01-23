@@ -11,6 +11,7 @@ except ImportError:
 
 operatore_sala_dao = OperatoreSalaDAO()
 
+
 def ottieniTuttiOperatoriSala():
     try:
         operatori_sala = operatore_sala_dao.ottieni_tutti_operatori_sala()
@@ -28,6 +29,7 @@ def ottieniTuttiOperatoriSala():
         print(f"Errore durante l'ottenimento degli operatori Sala: {str(e)}")
         return {}
 
+
 def ottieniOperatoreSalaPerId(operatore_sala_id):
     try:
         if operatore_sala_id is not None and operatore_sala_id > 0:
@@ -37,7 +39,7 @@ def ottieniOperatoreSalaPerId(operatore_sala_id):
                 return operatore_sala.__json__()
             else:
                 return {"message": "Operatore di Sala non trovato"}
-        elif operatore_sala_id == None or operatore_sala_id < 0:
+        elif operatore_sala_id is None or operatore_sala_id < 0:
             return {"message": "Errore: ID Operatore di Sala non valido"}
 
     except Exception as e:

@@ -18,32 +18,33 @@ operatoreMagazzino_dao = OperatoreMagazzinoDAO()
 operazione_dao = OperazioneDAO()
 include_dao = IncludeDAO()
 
+
 def registrazioneIngresso(ingressoJson):
     try:
         percorsoId = None
 
-        #scomposizione Json per l'operazione
+        # scomposizione Json per l'operazione
         operazioneJson = ingressoJson["operazione"]
         tipoOperazioneJson = operazioneJson["tipo"]
         destinazioneOperazioneJson = ingressoJson["destinazione"]
 
-        #scomposizione Json per la merce
+        # scomposizione Json per la merce
         merceJson = ingressoJson["merci"]
         tipoMerceJson = merceJson["tipo"]
 
-        #scomposizione Json per il veicolo
+        # scomposizione Json per il veicolo
         veicoloJson = ingressoJson["veicolo"]
         modelloJson = veicoloJson["modello"]
 
-        #scomposizione Json per l'autotrasportatore
+        # scomposizione Json per l'autotrasportatore
         autotrasportatoreJson = ingressoJson["autotrasportatore"]
 
-        #ricerca autotrasportatore per i parametri nome, cognome e azienda
+        # ricerca autotrasportatore per i parametri nome, cognome e azienda
         autotrasportatore = autotrasportatore_dao.get_autotrasportatore_per_ingresso(autotrasportatore_nome=autotrasportatoreJson["nome"],
                                                                                      autotrasportatore_cognome=autotrasportatoreJson["cognome"],
                                                                                      autotrasportatore_azienda=autotrasportatoreJson["azienda"])
 
-        #controllo per definire il percorso associato
+        # controllo per definire il percorso associato
         if destinazioneOperazioneJson["nome"] == "M1":
             percorsoId = 1
         elif destinazioneOperazioneJson["nome"] == "M2":
@@ -51,10 +52,10 @@ def registrazioneIngresso(ingressoJson):
         elif destinazioneOperazioneJson["nome"] == "M3":
             percorsoId = 3
 
-        #Recupero tutti gli operatori di magazzino disponibili
+        # Recupero tutti gli operatori di magazzino disponibili
         operatoriMagazzino_disponibili = operatoreMagazzino_dao.ottieni_tutti_operatori_magazzino()
 
-        #Scelgo casualmente un operatore di magazzino tra quelli disponibili che viene assegnato all'operazione
+        # Scelgo casualmente un operatore di magazzino tra quelli disponibili che viene assegnato all'operazione
         operatoreMagazzinoScelto = random.choice(operatoriMagazzino_disponibili)
 
         veicolo = Veicolo(
@@ -89,3 +90,4 @@ def registrazioneIngresso(ingressoJson):
     except Exception as e:
         print(f"Errore durante la registrazione dell'ingresso: {str(e)}")
         return {"message": "Errore durante la registrazione dell'ingresso"}
+

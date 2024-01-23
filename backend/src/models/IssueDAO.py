@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from src.models.Issue import Issue
-from src.config.database import engine, Session
+from src.config.database import engine
+
 
 class IssueDAO:
     def __init__(self):
@@ -26,13 +27,11 @@ class IssueDAO:
         session.close()
         return issue
 
-
     def ottieni_issue_per_id_operazione(self, op_id):
         session = self.Session()
         issue = session.query(Issue).filter_by(operazione_id=op_id).first()
         session.close()
         return issue
-
 
     def aggiorna_issue(self, issue):
         session = self.Session()

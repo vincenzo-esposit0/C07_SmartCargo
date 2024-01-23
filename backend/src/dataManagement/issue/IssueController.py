@@ -14,6 +14,7 @@ operazione_dao = OperazioneDAO()
 issue_dao = IssueDAO()
 autotrasportatore_dao = AutotrasportatoreDAO()
 
+
 def nuovaIssue(issueJson):
     try:
         timestamp_chiusura = None
@@ -29,14 +30,14 @@ def nuovaIssue(issueJson):
             operatoreMobile_id=issueJson["operatoreMobile_id"],
             operazione_id=issueJson["operazione_id"]
         )
-        #utilizzo dell'interfaccia Facade pcd er accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
+        # utilizzo dell'interfaccia Facade pcd er accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
         qrcode, operazione = qrcode_facade.ottieniQrcodeValidazione(issueJson["operazione_id"])
 
-        #invalidazione qrcode
+        # invalidazione qrcode
         qrcode.isValido = False
         qrcode_dao.aggiorna_qrCode(qrcode)
 
-        #set stato operazione in issue aperta
+        # set stato operazione in issue aperta
         operazione.stato = "In corso / Issue aperta"
         operazione_dao.aggiorna_operazione(operazione)
 
@@ -46,6 +47,7 @@ def nuovaIssue(issueJson):
     except Exception as e:
         print(f"Errore durante la creazione dell'issue: {str(e)}")
         return {"message": "Errore durante la creazione dell'issue"}
+
 
 def modificaIssue(issueJson):
     try:
@@ -64,18 +66,18 @@ def modificaIssue(issueJson):
             issue.operatoreMobile_id = issueJson["operatoreMobile_id"]
             issue.operazione_id = issueJson["operazione_id"]
 
-            #utilizzo dell'interfaccia Facade per accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
+            # utilizzo dell'interfaccia Facade per accedere ai vari oggetti entity per l'individuazione del qrcode e dell'operazione
             qrcode, operazione = qrcode_facade.ottieniQrcodeValidazione(issueJson["operazione_id"])
 
             if issue.stato == "Chiusa":
-                #validazione qrcode
+                # validazione qrcode
                 qrcode.isValido = True
                 qrcode_dao.aggiorna_qrCode(qrcode)
 
-                #salvataggio della data di chiusura dell'issue
+                # salvataggio della data di chiusura dell'issue
                 issue.timestampChiusura = datetime.now()
 
-                #set stato operazione in regolare
+                # set stato operazione in regolare
                 operazione.stato = "In corso / Regolare"
                 operazione_dao.aggiorna_operazione(operazione)
 

@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from src.models.UtenteRegistrato import OperatoreMobile
-from src.config.database import engine, Session
+from src.config.database import engine
+
 
 class OperatoreMobileDAO:
     def __init__(self):

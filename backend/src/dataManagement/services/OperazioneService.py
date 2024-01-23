@@ -1,5 +1,4 @@
 from src.models.OperazioneDAO import OperazioneDAO
-
 from src.dataManagement.services import MerceService
 from src.dataManagement.services import AutotrasportatoreService
 from src.dataManagement.services import IncludeService
@@ -10,6 +9,7 @@ from src.dataManagement.InterfaceFacade import InterfaceFacade
 operazione_dao = OperazioneDAO()
 autotrasportatore_dao = AutotrasportatoreDAO()
 opDatiFacade = InterfaceFacade()
+
 
 def ottieniTutteOperazioni():
     try:

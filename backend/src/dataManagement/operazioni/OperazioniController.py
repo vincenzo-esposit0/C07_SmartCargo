@@ -3,7 +3,9 @@ from src.models.OperazioneDAO import OperazioneDAO
 
 operazione_dao = OperazioneDAO()
 
-#metodo utilizzato dall'operatore di magazzino per l'aggiornamento dello stato dell operazione
+# metodo utilizzato dall'operatore di magazzino per l'aggiornamento dello stato dell operazione
+
+
 def segnalazione_esito_operazione(operazioneJson):
 
     try:

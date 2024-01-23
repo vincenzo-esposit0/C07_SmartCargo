@@ -3,6 +3,7 @@ from src.models.OperatoreMobileDAO import OperatoreMobileDAO
 
 operatore_mobile_dao = OperatoreMobileDAO()
 
+
 def ottieniTuttiOperatoriMobile():
     try:
         operatori_mobile = operatore_mobile_dao.ottieni_tutti_operatori_mobili()
@@ -19,6 +20,7 @@ def ottieniTuttiOperatoriMobile():
     except Exception as e:
         print(f"Errore durante l'ottenimento degli operatori Mobile: {str(e)}")
         return {}
+
 
 def ottieniOperatoreMobilePerId(operatore_mobile_id):
     try:

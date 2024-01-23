@@ -6,6 +6,7 @@ from src.models.IncludeDAO import IncludeDAO
 # Creazione di un'istanza di IncludeDAO
 include_dao = IncludeDAO()
 
+
 def nuovaInclude(includeJson):
     try:
         include = Include(
@@ -20,6 +21,7 @@ def nuovaInclude(includeJson):
     except Exception as e:
         print(f"Errore durante l'aggiunta della merce: {str(e)}")
         return {}
+
 
 def ottieniTutteInclude():
     try:
@@ -38,6 +40,7 @@ def ottieniTutteInclude():
         print(f"Errore durante l'ottenimento delle istanze per include: {str(e)}")
         return {}
 
+
 def ottieniIncludePerIdOperazione(op_id):
     try:
         include = include_dao.ottieni_include_per_operazione_id(op_id)
@@ -52,6 +55,7 @@ def ottieniIncludePerIdOperazione(op_id):
         print(f"Errore durante l'ottenimento della include: {str(e)}")
         return {}
 
+
 def eliminaInclude(include_id):
     try:
         include = include_dao.ottieni_merce_per_id(include_id)
@@ -65,6 +69,7 @@ def eliminaInclude(include_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento della include: {str(e)}")
         return {}
+
 
 def aggiornaInclude(include_id, nuoviDatiJson):
     try:
@@ -83,7 +88,6 @@ def aggiornaInclude(include_id, nuoviDatiJson):
             return jsonify({"messaggio": f"Include con ID {include_id} aggiornata con successo"})
         else:
             return jsonify({"errore": f"Nessuna include trovata con ID {include_id}"})
-
 
     except Exception as e:
         print(f"Errore durante l'aggiornamento della include: {str(e)}")

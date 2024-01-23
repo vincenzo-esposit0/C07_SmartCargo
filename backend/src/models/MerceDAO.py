@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from src.models.Merce import Merce
-from src.config.database import engine, Session
+from src.config.database import engine
 
 
 class MerceDAO:
