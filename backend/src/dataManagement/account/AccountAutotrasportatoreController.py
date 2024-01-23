@@ -1,10 +1,16 @@
 from datetime import date, datetime
 from flask import jsonify
 
-from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
-from src.models.QrCode import QrCode
-from src.models.QrCodeDAO import QrCodeDAO
-from src.models.UtenteRegistrato import Autotrasportatore
+try:
+    from backend.src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
+    from backend.src.models.QrCode import QrCode
+    from backend.src.models.QrCodeDAO import QrCodeDAO
+    from backend.src.models.UtenteRegistrato import Autotrasportatore
+except ImportError:
+    from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
+    from src.models.QrCode import QrCode
+    from src.models.QrCodeDAO import QrCodeDAO
+    from src.models.UtenteRegistrato import Autotrasportatore
 
 autotrasportatore_dao = AutotrasportatoreDAO()
 qrcode_dao = QrCodeDAO()
