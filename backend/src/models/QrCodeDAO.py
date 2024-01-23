@@ -6,6 +6,7 @@ except ImportError:
    from models import QrCode
    from config.database import engine, Session
 
+
 class QrCodeDAO:
 
     def __init__(self):

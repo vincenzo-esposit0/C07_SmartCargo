@@ -1,11 +1,12 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
-#E' una funzione per generare una classe base per la definizione della classi di modello, usate
-#per rappresentare le tabelle del database come classi Python.
+# E' una funzione per generare una classe base per la definizione della classi di modello, usate
+# per rappresentare le tabelle del database come classi Python.
 Base = declarative_base()
 
-#Classe di modello che estende Base per indicare che è mappata ad una tabella nel database
+
+# Classe di modello che estende Base per indicare che è mappata ad una tabella nel database
 class Veicolo(Base):
     __tablename__ = 'veicolo'
 

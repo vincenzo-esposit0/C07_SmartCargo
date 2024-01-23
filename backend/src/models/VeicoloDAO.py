@@ -1,9 +1,6 @@
 from sqlalchemy.orm import sessionmaker
-#from backend.src.models.Veicolo import Veicolo
-#from backend.src.config.database import engine, Session
-
 from src.models.Veicolo import Veicolo
-from src.config.database import engine, Session
+from src.config.database import engine
 
 
 class VeicoloDAO:

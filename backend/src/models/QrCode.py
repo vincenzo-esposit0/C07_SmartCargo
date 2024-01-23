@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Boolean, Date
+from sqlalchemy import Column, Integer, Boolean, Date
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
 
 class QrCode(Base):
     __tablename__ = 'qrCode'

@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -26,6 +25,7 @@ class UtenteRegistrato(Base):
         self.password = password
         self.indirizzo = indirizzo
 
+
 class OperatoreSala(UtenteRegistrato):
     __tablename__ = 'operatoreSala'
 
@@ -44,6 +44,8 @@ class OperatoreSala(UtenteRegistrato):
             'password': self.password,
             'indirizzo': self.indirizzo
         }
+
+
 class OperatoreIngresso(UtenteRegistrato):
     __tablename__ = 'operatoreIngresso'
 
@@ -62,6 +64,8 @@ class OperatoreIngresso(UtenteRegistrato):
             'password': self.password,
             'indirizzo': self.indirizzo
         }
+
+
 class OperatoreMobile(UtenteRegistrato):
     __tablename__ = 'operatoreMobile'
 
@@ -80,6 +84,8 @@ class OperatoreMobile(UtenteRegistrato):
             'password': self.password,
             'indirizzo': self.indirizzo
         }
+
+
 class OperatoreMagazzino(UtenteRegistrato):
     __tablename__ = 'operatoreMagazzino'
 
@@ -98,6 +104,8 @@ class OperatoreMagazzino(UtenteRegistrato):
             'password': self.password,
             'indirizzo': self.indirizzo
         }
+
+
 class Autotrasportatore(UtenteRegistrato):
     __tablename__ = 'autotrasportatore'
 
