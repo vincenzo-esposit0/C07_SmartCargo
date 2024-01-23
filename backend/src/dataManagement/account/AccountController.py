@@ -6,11 +6,13 @@ from src.models.OperatoreMobileDAO import OperatoreMobileDAO
 from src.models.OperatoreSalaDAO import OperatoreSalaDAO
 from src.dataManagement.account import AccountAutotrasportatoreController
 from src.models.UtenteRegistrato import UtenteRegistrato
+from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 
 operatoreIngresso_dao = OperatoreIngressoDAO()
 operatoreMagazzino_dao = OperatoreMagazzinoDAO()
 operatoreMobile_dao = OperatoreMobileDAO()
 operatoreSala_dao = OperatoreSalaDAO()
+autotrasportatore_dao = AutotrasportatoreDAO()
 
 def creaAccount(accountJson):
     try:
