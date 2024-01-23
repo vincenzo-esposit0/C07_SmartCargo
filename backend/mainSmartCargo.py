@@ -123,7 +123,10 @@ def getOpCarScar():
 @app.route('/modificaOperatore', methods=['POST'])
 def modificaAccount():
     data = request.get_json()
-    return AccountController.modificaAccount(data)
+    if data["tipo"] == "Autotrasportatore":
+        return jsonify(AccountAutotrasportatoreController.modificaAutotrasportatore(data))
+    else:
+        return jsonify(AccountController.modificaAccount(data))
 
 
 @app.route('/issue/getOpMob', methods=['GET'])

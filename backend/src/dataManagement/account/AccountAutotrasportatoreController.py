@@ -55,7 +55,7 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
 def modificaAutotrasportatore(autotrasportatoreJson):
     try:
         # Verifica campi obbligatori
-        required_fields = ["id", "nome", "cognome", "dataNascita", "codiceFiscale", "email", "password", "indirizzo", "azienda"]
+        required_fields = ["id", "nome", "cognome", "dataNascita", "codiceFiscale", "email", "password", "indirizzo"]
         for field in required_fields:
             if field not in autotrasportatoreJson or not autotrasportatoreJson[field]:
                 return {"message": f"Campo obbligatorio mancante o vuoto: {field}"}

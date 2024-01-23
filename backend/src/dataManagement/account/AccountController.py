@@ -87,7 +87,7 @@ def modificaAccount(accountJson):
         elif accountJson["tipo"] == "OpSala":
             result = operatoreSala_dao.aggiorna_operatore_sala(opDaModificare)
 
-        return jsonify(result.__json__())
+        return result.__json__()
 
     except Exception as e:
         print(f"Errore durante la modifica account di un operatore: {str(e)}")
