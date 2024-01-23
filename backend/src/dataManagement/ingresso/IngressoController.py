@@ -40,9 +40,10 @@ def registrazioneIngresso(ingressoJson):
         autotrasportatoreJson = ingressoJson["autotrasportatore"]
 
         # ricerca autotrasportatore per i parametri nome, cognome e azienda
-        autotrasportatore = autotrasportatore_dao.get_autotrasportatore_per_ingresso(autotrasportatore_nome=autotrasportatoreJson["nome"],
-                                                                                     autotrasportatore_cognome=autotrasportatoreJson["cognome"],
-                                                                                     autotrasportatore_azienda=autotrasportatoreJson["azienda"])
+        autotrasportatore = autotrasportatore_dao.get_autotrasportatore_per_ingresso(
+            autotrasportatore_nome=autotrasportatoreJson["nome"],
+            autotrasportatore_cognome=autotrasportatoreJson["cognome"],
+            autotrasportatore_azienda=autotrasportatoreJson["azienda"])
 
         # controllo per definire il percorso associato
         if destinazioneOperazioneJson["nome"] == "M1":

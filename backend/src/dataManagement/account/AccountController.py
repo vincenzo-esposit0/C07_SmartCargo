@@ -69,7 +69,6 @@ def modificaAccount(accountJson):
             opDaModificare = operatoreSala_dao.ottieni_operatore_sala_per_id(opId)
 
         if opDaModificare:
-
             opDaModificare.nome = accountJson["nome"]
             opDaModificare.cognome = accountJson["cognome"]
             opDaModificare.dataNascita = datetime.strptime(accountJson["dataNascita"], "%Y-%m-%d")

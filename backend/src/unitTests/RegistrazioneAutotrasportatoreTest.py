@@ -46,7 +46,6 @@ class TestAccountAutotrasportatoreController(unittest.TestCase):
 
     # Caso input vuoto
     def test_modificaAutotrasportatore_not_found(self):
-
         # Simula un'eccezione nel dao
         self.mock_autotrasportatore_dao.ottieniAutotrasportatorePerId.return_value = None
 
@@ -59,7 +58,6 @@ class TestAccountAutotrasportatoreController(unittest.TestCase):
 
     # campo input chiave vuota
     def test_modificaAutotrasportatore_valoreChiaveVuoto(self):
-
         self.mock_autotrasportatore_dao.__json__ = MagicMock(return_value={
             "id": 1,
             "nome": "NomeTest",
@@ -81,7 +79,6 @@ class TestAccountAutotrasportatoreController(unittest.TestCase):
 
     # Caso input chiave mancante
     def test_modificaAutotrasportatore_chiaveMancante(self):
-
         self.mock_autotrasportatore_dao.__json__ = MagicMock(return_value={
             "id": 1,
             "nome": "NomeTest",
@@ -102,7 +99,6 @@ class TestAccountAutotrasportatoreController(unittest.TestCase):
 
     # Caso input non valido:eccezione
     def test_modificaAutotrasportatore_exception(self):
-
         # Chiamata al metodo di modifica con eccezione attesa
         result = AccountAutotrasportatoreController.modificaAutotrasportatore(1)
 

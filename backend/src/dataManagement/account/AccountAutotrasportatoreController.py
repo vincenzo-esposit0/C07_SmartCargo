@@ -43,7 +43,8 @@ def registrazioneAutotrasportatore(autotrasportatoreJson):
         result = autotrasportatore_dao.aggiungi_autotrasportatore(autotrasportatore)
 
         if result:
-            return jsonify({'message': 'Autotrasportatore registrato con successo', 'success': True, 'autotrasportatore': result.__json__()})
+            return jsonify({'message': 'Autotrasportatore registrato con successo', 'success': True,
+                            'autotrasportatore': result.__json__()})
         else:
             return jsonify({'message': 'Errore durante la registrazione dell\'autotrasportatore', 'success': False})
 
@@ -65,7 +66,6 @@ def modificaAutotrasportatore(autotrasportatoreJson):
         autotrasportatore = autotrasportatore_dao.ottieni_autotrasportatore_per_id(opId)
 
         if autotrasportatore:
-
             autotrasportatore.nome = autotrasportatoreJson["nome"]
             autotrasportatore.cognome = autotrasportatoreJson["cognome"]
             autotrasportatore.dataNascita = datetime.strptime(autotrasportatoreJson["dataNascita"], "%Y-%m-%d").date()
