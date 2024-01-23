@@ -1,12 +1,13 @@
 try:
-   from src.models.QrCodeDAO import QrCodeDAO
-   from src.config.database import engine, Session
+    from src.models.QrCodeDAO import QrCodeDAO
+    from src.config.database import engine, Session
 except ImportError:
     from models.QrCodeDAO import QrCodeDAO
     from config.database import engine, Session
 
 
 qrcode_dao = QrCodeDAO()
+
 
 def ottieniTuttiQRCodes():
     try:
@@ -25,18 +26,19 @@ def ottieniTuttiQRCodes():
         print(f"Errore durante l'ottenimento dei QRCodes: {str(e)}")
         return {}
 
+
 def ottieniQRCodePerId(qrcode_id):
     try:
-      if qrcode_id is not None and qrcode_id > 0:
-        qrcode = qrcode_dao.ottieni_qrCode_per_id(qrcode_id)
+        if qrcode_id is not None and qrcode_id > 0:
+            qrcode = qrcode_dao.ottieni_qrCode_per_id(qrcode_id)
 
-        if qrcode:
-            # Restituisci i dettagli del qrcode come JSON
-            return qrcode.__json__()
-        else:
-            return {"message": "QrCode non trovato"}
-      elif qrcode_id == None or qrcode_id < 0:
+            if qrcode:
+                # Restituisci i dettagli del qrcode come JSON
+                return qrcode.__json__()
+            else:
+                return {"message": "QrCode non trovato"}
+        elif qrcode_id is None or qrcode_id < 0:
             return {"message": "Errore: ID QrCode non valido"}
 
     except Exception as e:
-        return {"message": "Errore durante l'ottenimento del QrCode"}
+        return {"message": f"Errore durante l'ottenimento del QrCode: {str(e)}"}

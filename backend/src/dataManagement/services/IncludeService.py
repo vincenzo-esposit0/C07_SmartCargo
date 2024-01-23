@@ -58,7 +58,7 @@ def ottieniIncludePerIdOperazione(op_id):
 
 def eliminaInclude(include_id):
     try:
-        include = include_dao.ottieni_merce_per_id(include_id)
+        include = include_dao.ottieni_include_per_id(include_id)
 
         if include:
             include_dao.elimina_include(include_id)
@@ -83,7 +83,7 @@ def aggiornaInclude(include_id, nuoviDatiJson):
             include_da_aggiornare.quantita = nuoviDatiJson["quantita"]
 
             # Esegui l'aggiornamento nel database
-            include_aggiornata = include_dao.aggiorna_include(include_da_aggiornare)
+            include_dao.aggiorna_include(include_da_aggiornare)
 
             return jsonify({"messaggio": f"Include con ID {include_id} aggiornata con successo"})
         else:

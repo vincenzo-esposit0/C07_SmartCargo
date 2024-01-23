@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-from unittest.mock import  MagicMock
+from unittest.mock import MagicMock
 import sys
 import os
 
@@ -26,7 +26,6 @@ class TestQrCode(unittest.TestCase):
         self.qrcode_dao_mock.ottieniQRCodePerId.return_value = self.qrcode_dao_mock
         risultato = QrCodeService.ottieniQRCodePerId(1)
         self.assertEqual(risultato, self.qrcode_dao_mock.__json__.return_value)
-
 
     def testOttieniQrCodeNonPresente(self):
         self.qrcode_dao_mock.ottieniQRCodePerId.return_value = {"message": "QrCode non trovato"}

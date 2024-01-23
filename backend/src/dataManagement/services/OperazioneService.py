@@ -28,6 +28,7 @@ def ottieniTutteOperazioni():
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {"message": "Errore durante l'ottenimento delle operazioni"}
 
+
 def ottieniTutteOperazioniConDettagli():
     try:
         operazioni = operazione_dao.ottieni_tutte_operazioni()
@@ -38,6 +39,7 @@ def ottieniTutteOperazioniConDettagli():
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni per lo storico: {str(e)}")
         return {"message": "Errore durante l'ottenimento delle operazioni per lo storico"}
+
 
 def ottieniAlcuneOperazioniConDettagli(operazioni):
     try:
@@ -72,6 +74,7 @@ def ottieniAlcuneOperazioniConDettagli(operazioni):
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {"message": "Errore durante l'ottenimento delle operazioni"}
 
+
 def ottieniOperazioniPerStorico():
     try:
         operazioni = operazione_dao.ottieni_operazioni_per_stato("Chiuso")
@@ -83,6 +86,7 @@ def ottieniOperazioniPerStorico():
         print(f"Errore durante l'ottenimento delle operazioni per lo storico: {str(e)}")
         return {"message": "Errore durante l'ottenimento delle operazioni per lo storico"}
 
+
 def ottieniOperazioniPerOpAttive():
     try:
         operazioni = operazione_dao.ottieni_operazioni_per_stato("In corso")
@@ -93,6 +97,7 @@ def ottieniOperazioniPerOpAttive():
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni per operazioni attive: {str(e)}")
         return {"message": "Errore durante l'ottenimento delle operazioni attive "}
+
 
 def ottieniOperazioniConDettagliPerAutotrasportatore(autotrasportatore_id):
     try:
@@ -116,12 +121,13 @@ def ottieniOperazioniConDettagliPerOpMagazzino(operatore_magazzino_id):
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {"message": "Errore durante l'ottenimento delle operazioni"}
 
+
 def ottieniOperazioniConDettagliPerIssue(issue_stato):
     try:
         operazioni = None
-        if issue_stato == True:
+        if issue_stato:
             operazioni = operazione_dao.ottieni_operazioni_per_stato("In corso / Issue aperta")
-        elif issue_stato == False:
+        elif not issue_stato:
             operazioni = operazione_dao.ottieni_operazioni_per_stato("In corso / Regolare")
 
         operazioniJson = ottieniAlcuneOperazioniConDettagli(operazioni)
@@ -130,6 +136,7 @@ def ottieniOperazioniConDettagliPerIssue(issue_stato):
     except Exception as e:
         print(f"Errore durante l'ottenimento delle operazioni: {str(e)}")
         return {"message": "Errore durante l'ottenimento delle operazioni"}
+
 
 def ottieniOperazionePerId(operazione_id):
     try:
@@ -142,12 +149,13 @@ def ottieniOperazionePerId(operazione_id):
             else:
                 return {"message": "Operazione non trovata"}
 
-        elif operazione_id == None or operazione_id < 0:
+        elif operazione_id is None or operazione_id < 0:
             return {"message": "Errore: ID Operazione non valido"}
 
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'operazione: {str(e)}")
         return {"message": "Errore durante l'ottenimento delle operazione"}
+
 
 def ottieni_tutte_Operazioni_e_Merci():
     try:

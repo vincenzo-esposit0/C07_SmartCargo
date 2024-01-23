@@ -81,7 +81,7 @@ def aggiorna_merce(merce_id, nuovi_dati):
             merce_da_aggiornare.descrizione = nuovi_dati["descrizione"]
 
             # Esegui l'aggiornamento nel database
-            merce_aggiornata = merce_dao.aggiorna_merce(merce_da_aggiornare)
+            merce_dao.aggiorna_merce(merce_da_aggiornare)
 
             return jsonify({"messaggio": f"Merce con ID {merce_id} aggiornata con successo"})
         else:
@@ -90,4 +90,3 @@ def aggiorna_merce(merce_id, nuovi_dati):
     except Exception as e:
         print(f"Errore durante l'aggiornamento della merce: {str(e)}")
         return jsonify({"errore": "Errore durante l'aggiornamento della merce"})
-

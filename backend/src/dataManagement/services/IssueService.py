@@ -2,6 +2,7 @@ from src.models.IssueDAO import IssueDAO
 
 issue_dao = IssueDAO()
 
+
 def ottieniIssuePerIdOperazione(op_id):
     try:
         issue = issue_dao.ottieni_issue_per_id_operazione(op_id)
@@ -15,6 +16,7 @@ def ottieniIssuePerIdOperazione(op_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'issue: {str(e)}")
         return {}
+
 
 def ottieniTuttiIssue():
     try:

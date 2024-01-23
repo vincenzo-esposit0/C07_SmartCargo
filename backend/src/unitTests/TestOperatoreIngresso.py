@@ -1,6 +1,5 @@
 import unittest
 from unittest.mock import MagicMock
-#from backend.src.dataManagement.services import OperatoreIngressoService
 
 import sys
 import os
@@ -19,7 +18,7 @@ class TestOperatoreIngressoId(unittest.TestCase):
     def setUp(self):
         self.operatore_ingresso_dao_mock = MagicMock()
 
-    #Caso id valido e presente nel DB
+    # Caso id valido e presente nel DB
     def testOttieniOperatoreIngressoPresente(self):
 
         operatore_ingresso_mock = MagicMock()
@@ -33,52 +32,47 @@ class TestOperatoreIngressoId(unittest.TestCase):
                                                                    "nome": "Marco",
                                                                    "password": "pass12345"})
 
-
-        #Chiama il metodo da testare
+        # Chiama il metodo da testare
         risultato = OperatoreIngressoService.ottieniOperatoreIngressoPerId(1)
 
         # Verifica che il risultato sia quello atteso
         self.assertEqual(risultato, operatore_ingresso_mock.__json__.return_value)
 
-
-    #Caso id valido ma non presente nel DB
+    # Caso id valido ma non presente nel DB
     def testOttieniOperatoreIngressoNonPresente(self):
-        #Configuro il mock per restituire il messaggio di operazione non trovata nel DB
+        # Configuro il mock per restituire il messaggio di operazione non trovata nel DB
         self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value = {"message": "Operatore di Ingresso non trovato"}
 
         risultato = OperatoreIngressoService.ottieniOperatoreIngressoPerId(30)
 
         self.assertEqual(risultato, self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value)
 
-
-    #Caso id non valido: nullo
+    # Caso id non valido: nullo
     def testOttieniOttieniOperatoreIngressoIdNullo(self):
-        #Configuro il mock per restituire il messaggio di ID non valido
+        # Configuro il mock per restituire il messaggio di ID non valido
         self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value = {"message": "Errore: ID Operatore di Ingresso non valido"}
         risultato = OperatoreIngressoService.ottieniOperatoreIngressoPerId(None)
 
         self.assertEqual(risultato, self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value)
 
-
-    #Caso id non valido: id negativo
+    # Caso id non valido: id negativo
     def testOttieniOperatoreIngressoIdNegativo(self):
-        #Configuro il mock per restituire il messaggio di ID non valido
+        # Configuro il mock per restituire il messaggio di ID non valido
         self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value = {"message": "Errore: ID Operatore di Ingresso non valido"}
 
         risultato = OperatoreIngressoService.ottieniOperatoreIngressoPerId(-1)
 
         self.assertEqual(risultato, self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value)
 
-
-    #Caso id non valido: eccezione
+    # Caso id non valido: eccezione
     def testOttieniOperazioneIdEccezione(self):
-        #Configuro il mock per restituire il messaggio scaturito da un'eccezione
+        # Configuro il mock per restituire il messaggio scaturito da un'eccezione
         self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value = {"message": "Errore durante l'ottenimento dell'operatore di Ingresso"}
 
         risultato = OperatoreIngressoService.ottieniOperatoreIngressoPerId({})  # o qualsiasi altro valore valido per l'id
 
         self.assertEqual(risultato, self.operatore_ingresso_dao_mock.ottieniOperatoreIngressoPerId.return_value)
 
+
 if __name__ == '__main__':
     unittest.main()
-

@@ -14,8 +14,6 @@ except ImportError:
     from dataManagement.services import OperatoreSalaService
 
 
-#from backend.src.dataManagement.services import OperatoreSalaService
-
 class TestOperatoreSalaId(unittest.TestCase):
     def setUp(self):
         self.operatore_sala_dao_mock = MagicMock()
@@ -73,6 +71,7 @@ class TestOperatoreSalaId(unittest.TestCase):
         risultato = OperatoreSalaService.ottieniOperatoreSalaPerId({})
 
         self.assertEqual(risultato, self.operatore_sala_dao_mock.ottieniOperatoreSalaPerId.return_value)
+
 
 if __name__ == '__main__':
     unittest.main()

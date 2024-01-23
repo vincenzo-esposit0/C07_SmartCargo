@@ -1,8 +1,7 @@
-#from backend.src.models.VeicoloDAO import VeicoloDAO
-
 from src.models.VeicoloDAO import VeicoloDAO
 
 veicolo_dao = VeicoloDAO()
+
 
 def ottieniTuttiVeicoli():
     try:
@@ -21,6 +20,7 @@ def ottieniTuttiVeicoli():
         print(f"Errore durante l'ottenimento dei veicoli: {str(e)}")
         return {}
 
+
 def ottieniVeicoloPerId(veicolo_id):
     try:
         if veicolo_id is not None and veicolo_id > 0:
@@ -32,7 +32,7 @@ def ottieniVeicoloPerId(veicolo_id):
             else:
                 return {"message": "Veicolo non trovato"}
 
-        elif veicolo_id == None or veicolo_id < 0:
+        elif veicolo_id is None or veicolo_id < 0:
             return {"message": "Errore: ID Veicolo non valido"}
 
     except Exception as e:

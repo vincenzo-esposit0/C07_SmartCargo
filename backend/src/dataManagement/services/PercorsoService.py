@@ -6,6 +6,7 @@ from src.models.PercorsoDAO import PercorsoDAO
 # Creazione di un'istanza di PercorsoDAO
 percorso_dao = PercorsoDAO()
 
+
 def nuovoPercorso(percorsoJson):
     try:
         percorso = Percorso(
@@ -22,6 +23,7 @@ def nuovoPercorso(percorsoJson):
         print(f"Errore durante l'aggiunta del percorso: {str(e)}")
         return {}
 
+
 def ottieniTuttiPercorsi():
     try:
         percorsi = percorso_dao.ottieni_tutti_percorsi()
@@ -36,6 +38,7 @@ def ottieniTuttiPercorsi():
         print(f"Errore durante l'ottenimento dei percorsi: {str(e)}")
         return {}
 
+
 def ottieniPercorsoPerId(percorso_id):
     try:
         percorso = percorso_dao.ottieni_percorso_per_id(percorso_id)
@@ -48,6 +51,7 @@ def ottieniPercorsoPerId(percorso_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento del percorso: {str(e)}")
         return {}
+
 
 def eliminaPercorso(percorso_id):
     try:
@@ -63,6 +67,7 @@ def eliminaPercorso(percorso_id):
         print(f"Errore durante l'eliminazione del percorso: {str(e)}")
         return {}
 
+
 def aggiorna_percorso(percorso_id, nuovi_dati):
     try:
         percorso_da_aggiornare = percorso_dao.ottieni_percorso_per_id(percorso_id)
@@ -73,16 +78,16 @@ def aggiorna_percorso(percorso_id, nuovi_dati):
             percorso_da_aggiornare.puntiLatitudineErrati = nuovi_dati.get("puntiLatitudineErrati")
             percorso_da_aggiornare.puntiLongitudineErrati = nuovi_dati.get("puntiLongitudineErrati")
 
-            percorso_aggiornato = percorso_dao.aggiorna_percorso(percorso_da_aggiornare)
+            percorso_dao.aggiorna_percorso(percorso_da_aggiornare)
 
             return jsonify({"messaggio": f"Percorso con ID {percorso_id} aggiornato con successo"})
         else:
             return jsonify({"errore": f"Nessun percorso trovato con ID {percorso_id}"})
 
-
     except Exception as e:
         print(f"Errore durante l'aggiornamento del percorso: {str(e)}")
         return jsonify({"errore": "Errore durante l'aggiornamento del percorso"})
+
 
 def aggiornaPercorsoByAlgoritmo(percorsoId, latString, lonString):
     try:
@@ -92,7 +97,7 @@ def aggiornaPercorsoByAlgoritmo(percorsoId, latString, lonString):
             percorsoDaAggiornare.puntiLatitudineErrati = latString
             percorsoDaAggiornare.puntiLongitudineErrati = lonString
 
-            percorsoAggiornato = percorso_dao.aggiorna_percorso(percorsoDaAggiornare)
+            percorso_dao.aggiorna_percorso(percorsoDaAggiornare)
 
             return {"messaggio": f"Percorso con ID {percorsoId} aggiornato con successo"}
         else:

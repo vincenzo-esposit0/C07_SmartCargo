@@ -43,7 +43,7 @@ def ottieniOperatoreSalaPerId(operatore_sala_id):
             return {"message": "Errore: ID Operatore di Sala non valido"}
 
     except Exception as e:
-        return {"message": "Errore durante l'ottenimento dell'operatore di Sala"}
+        return {"message": f"Errore durante l'ottenimento dell'operatore di Sala: {str(e)}"}
 
 
 def eliminaOperatoreSala(operatore_sala_id):

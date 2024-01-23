@@ -5,6 +5,7 @@ from flask import jsonify
 
 from src.models.UtenteRegistrato import OperatoreSala, OperatoreIngresso, OperatoreMobile, OperatoreMagazzino, Autotrasportatore
 
+
 def login(email, password):
     Session = sessionmaker(bind=engine)
     session = Session()

@@ -35,7 +35,6 @@ def detection(df, soglia):  # la soglia rappresenta la distanza massima consenti
             ok_path.append(index)
         index += 1
 
-    path_labels = [i for i in range(path.size)]
     ok_path_df = pd.DataFrame(path[ok_path], columns=['latitude', 'longitude'])
     no_path_df = pd.DataFrame(path[no_path], columns=['latitude', 'longitude'])
 

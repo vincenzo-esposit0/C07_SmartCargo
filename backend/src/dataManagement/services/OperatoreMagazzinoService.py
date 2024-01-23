@@ -50,4 +50,3 @@ def eliminaOperatoreMagazzino(operatore_magazzino_id):
     except Exception as e:
         print(f"Errore durante l'ottenimento dell'operatore magazzino: {str(e)}")
         return {}
-

@@ -90,4 +90,3 @@ def registrazioneIngresso(ingressoJson):
     except Exception as e:
         print(f"Errore durante la registrazione dell'ingresso: {str(e)}")
         return {"message": "Errore durante la registrazione dell'ingresso"}
-
