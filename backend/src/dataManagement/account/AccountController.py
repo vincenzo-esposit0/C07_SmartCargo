@@ -4,7 +4,7 @@ from src.models.OperatoreIngressoDAO import OperatoreIngressoDAO
 from src.models.OperatoreMagazzinoDAO import OperatoreMagazzinoDAO
 from src.models.OperatoreMobileDAO import OperatoreMobileDAO
 from src.models.OperatoreSalaDAO import OperatoreSalaDAO
-
+from src.dataManagement.account import AccountAutotrasportatoreController
 from src.models.UtenteRegistrato import UtenteRegistrato
 
 operatoreIngresso_dao = OperatoreIngressoDAO()
@@ -26,13 +26,13 @@ def creaAccount(accountJson):
             return jsonify({'message': 'Utente già registrato'}), 400
 
         utenteRegistrato = UtenteRegistrato(
-            nome = accountJson["nome"],
-            cognome = accountJson["cognome"],
-            dataNascita = datetime.strptime(accountJson["dataNascita"], "%Y-%m-%dT%H:%M:%S"),
-            codiceFiscale = accountJson["codiceFiscale"],
-            email = accountJson["email"],
-            password = accountJson["password"],
-            indirizzo = accountJson["indirizzo"]
+            nome=accountJson["nome"],
+            cognome=accountJson["cognome"],
+            dataNascita=datetime.strptime(accountJson["dataNascita"], "%Y-%m-%dT%H:%M:%S"),
+            codiceFiscale=accountJson["codiceFiscale"],
+            email=accountJson["email"],
+            password=accountJson["password"],
+            indirizzo=accountJson["indirizzo"]
         )
 
         if accountJson["tipo"] == "OpIngresso":
@@ -65,9 +65,10 @@ def modificaAccount(accountJson):
             opDaModificare = operatoreMobile_dao.ottieni_operatore_mobile_per_id(opId)
         elif accountJson["tipo"] == "OpSala":
             opDaModificare = operatoreSala_dao.ottieni_operatore_sala_per_id(opId)
+        elif accountJson["tipo"] == "Autotrasportatore":
+            opDaModificare = autotrasportatore_dao.ottieni_autotrasportatore_per_id(opId)
 
         if opDaModificare:
-
             opDaModificare.nome = accountJson["nome"]
             opDaModificare.cognome = accountJson["cognome"]
             opDaModificare.dataNascita = datetime.strptime(accountJson["dataNascita"], "%Y-%m-%d")
@@ -76,7 +77,7 @@ def modificaAccount(accountJson):
             opDaModificare.password = accountJson["password"]
             opDaModificare.indirizzo = accountJson["indirizzo"]
 
-        if accountJson["tipo"] == "OpIngresso":
+        if accountJson["tipo"] =="OpIngresso":
             result = operatoreIngresso_dao.aggiorna_operatore_ingresso(opDaModificare)
         elif accountJson["tipo"] == "OpMagazzino":
             result = operatoreMagazzino_dao.aggiorna_operatore_magazzino(opDaModificare)
@@ -84,6 +85,8 @@ def modificaAccount(accountJson):
             result = operatoreMobile_dao.aggiorna_operatore_mobile(opDaModificare)
         elif accountJson["tipo"] == "OpSala":
             result = operatoreSala_dao.aggiorna_operatore_sala(opDaModificare)
+        elif accountJson["tipo"] == "Autotrasportatore":
+            result = AccountAutotrasportatoreController.modificaAutotrasportatore(opDaModificare)
 
         return jsonify(result.__json__())
 

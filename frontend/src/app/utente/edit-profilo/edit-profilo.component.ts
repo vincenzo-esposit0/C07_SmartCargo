@@ -22,6 +22,7 @@ export class EditProfiloComponent {
                 this.profilo.tipo='OpSala';
             }else {
                 if (this.autenticazioneService.profile.operatore == 'Autotrasportatore') {
+                    this.profilo.tipo = 'Autotrasportatore';
                 } else {
                     if (this.autenticazioneService.profile.operatore === 'Operatore Magazzino') {
                         this.profilo.tipo = 'OpMagazzino';
