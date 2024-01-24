@@ -125,8 +125,7 @@ export class DettaglioOperazioneComponent {
                     const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (this.index + 1) + ' Percorso', 'green');
                     this.overlays.push(markerPercorso);
                 }
-                else {
-
+                else if(this.data.percorso.id != 1){
                     if(!this.showDialogAnomalia){
                         this.showDialogAnomalia = true;
                         this.datiAnomalia = {
