@@ -31,7 +31,7 @@
     <div class="col-12">
         <p class="text-900 font-bold">Dettaglio Operazione Attiva</p>
     </div>
-    <p-toolbar *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore' && !data.fromStorico ">
+    <p-toolbar *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore' && (data.operazione.stato != 'Chiuso' && data.operazione.stato != 'Chiusa' && data.operazione.stato != 'Terminata')">
         <div class="p-toolbar-group-start">
             <button [disabled]="!showNewIssue || noIssue || disableAll || data.noNuovaIssue" pButton icon="pi pi-plus" class="mr-2" (click)="newIssue()" > &nbsp; Nuova Issue</button>
             <button [disabled]="showNewIssue || noIssue || disableAll || !data.noChiamataAutorita" pButton icon="pi pi-upload" class="mr-2" (click)="aggiornaIssue()"> &nbsp;Aggiorna Issue</button>

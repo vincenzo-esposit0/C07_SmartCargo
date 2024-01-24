@@ -86,8 +86,10 @@ export class DettaglioOperazioneComponent {
         this.puntiLatErrati = this.data.percorso.puntiLatitudineErrati.split(',');
         this.puntiLngErrati = this.data.percorso.puntiLongitudineErrati.split(',');
 
-        if(!this.data.fromStorico && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'){
-            this.aggiungiPuntoOgni2Secondi();
+        if(!this.data.fromStorico){
+            if(this.autenticazioneService?.profile?.operatore!=='Autotrasportatore')
+                this.aggiungiPuntoOgni2Secondi();
+            else this.creaTuttoPercorsoAutotrasportatore()
         }
         else
         {
@@ -157,7 +159,7 @@ export class DettaglioOperazioneComponent {
             }
 
             this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
-        }, 100);
+        }, 500);
     }
 
     creaPolilineaDaPuntiVerdi(): void {
@@ -399,6 +401,40 @@ export class DettaglioOperazioneComponent {
 
 
 
+
+    }
+
+    private creaTuttoPercorsoAutotrasportatore() {
+
+
+        this.datiAnomalia = {};
+
+
+        const latitudini = this.data.percorso.puntiLatitudinePercorsi.split(',');
+        const longitudini = this.data.percorso.puntiLongitudinePercorsi.split(',');
+
+        for (let i = 0; i < latitudini.length; i++) {
+
+            const latPercorso = Number(latitudini[i]);
+            const lngPercorso = Number(longitudini[i]);
+
+            let corretto = true;
+
+            for(let lat of this.puntiLatErrati){
+                if(Number(lat) == latPercorso) corretto = false;
+            }
+
+            for(let lng of this.puntiLngErrati){
+                if(Number(lng) == lngPercorso) corretto = false;
+            }
+
+            if(corretto){
+                const markerPercorso = this.creaMarkerDaDati(latPercorso, lngPercorso, 'Punto ' + (i + 1) + ' Percorso', 'blue');
+                this.overlays.push(markerPercorso);
+            }
+        }
+
+        this.cdr.detectChanges();
 
     }
 }
