@@ -1,8 +1,9 @@
 from datetime import datetime
 
 from flask import jsonify
+
+from src.dataManagement.Facade import InterfaceFacade
 from src.models.Issue import Issue
-from src.dataManagement.InterfaceFacade import InterfaceFacade
 from src.models.QrCodeDAO import QrCodeDAO
 from src.models.OperazioneDAO import OperazioneDAO
 from src.models.IssueDAO import IssueDAO

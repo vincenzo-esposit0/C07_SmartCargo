@@ -1,7 +1,6 @@
 from src.models.OperazioneDAO import OperazioneDAO
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 from src.models.QrCodeDAO import QrCodeDAO
-
 from src.models.IncludeDAO import IncludeDAO
 from src.models.IssueDAO import IssueDAO
 from src.models.MerceDAO import MerceDAO
@@ -11,7 +10,7 @@ from src.models.PercorsoDAO import PercorsoDAO
 from src.models.VeicoloDAO import VeicoloDAO
 
 
-class InterfaceFacade:
+class MultipleDaoAccess:
     def __init__(self):
         self.operazione_dao = OperazioneDAO()
         self.autotrasportatore_dao = AutotrasportatoreDAO()
