@@ -21,17 +21,17 @@ export class MonitoraggioOperazioniAttiveComponent {
             this.operazioni = dati;
             // Filtra le operazioni escludendo quelle con stato "Chiuso"
             this.operazioni = this.operazioni.filter(
-                (operazione) => operazione.operazione.stato !== "Chiuso"
+                (operazione) => operazione.operazione.stato !== "Chiuso" && operazione.operazione.stato !== "Chiusa"
             );
             if(this.isAutotrasportatore){
                 this.operazioni = this.operazioni.filter(
                     (operazione) => operazione.autotrasportatore.id === this.autenticazioneService.profile.profilo.id
                 );
             }
-            console.log(this.operazioni);
+
             if(this.autenticazioneService?.profile?.operatore=='Operatore Mobile'){
                 this.operazioni = this.operazioni.filter(
-                    (operazione) => operazione.operatore_mobile && operazione.operatore_mobile.id && operazione.operazione.stato !== "Chiuso" && operazione.issue && operazione.issue.stato && operazione.issue.stato!='Chiuso' && operazione.operatore_mobile.id  === this.autenticazioneService.profile.profilo.id
+                    (operazione) => operazione.operatore_mobile && operazione.operatore_mobile.id && operazione.operazione.stato !== "Chiuso" && operazione.operazione.stato !== "Chiusa" && operazione.issue && operazione.issue.stato && operazione.issue.stato!='Chiuso' && operazione.issue.stato!='Chiusa' && operazione.operatore_mobile.id  === this.autenticazioneService.profile.profilo.id
                 );
             }
         },error => {
@@ -42,12 +42,17 @@ export class MonitoraggioOperazioniAttiveComponent {
 
     openDettagliOp(data: any) {
         if(this.autenticazioneService?.profile?.operatore=='Operatore Mobile'){
-           data.fromStorico=true;
+           data.noNuovaIssue=true;
+           data.noChiamataAutorita = false;
+           data.fromStorico = true;
+        }
+        else {
+            data.noNuovaIssue = false;
+            data.noChiamataAutorita = true;
         }
         this.router.navigate(['home/dettaglioOp'], {
             state: {
                 dataJson: data
-
             }
         });
 

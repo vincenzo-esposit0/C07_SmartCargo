@@ -37,6 +37,7 @@ export class DettaglioOperazioneComponent {
     puntiLatErrati: number[] = [];
     puntiLngErrati: number[] = [];
     disableAll: boolean = false;
+    showAlertOperatoreMobile: boolean = false;
 
 
 
@@ -55,8 +56,6 @@ export class DettaglioOperazioneComponent {
     ngOnInit(){
         this.infoWindow = new google.maps.InfoWindow();
 
-        let latitude = 39.4542;
-        let longitude = -0.32866;
 
         if(this.data){
             if(this.data.issue){
@@ -71,22 +70,36 @@ export class DettaglioOperazioneComponent {
         }
 
 
+        let latitude = 39.4542;
+        let longitude = -0.32866;
         this.options = {
             center: {lat: latitude, lng: longitude},
             zoom: 13,
         };
 
+        if(this.autenticazioneService?.profile?.operatore == 'Operatore Mobile'){
+            const coordinate = this.data.issue.posizione.split(',');
+            this.options.center.lat = Number(coordinate[0]);
+            this.options.center.lng = Number(coordinate[1]);
+        }
+
         this.puntiLatErrati = this.data.percorso.puntiLatitudineErrati.split(',');
         this.puntiLngErrati = this.data.percorso.puntiLongitudineErrati.split(',');
 
-
-        if(!this.data.fromStorico && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore') //this.creaTuttoPercorso()
+        if(!this.data.fromStorico && this.autenticazioneService?.profile?.operatore!=='Autotrasportatore'){
             this.aggiungiPuntoOgni2Secondi();
-
-        else this.creaTuttoPercorso();
+        }
+        else
+        {
+            if(this.autenticazioneService?.profile?.operatore!=='Operatore Mobile')
+            {
+                this.creaTuttoPercorso();
+            }
+            else{
+                this.creaPuntoOpMobile();
+            }
+        }
     }
-
-
 
     aggiungiPuntoOgni2Secondi() {
         this.datiAnomalia = {};
@@ -144,7 +157,7 @@ export class DettaglioOperazioneComponent {
             }
 
             this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
-        }, 500);
+        }, 100);
     }
 
     creaPolilineaDaPuntiVerdi(): void {
@@ -188,7 +201,6 @@ export class DettaglioOperazioneComponent {
         this.cdr.detectChanges();
     }
 
-
     creaPolyline(path: google.maps.LatLngLiteral[], color: string) {
         const polyline = new google.maps.Polyline({
             path: path,
@@ -199,7 +211,6 @@ export class DettaglioOperazioneComponent {
         });
         return polyline;
     }
-
 
     creaMarkerDaDati(lat: number, lng: number, title: string, colore: string) {
         const marker = new google.maps.Marker({
@@ -217,7 +228,6 @@ export class DettaglioOperazioneComponent {
         return marker;
     }
 
-
     newIssue() {
         this.showDialog = true;
     }
@@ -225,7 +235,6 @@ export class DettaglioOperazioneComponent {
     aggiornaIssue() {
         this.showDialog = true;
     }
-
 
     chiudiIssue() {
         this.confirm.confirm({
@@ -254,24 +263,43 @@ export class DettaglioOperazioneComponent {
 
     }
 
-    handleOverlayClick(event : any) {
-        let isMarker = event.overlay.getTitle != undefined;
+    handleOverlayClick(event: any) {
+        let isMarker = event.overlay.getTitle !== undefined;
 
         if (isMarker) {
             let title = event.overlay.getTitle();
-            this.infoWindow.setContent('' + title + '');
-            this.infoWindow.open(event.map, event.overlay);
-            event.map.setCenter(event.overlay.getPosition());
+            let position = event.overlay.getPosition();
+            let color = event.overlay.getIcon().fillColor; // Assumendo che il marker abbia un'icona con il colore
 
-            this.messageService.add({severity:'info', summary:'Marker Selected', detail: title});
-        }
-        else {
-            this.messageService.add({severity:'info', summary:'Shape Selected', detail: ''});
+            // Aggiungi le coordinate al contenuto dell'infoWindow
+            this.infoWindow.setContent(title + '<br>Coordinates: ' + position.lat() + ', ' + position.lng());
+
+            // Apri l'infoWindow e aggiorna il centro della mappa
+            this.infoWindow.open(event.map, event.overlay);
+            event.map.setCenter(position);
+
+            // Imposta il severity del messageService in base al colore del marker
+            let severity = 'info';
+            if (color === 'red') {
+                severity = 'error';
+            } else if (color === 'green') {
+                severity = 'success';
+            } else if (color === 'blue') {
+                severity = 'info';
+            }
+
+            // Mostra il messaggio con il severity appropriato
+            this.messageService.add({
+                severity: severity,
+                summary: 'Punto Selezionato',
+                detail: title + ', Coordinate: ' + position.lat() + ', ' + position.lng()
+            });
         }
     }
 
     creaTuttoPercorso() {
         this.datiAnomalia = {};
+
 
         const latitudini = this.data.percorso.puntiLatitudinePercorsi.split(',');
         const longitudini = this.data.percorso.puntiLongitudinePercorsi.split(',');
@@ -338,13 +366,37 @@ export class DettaglioOperazioneComponent {
             icon: 'pi pi-exclamation-triangle',
             acceptLabel: 'Si',
             accept: () => {
-
                 this.messageService.add({ severity: 'warn', summary: 'Attenzione!', detail: 'Segnalazione inviata alle autorità competenti!' });
             },
             reject: () => {
 
             }
         });
+
+
+
+    }
+
+    addMessageService(success: boolean) {
+        if(success){
+            this.messageService.add({ severity: 'success', summary: 'Gestione Issue', detail: 'Operazione Eseguita con Successo' });
+        }
+        else {
+            this.messageService.add({ severity: 'warn', summary: 'Gestione Issue', detail: 'Errore durante l\'operazione' });
+        }
+
+    }
+
+    private creaPuntoOpMobile() {
+        this.datiAnomalia = {};
+
+        const coordinate = this.data.issue.posizione.split(',');
+
+        const markerPercorso = this.creaMarkerDaDati(Number(coordinate[0]), Number(coordinate[1]), 'Recati in questo punto!', 'red');
+        this.overlays.push(markerPercorso);
+        this.showAlertOperatoreMobile = true;
+        this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
+
 
 
 

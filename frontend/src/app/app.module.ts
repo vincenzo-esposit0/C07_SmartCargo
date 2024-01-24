@@ -39,6 +39,7 @@ import {ChartModule} from "primeng/chart";
 import { MonitoraggioOperazioniCaricoScaricoComponent } from './monitoraggio/monitoraggio-operazioni-carico-scarico/monitoraggio-operazioni-carico-scarico.component';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component";
+import {AutoFocusModule} from "primeng/autofocus";
 @NgModule({
     declarations: [
         AppComponent,
@@ -83,7 +84,8 @@ import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component
         ChartModule,
         ToolbarModule,
         QRCodeModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        AutoFocusModule
     ],
     providers: [MessageService, DatePipe],
     bootstrap: [AppComponent]

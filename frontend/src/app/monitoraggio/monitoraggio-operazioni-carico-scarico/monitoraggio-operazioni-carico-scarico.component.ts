@@ -25,7 +25,7 @@ export class MonitoraggioOperazioniCaricoScaricoComponent {
             this.operazioni = dati;
             if(this.operazioni.length > 0){
                 this.operazioni = this.operazioni.filter(
-                    (operazione) => operazione.operazione.stato !== "Terminata"
+                    (operazione) => operazione.operazione.stato !== "Chiuso" && operazione.operazione.stato !== "Terminata"
                 );
             }
 

@@ -27,17 +27,16 @@
 </p-toast>
 
 
-
 <div class="grid surface-card grid-nogutter p-6 border-1 surface-border" style="column-gap: 2rem; row-gap: 2rem; border-radius: 6px;">
     <div class="col-12">
         <p class="text-900 font-bold">Dettaglio Operazione Attiva</p>
     </div>
     <p-toolbar *ngIf="this.autenticazioneService?.profile?.operatore!=='Autotrasportatore' && !data.fromStorico ">
         <div class="p-toolbar-group-start">
-            <button [disabled]="!showNewIssue || noIssue || disableAll" pButton icon="pi pi-plus" class="mr-2" (click)="newIssue()" > &nbsp; Nuova Issue</button>
-            <button [disabled]="showNewIssue || noIssue || disableAll" pButton icon="pi pi-upload" class="mr-2" (click)="aggiornaIssue()"> &nbsp;Aggiorna Issue</button>
+            <button [disabled]="!showNewIssue || noIssue || disableAll || data.noNuovaIssue" pButton icon="pi pi-plus" class="mr-2" (click)="newIssue()" > &nbsp; Nuova Issue</button>
+            <button [disabled]="showNewIssue || noIssue || disableAll || !data.noChiamataAutorita" pButton icon="pi pi-upload" class="mr-2" (click)="aggiornaIssue()"> &nbsp;Aggiorna Issue</button>
             <button [disabled]="showNewIssue || noIssue || disableAll" pButton icon="pi pi-ban" class="mr-2" (click)="chiudiIssue()"> &nbsp;Chiudi Issue</button>
-            <button [disabled]="showNewIssue || noIssue || disableAll" pButton icon="pi pi-phone" class="mr-2 p-button-danger" (click)="chiamaAutorita()"> &nbsp;Chiama Autorità</button>
+            <button *ngIf="!data.noChiamataAutorita" [disabled]="showNewIssue || noIssue || disableAll" pButton icon="pi pi-phone" class="mr-2 p-button-danger" (click)="chiamaAutorita()"> &nbsp;Chiama Autorità</button>
         </div>
     </p-toolbar>
     <div class="col-12 mt-3 h-20rem border-1 surface-border p-0 w-full bg-cover border-round" *ngIf="true">
@@ -60,7 +59,6 @@
 
     <div class="col-12 mt-5" *ngIf="true">
         <p class="text-900 font-bold">Riepilogo Informazioni</p>
-
         <div class="card" style="display: flex; flex-wrap: wrap;">
             <p-panel style="flex: 1; margin: 10px;">
                 <ng-template pTemplate="header">
@@ -170,6 +168,32 @@
     </div>
 </div>
 
-<p-dialog [maximizable]="false" [header]="'Gestisci Issue'" [(visible)]="showDialog" [modal]="true" [dismissableMask]="true" styleClass="mx-3 sm:mx-0 sm:w-full md:w-11 lg:w-8" contentStyleClass="border-round-bottom border-top-1 surface-border p-0">
-    <app-gestisci-issue (disableDialog)="showDialog = $event; showNewIssue = false; " [data]="data" ></app-gestisci-issue>
+<p-dialog [maximizable]="false" [header]="'Gestisci Issue'" [(visible)]="showDialog" [modal]="false" [dismissableMask]="true" styleClass="mx-3 sm:mx-0 sm:w-full md:w-11 lg:w-8" contentStyleClass="border-round-bottom border-top-1 surface-border p-0">
+    <app-gestisci-issue (disableDialog)="showDialog = $event; showNewIssue = false; addMessageService(true)" [data]="data" ></app-gestisci-issue>
 </p-dialog>
+
+
+
+
+<p-dialog header="Anomalia Assegnata" [(visible)]="showAlertOperatoreMobile" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+
+    <div class="flex flex-column align-items-start" style="flex: 1">
+        <div class="font-medium text-lg my-3 text-900">
+            <p>Attenzione! Il veicolo con targa : <b>{{data.veicolo.targa}}</b> ha intrapreso un percorso anomalo!</p>
+            <br>
+            <p>
+                <b> Coordinate anomalia: </b> <br>
+                <b>Latitudine:</b> {{this.options.center.lat}} <br>
+                <b>Longitudine:</b> {{this.options.center.lng}}
+            </p>
+            <br>
+            <p><b>Si prega di recarsi immediatamente sul posto!</b></p>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="showAlertOperatoreMobile = false" label="Ok" pAutoFocus [autofocus]="true"></p-button>
+    </ng-template>
+</p-dialog>
+
+

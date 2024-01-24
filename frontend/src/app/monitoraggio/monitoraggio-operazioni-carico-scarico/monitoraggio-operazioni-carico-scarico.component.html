@@ -103,7 +103,7 @@
 
                         <td> {{data.operatore_mobile != null ? data.operatore_mobile?.nome + ' '+ data.operatore_mobile?.cognome : ''}}</td>
 
-                        <td style="text-align: center"> <p-button icon="pi pi-flag" (click)="this.selectedOperazione = data.operazione; showSegnalaEsitoDialog = true"></p-button> </td>
+                        <td style="text-align: center"> <p-button [disabled]="data.operazione.stato === 'Chiuso'" icon="pi pi-flag" (click)="this.selectedOperazione = data.operazione; showSegnalaEsitoDialog = true"></p-button> </td>
 
                     </tr>
                 </ng-template>

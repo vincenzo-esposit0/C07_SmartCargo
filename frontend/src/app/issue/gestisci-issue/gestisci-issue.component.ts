@@ -34,7 +34,7 @@ export class GestisciIssueComponent {
                 else if(this.data.issue.id === undefined || this.data.issue.id == null){
                     this.data.issue = {};
                     this.data.issue.timestampApertura = new Date();
-                    this.data.issue.posizione = "37.7749, -122.4194";
+                    this.data.issue.posizione = "";
                     this.data.issue.descrizione = ""
                 }
             }
@@ -73,7 +73,7 @@ export class GestisciIssueComponent {
         this.service.inviaIssue(this.data.issue).subscribe(dati => {
             this.disableDialog.emit(false);
             this.showDialog = false;
-            this.messageService.add({ severity: 'success', summary: 'Nuova Issue', detail: 'Issue Creata con Successo' });
+            this.data.issue = dati;
 
         },error => {
             this.showDialog = false;
