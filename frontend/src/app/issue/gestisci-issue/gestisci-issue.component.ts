@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {IssueService} from "../issue.service";
 import {UtenteService} from "../../utente/utente.service";
@@ -50,6 +50,12 @@ export class GestisciIssueComponent {
             console.log(error);
         });
 
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['primaAnomalia']) {
+            this.data.issue.posizione = this.primaAnomalia.lat+", "+this.primaAnomalia.lng;
+        }
     }
 
     cancella() {
