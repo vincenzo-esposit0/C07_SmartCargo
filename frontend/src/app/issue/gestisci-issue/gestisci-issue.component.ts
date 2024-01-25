@@ -19,6 +19,7 @@ export class GestisciIssueComponent {
     selectedOpMobile: any = {};
 
     @Input() data: any = {};
+    @Input() primaAnomalia: any = {};
     modalitaEdit: boolean = false; //significa che già esiste un issue
 
     @Output() disableDialog = new EventEmitter<any>();
@@ -34,7 +35,7 @@ export class GestisciIssueComponent {
                 else if(this.data.issue.id === undefined || this.data.issue.id == null){
                     this.data.issue = {};
                     this.data.issue.timestampApertura = new Date();
-                    this.data.issue.posizione = "";
+                    this.data.issue.posizione = this.primaAnomalia.lat+", "+this.primaAnomalia.lng;
                     this.data.issue.descrizione = ""
                 }
             }

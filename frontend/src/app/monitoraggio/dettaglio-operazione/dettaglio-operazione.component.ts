@@ -38,6 +38,7 @@ export class DettaglioOperazioneComponent {
     puntiLngErrati: number[] = [];
     disableAll: boolean = false;
     showAlertOperatoreMobile: boolean = false;
+    primaAnomalia: any = null;
 
 
 
@@ -132,6 +133,13 @@ export class DettaglioOperazioneComponent {
                             lat : latPercorso,
                             lng: lngPercorso
                         }
+                        if(this.primaAnomalia == null){
+                            this.primaAnomalia = {
+                                lat : latPercorso,
+                                lng: lngPercorso
+                            }
+                        }
+
                         this.messageService.add({ key: 'confirm', sticky: true, severity: 'error', summary: 'Can you send me the report?' });
                     }
 

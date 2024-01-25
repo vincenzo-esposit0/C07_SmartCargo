@@ -169,7 +169,7 @@
 </div>
 
 <p-dialog [maximizable]="false" [header]="'Gestisci Issue'" [(visible)]="showDialog" [modal]="false" [dismissableMask]="true" styleClass="mx-3 sm:mx-0 sm:w-full md:w-11 lg:w-8" contentStyleClass="border-round-bottom border-top-1 surface-border p-0">
-    <app-gestisci-issue (disableDialog)="showDialog = $event; showNewIssue = false; addMessageService(true)" [data]="data" ></app-gestisci-issue>
+    <app-gestisci-issue [primaAnomalia]="primaAnomalia" (disableDialog)="showDialog = $event; showNewIssue = false; addMessageService(true)" [data]="data" ></app-gestisci-issue>
 </p-dialog>
 
 
