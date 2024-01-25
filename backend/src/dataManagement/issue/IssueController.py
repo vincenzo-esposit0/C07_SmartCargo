@@ -79,7 +79,7 @@ def modificaIssue(issueJson):
                 issue.timestampChiusura = datetime.now()
 
                 # set stato operazione in regolare
-                operazione.stato = "In corso / Regolare"
+                operazione.stato = "In corso"
                 operazione_dao.aggiorna_operazione(operazione)
 
             result = issue_dao.aggiorna_issue(issue)
