@@ -158,7 +158,7 @@ export class DettaglioOperazioneComponent {
             }
 
             this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
-        }, 500);
+        }, 200);
     }
 
     creaPolilineaDaPuntiVerdi(): void {
