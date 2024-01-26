@@ -8,6 +8,8 @@
 1. [General Info](#general-info)
 2. [Technologies](#technologies)
 3. [FAQs](#faqs)
+4. [Presentations](#presentations)
+5. [Contributors](#contributors)
 
 ## General Info
 ***
@@ -50,3 +52,11 @@ A: The system prevents the illegal transport of goods by monitoring and accurate
 **Q: What are the functionalities of the alerting system for security operators?** <br>
 A: The alerting system notifies security operators in real-time about critical situations or deviations from authorized routes, contributing to ensuring the safety of port operations.
 
+## Presentations
+* [Project Manager's Presentation](https://www.canva.com/design/DAF6uTVis9s/BMEmk4i4gFNNHjiz9rObMg/view?utm_content=DAF6uTVis9s&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+* [Team Member's Presentation](https://www.canva.com/design/DAF6oBN4d58/_bE7eIt4P1xdDIiTGEIbTA/view?utm_content=DAF6oBN4d58&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+
+## Contributors
+<a href="https://github.com/vincenzo-esposit0/C07_SmartCargo/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=vincenzo-esposit0/C07_SmartCargo" />
+</a>
