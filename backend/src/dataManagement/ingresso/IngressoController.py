@@ -3,6 +3,7 @@ from datetime import date
 
 from flask import jsonify
 
+from src.dataManagement.ingresso.percorsoOttimale.PercorsoOttimale import percorso_ottimale
 from src.models.AutotrasportatoreDAO import AutotrasportatoreDAO
 from src.models.VeicoloDAO import VeicoloDAO
 from src.models.OperatoreMagazzinoDAO import OperatoreMagazzinoDAO
@@ -86,6 +87,14 @@ def registrazioneIngresso(ingressoJson):
             quantita=merceJson["quantita"]
         )
         include_dao.aggiungi_include(include)
+
+        # Calcolo del percorso ottimale da seguire
+        path = percorso_ottimale(destinazioneOperazioneJson["nome"])
+
+        if path is None:
+            print(f"Errore durante il calcolo del percorso")
+            return {"message": "Errore durante il calcolo del percorso"}
+
         return jsonify(result.__json__())
 
     except Exception as e:
