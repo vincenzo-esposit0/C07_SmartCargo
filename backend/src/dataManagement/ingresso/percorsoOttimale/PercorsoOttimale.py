@@ -3,18 +3,23 @@ from itertools import combinations
 
 from src.dataManagement.ingresso.percorsoOttimale.AlgAStar import distanza_haversine, a_star
 from src.dataManagement.ingresso.percorsoOttimale.Node import Node
+from src.dataManagement.services import PercorsoService
 
 
 def percorso_ottimale(gate):
     # Definizione del punto di partenza
     start_point = Node(lat=39.4305577, lon=-0.3351722)
+    percorsoId = 0
 
     # Definizione del punto  di destinazione
     if gate == "M1":
+        percorsoId = 1
         end_point = Node(lat=39.4242222, lon=-0.3140294)
     elif gate == "M2":
+        percorsoId = 2
         end_point = Node(lat=39.441493, lon=-0.3274658)
     elif gate == "M3":
+        percorsoId = 3
         end_point = Node(lat=39.4384956, lon=-0.3037465)
     else:
         raise ValueError("Il gate deve essere 1, 2 o 3.")
@@ -49,15 +54,28 @@ def percorso_ottimale(gate):
     # Individuazione del percorso ottimale utilizzando l'algoritmo A*
     path = a_star(start_point, end_point, graph)
 
-    if path:
-        # Crea un DataFrame dal percorso
-        path_df = pd.DataFrame(path, columns=['latitudine', 'longitudine'])
+    """
+    # Dividi i punti di ok_path_df in array separati per latitudine e longitudine
+    latitudini = path['latitudine'].to_numpy()
+    longitudini = path['longitudine'].to_numpy()
+    """
 
-        # Salva il DataFrame in un file CSV
-        path_df.to_csv('src\dataManagement\ingresso\percorsoOttimale\percorso_ottimaleGate1.csv', index=False)
-        print("Percorso ottimale salvato in 'percorso_ottimaleGate1.csv'")
-    else:
-        print("Nessun percorso trovato.")
-        return None
+    latitudini = []
+    longitudini = []
+
+    for node in path:
+        lat = node[0]
+        lon = node[1]
+
+        latitudini.append(lat)
+        longitudini.append(lon)
+
+    # Concatena i punti di ok_path_df in una stringa per latitudini e longitudini
+    latitudini_string = ','.join(map(str, latitudini))
+    longitudini_string = ','.join(map(str, longitudini))
+
+    messaggio = PercorsoService.aggiornaPercorsoByAlgoritmo(percorsoId, latitudini_string, longitudini_string)
+
+    print(messaggio)
 
     return path

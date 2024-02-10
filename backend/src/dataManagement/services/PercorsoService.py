@@ -94,8 +94,8 @@ def aggiornaPercorsoByAlgoritmo(percorsoId, latString, lonString):
         percorsoDaAggiornare = percorso_dao.ottieni_percorso_per_id(percorsoId)
 
         if percorsoDaAggiornare:
-            percorsoDaAggiornare.puntiLatitudineErrati = latString
-            percorsoDaAggiornare.puntiLongitudineErrati = lonString
+            percorsoDaAggiornare.puntiLatitudinePercorsi = latString
+            percorsoDaAggiornare.puntiLongitudinePercorsi = lonString
 
             percorso_dao.aggiorna_percorso(percorsoDaAggiornare)
 

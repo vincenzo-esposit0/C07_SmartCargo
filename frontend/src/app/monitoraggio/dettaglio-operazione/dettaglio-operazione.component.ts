@@ -88,7 +88,7 @@ export class DettaglioOperazioneComponent {
         this.puntiLngErrati = this.data.percorso.puntiLongitudineErrati.split(',');
 
         if(!this.data.fromStorico){
-            if(this.autenticazioneService?.profile?.operatore!=='Autotrasportatore')
+            if(this.autenticazioneService?.profile?.operatore!=='Andreea')
                 this.aggiungiPuntoOgni2Secondi();
             else this.creaTuttoPercorsoAutotrasportatore()
         }
@@ -166,7 +166,7 @@ export class DettaglioOperazioneComponent {
             }
 
             this.cdr.detectChanges(); // Forzare l'aggiornamento della vista
-        }, 200);
+        }, 100);
     }
 
     creaPolilineaDaPuntiVerdi(): void {
