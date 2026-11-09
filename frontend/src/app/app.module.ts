@@ -40,6 +40,7 @@ import { MonitoraggioOperazioniCaricoScaricoComponent } from './monitoraggio/mon
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {EditProfiloComponent} from "./utente/edit-profilo/edit-profilo.component";
 import {AutoFocusModule} from "primeng/autofocus";
+import {environment} from "../environments/environment";
 @NgModule({
     declarations: [
         AppComponent,
@@ -78,7 +79,7 @@ import {AutoFocusModule} from "primeng/autofocus";
         PanelModule,
         ToolbarModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyC8RUeomWkI3pS7yRcVvIpM4DM7GpRpiqo',
+            apiKey: environment.googleMapsApiKey,
         }),
         MenuModule,
         ChartModule,

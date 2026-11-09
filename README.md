@@ -7,9 +7,10 @@
 ## Table of Contents
 1. [General Info](#general-info)
 2. [Technologies](#technologies)
-3. [FAQs](#faqs)
-4. [Presentations](#presentations)
-5. [Contributors](#contributors)
+3. [Setup](#setup)
+4. [FAQs](#faqs)
+5. [Presentations](#presentations)
+6. [Contributors](#contributors)
 
 ## General Info
 ***
@@ -33,6 +34,24 @@ A list of technologies used within the project:
 * [Flask](https://flask.palletsprojects.com/en/2.2.x/)
 * [Angular JS](https://angularjs.org/)
 
+
+## Setup
+***
+**Backend** (Python 3.11, MySQL)
+```bash
+cd backend
+python3 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+export DB_USER=root DB_PASSWORD=<password> DB_NAME=smartcargodb   # see .env.example
+python mainSmartCargo.py
+```
+
+**Frontend** (Angular): set `googleMapsApiKey` in `frontend/src/environments/environment.ts`, then
+```bash
+cd frontend
+npm install
+npm start
+```
 
 ## FAQs
 ***
