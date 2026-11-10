@@ -42,7 +42,7 @@ I co-led the project from initiation to closure. Nicola Tortora and I wrote the 
 | **Execution** | Trained the team on the technology stack, then split the work into front-end and back-end streams | Training material, Trello board |
 | | Ran weekly progress meetings | 10 agendas and 9 sets of minutes |
 | **Monitoring and control** | Tracked progress with Earned Value Management at 5 checkpoints | EVM workbook, 3 status reports |
-| | Ran the implementation as Scrum sprints | 3 sprint reports |
+| | Run the implementation as Scrum sprints | 3 sprint reports |
 | | Managed risks as they became real (see below) | Updated risk register |
 | **Closure** | Gathered feedback from the whole team and wrote up what to repeat and what to avoid | Lessons-learned report, post-mortem reviews (PM and team) |
 
